@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ميثاق العائلة — بيت يوقع، وبيت في فلسطين يصمد</title>
+<title>ميثاق العائلة — عهد من بيتك يسند بيتا في فلسطين</title>
 <meta name="description" content="ميثاق عهد تلتزم فيه العائلات بنصرة أهلنا في فلسطين: توقيع، ودعم شهري أو مشاركة مجانية، وحقيبة توعوية تصل كل بيت.">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#10303b">
@@ -11,9 +11,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Baloo+Bhaijaan+2:wght@500;700;800&family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/fp.css?v=55">
-<link rel="stylesheet" href="assets/css/home.css?v=55">
-<link rel="stylesheet" href="assets/css/world.css?v=55">
+<link rel="stylesheet" href="assets/css/fp.css?v=57">
+<link rel="stylesheet" href="assets/css/home.css?v=57">
+<link rel="stylesheet" href="assets/css/world.css?v=57">
 </head>
 <body>
 <a class="skip" href="#main">تخط إلى المحتوى</a>
@@ -91,27 +91,41 @@
           <li><a href="https://familypledge.org/" lang="id" dir="ltr">Indonesia</a></li>
         </ul>
       </div>
-      <a class="btn btn--s" href="https://familypledge.org/SharePledge"><span class="stitch"></span>وقع الميثاق</a>
+      <a class="btn btn--s" href="https://familypledge.org/SharePledge"><span class="stitch"></span>توقيع الميثاق</a>
       <button class="icon-btn menu-btn" type="button" aria-label="القائمة" aria-expanded="false" aria-controls="sheet"><svg class="ic" style="font-size:1.3rem"><use href="#i-menu"/></svg></button>
     </div>
   </div>
 </header>
 
 <div class="sheet on-dark" id="sheet" role="dialog" aria-modal="true" aria-label="القائمة">
+  <div class="sheet__hands" aria-hidden="true">
+    <img class="sheet__hand sheet__hand--rose" src="assets/img/world/hand-rose.webp" alt="" width="900" height="900" loading="lazy">
+    <img class="sheet__hand sheet__hand--teal" src="assets/img/world/hand-teal.webp" alt="" width="900" height="900" loading="lazy">
+  </div>
   <div class="sheet__top">
     <button class="icon-btn sheet__close" type="button" aria-label="إغلاق القائمة"><svg class="ic" style="font-size:1.3rem"><use href="#i-x"/></svg></button>
     <a class="brand" href="./"><span>ميثاق العائلة</span></a>
   </div>
-  <nav aria-label="القائمة الرئيسية">
-    <a href="./" style="--i:0"><span class="stitch"></span>الرئيسية</a>
-    <a href="https://familypledge.org/Aboutus" style="--i:1"><span class="stitch"></span>تعرف على الميثاق</a>
-    <a href="https://familypledge.org/whoshare" style="--i:2"><span class="stitch"></span>المشاركون</a>
-    <a href="https://familypledge.org/Ourbag" style="--i:3"><span class="stitch"></span>في جعبتنا</a>
-    <a href="https://familypledge.org/Projects" style="--i:4"><span class="stitch"></span>مشاريعنا</a>
-    <a href="https://familypledge.org/News" style="--i:5"><span class="stitch"></span>أخبارنا</a>
-    <a href="https://familypledge.org/Contactus" style="--i:6"><span class="stitch"></span>تواصل</a>
-  </nav>
-  <a class="btn" href="https://familypledge.org/SharePledge"><span class="stitch"></span>وقع الميثاق</a>
+  <div class="sheet__paper">
+    <p class="sheet__kicker"><img src="assets/img/world/seal-mark.webp" alt="" width="360" height="316">بنود الميثاق</p>
+    <nav aria-label="القائمة الرئيسية">
+      <a href="./" aria-current="page" style="--i:0"><span class="stitch"></span>الرئيسية</a>
+      <a href="https://familypledge.org/Aboutus" style="--i:1"><span class="stitch"></span>تعرف على الميثاق</a>
+      <a href="https://familypledge.org/whoshare" style="--i:2"><span class="stitch"></span>المشاركون</a>
+      <a href="https://familypledge.org/Ourbag" style="--i:3"><span class="stitch"></span>في جعبتنا</a>
+      <a href="https://familypledge.org/Projects" style="--i:4"><span class="stitch"></span>مشاريعنا</a>
+      <a href="https://familypledge.org/News" style="--i:5"><span class="stitch"></span>أخبارنا</a>
+      <a href="https://familypledge.org/Contactus" style="--i:6"><span class="stitch"></span>تواصل</a>
+    </nav>
+    <div class="sheet__sign">
+      <p>السطر التالي لعائلتك</p>
+      <a class="btn" href="https://familypledge.org/SharePledge"><span class="stitch"></span>توقيع الميثاق</a>
+      <span class="sheet__seal" aria-hidden="true">
+        <svg class="seal__ring" viewBox="0 0 120 120"><defs><path id="seal-arc-m" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1-92 0"/></defs><circle cx="60" cy="60" r="57" fill="#fff" stroke="#b03a62" stroke-width="2.500"/><circle cx="60" cy="60" r="36" fill="none" stroke="#b03a62" stroke-width="1.200" stroke-dasharray="2 4"/><text font-family="Rubik, sans-serif" font-size="9.500" font-weight="700" fill="#b03a62"><textPath href="#seal-arc-m">ميثاق العائلة · عهد لا ينسى · ميثاق العائلة · عهد لا ينسى ·</textPath></text></svg>
+        <img src="assets/img/world/seal-mark.webp" alt="" width="360" height="316" loading="lazy">
+      </span>
+    </div>
+  </div>
 </div>
 
 <main id="main">
@@ -121,10 +135,10 @@
   <div class="hero__grid">
     <div class="hero__copy">
       <p class="eyebrow" data-reveal><span class="dots"><i></i><i></i><i></i></span>عهد عائلة.. لعائلة</p>
-      <h1 data-reveal style="--i:1">بيت يوقع.. <em>وبيت في فلسطين يصمد</em></h1>
+      <h1 data-reveal style="--i:1">عهد من بيتك.. <em>يسند بيتا في فلسطين</em></h1>
       <p class="hero__lead" data-reveal style="--i:2">ميثاق عهد تلتزم فيه عائلتك بنصرة أهلنا في فلسطين: توقيع باسم العائلة، ودعم شهري أو مشاركة مجانية، وحقيبة توعوية تصل بيتك كل شهر.</p>
       <div class="hero__cta" data-reveal style="--i:3">
-        <a class="btn" href="https://familypledge.org/SharePledge"><span class="stitch"></span>وقع الميثاق</a>
+        <a class="btn" href="https://familypledge.org/SharePledge"><span class="stitch"></span>توقيع الميثاق</a>
         <a class="btn btn--line" href="https://www.youtube.com/watch?v=FBhZSTvALNQ" target="_blank" rel="noopener"><svg class="ic"><use href="#i-play"/></svg>شاهد كيف تشارك</a>
       </div>
     </div>
@@ -140,7 +154,7 @@
         <svg class="deed__flourish" viewBox="0 0 240 24" preserveAspectRatio="none" aria-hidden="true"><path d="M4 14c40-12 70 10 110-2s70-8 122 2"/></svg>
         <p class="deed__text">بنصرة أهلنا في فلسطين، وبأن تبقى قضيتها حاضرة في بيتنا.</p>
         <p class="deed__msg" role="status" aria-live="polite"></p>
-        <button class="btn" type="submit"><span class="stitch"></span>وقع</button>
+        <button class="btn" type="submit"><span class="stitch"></span>توقيع</button>
         <span class="seal" aria-hidden="true">
           <svg viewBox="0 0 120 120"><defs><path id="seal-arc" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1-92 0"/></defs><circle cx="60" cy="60" r="57" fill="#fff" stroke="#b03a62" stroke-width="2.5"/><circle cx="60" cy="60" r="36" fill="none" stroke="#b03a62" stroke-width="1.2" stroke-dasharray="2 4"/><text font-family="Rubik, sans-serif" font-size="9.5" font-weight="700" fill="#b03a62" letter-spacing="0"><textPath href="#seal-arc" startOffset="0">ميثاق العائلة · عهد لا ينسى · ميثاق العائلة · عهد لا ينسى ·</textPath></text></svg>
           <img src="assets/img/world/seal-mark.webp" alt="" width="360" height="316">
@@ -187,7 +201,7 @@
       <ol class="path__steps" data-stagger>
         <li data-reveal>
           <span class="step__n num">1</span>
-          <div><h3>وقع باسم عائلتك</h3><p>التوقيع متاح مجانا، أو مع تعهد بالتبرع بعشرة دولارات شهريا لمدة عام تذهب لدعم العائلات الفلسطينية.</p></div>
+          <div><h3>توقيع باسم عائلتك</h3><p>التوقيع متاح مجانا، أو مع تعهد بالتبرع بعشرة دولارات شهريا لمدة عام تذهب لدعم العائلات الفلسطينية.</p></div>
           <div class="path__art"><div class="mini-deed" aria-hidden="true"><i></i><i></i><b>عائلتنا</b></div></div>
         </li>
         <li data-reveal>
@@ -357,7 +371,7 @@
         <div class="ledger__wall" data-wall aria-hidden="true"></div>
         <div class="ledger__next">
           <p><span class="ledger__x">✕</span><span>السطر التالي لعائلتك: التوقيع رقم <b class="num">25,048</b></span></p>
-          <a class="btn" href="https://familypledge.org/SharePledge"><span class="stitch"></span>وقع الميثاق</a>
+          <a class="btn" href="https://familypledge.org/SharePledge"><span class="stitch"></span>توقيع الميثاق</a>
         </div>
       </div>
 
@@ -386,7 +400,7 @@
   <div class="wrap">
     <div class="head head--row" data-reveal>
       <p class="eyebrow"><span class="dots"><i></i><i></i><i></i></span>مجتمع الميثاق</p>
-      <h2>وقعوا، ثم دعوا غيرهم</h2>
+      <h2>انضموا، ثم دعوا غيرهم</h2>
       <div class="arrows head__side">
         <button type="button" data-prev aria-label="السابق"><svg class="ic"><use href="#i-right"/></svg></button>
         <button type="button" data-next aria-label="التالي"><svg class="ic"><use href="#i-left"/></svg></button>
@@ -470,7 +484,7 @@
     <h2>ازرع الوعي في بيتك، <em>وادعم صمود بيت آخر</em></h2>
     <p>احصل على ميثاق العائلة أنت وعائلتك، وكن سندا للمرأة المعيلة وأطفالها.</p>
     <div class="call__act">
-      <a class="btn" href="https://familypledge.org/SharePledge"><span class="stitch"></span>وقع الميثاق</a>
+      <a class="btn" href="https://familypledge.org/SharePledge"><span class="stitch"></span>توقيع الميثاق</a>
       <a class="btn btn--line" href="https://familypledge.org/Contactus">تواصل معنا</a>
     </div>
   </div>
@@ -548,8 +562,8 @@
   <img src="assets/img/certificate.webp" alt="نص وثيقة ميثاق العائلة مع خانتين لاسم العائلة والدولة" width="1600" height="1135" loading="lazy">
 </dialog>
 
-<script src="assets/js/fp.js?v=55" defer></script>
-<script src="assets/js/world.js?v=55" defer></script>
-<script defer src="assets/js/home.js?v=55"></script>
+<script src="assets/js/fp.js?v=57" defer></script>
+<script src="assets/js/world.js?v=57" defer></script>
+<script defer src="assets/js/home.js?v=57"></script>
 </body>
 </html>

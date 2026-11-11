@@ -407,3 +407,45 @@ a:hover .held .hand, .held:hover .hand { transform: rotate(8deg) scale(0.985); }
 .spot--album:hover .spot__fan > :nth-child(1) { transform: rotate(-13deg) translateX(-6%); }
 .spot--album:hover .spot__fan > :nth-child(2) { transform: rotate(12deg) translateX(6%); }
 @media (max-width: 760px) { .spot-row { grid-template-columns: minmax(0, 1fr); } .spot-row .spot__art { height: 13rem; padding-block-start: var(--s-5); } .spot__minbar { width: auto; } }
+
+/* ---------- the menu: the pledge sheet, opened between the two hands ---------- */
+.sheet { clip-path: none; background: none; padding: 0.9rem var(--gutter) 1rem; grid-template-rows: auto minmax(0, 1fr); gap: 0.6rem; overflow: clip; transition: visibility 0s 560ms; }
+.sheet.open { clip-path: none; }
+.sheet::before { content: ""; position: absolute; inset: 0; background: linear-gradient(160deg, #0c2530, #123a48 60%, #1f6079); opacity: 0; transition: opacity 380ms var(--e-out); }
+.sheet.open::before { opacity: 1; }
+.sheet__top { position: relative; z-index: 2; opacity: 0; transition: opacity 300ms 120ms; }
+.sheet.open .sheet__top { opacity: 1; }
+/* the hands of the mark close around the sheet as it opens */
+.sheet__hands { position: absolute; left: 50%; top: 52%; width: max(138vw, 30rem); max-width: 56rem; aspect-ratio: 1; transform: translate(-50%, -50%); pointer-events: none; }
+.sheet__hand { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: transform 900ms var(--e-out), opacity 420ms; }
+.sheet__hand--rose { transform: translate(10%, -20%) rotate(-50deg); }
+.sheet__hand--teal { transform: translate(-10%, 20%) rotate(-50deg); }
+.sheet.open .sheet__hand { opacity: 1; transform: none; transition-delay: 80ms; }
+.sheet__paper { position: relative; z-index: 1; justify-self: center; width: min(100%, 27rem); min-height: 0; overflow-y: auto; scrollbar-width: none; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; background: #fff; color: var(--ink); border-radius: 22px; padding: 1.1rem 1.3rem 1.2rem; box-shadow: 0 30px 60px -24px rgb(0 0 0 / 0.6); opacity: 0; transform: translateY(40px) rotate(-5deg) scale(0.94); transform-origin: 50% 100%; transition: transform 620ms var(--e-stitch), opacity 300ms; }
+.sheet__paper::-webkit-scrollbar { display: none; }
+.sheet.open .sheet__paper { opacity: 1; transform: rotate(-1.2deg); transition-delay: 140ms; }
+/* folded corner */
+.sheet__paper::after { content: ""; position: absolute; inset-block-start: 0; inset-inline-end: 0; width: 2.3rem; height: 2.3rem; background: linear-gradient(225deg, #123a48 50%, var(--teal-100) 50%); border-end-start-radius: 12px; }
+.sheet__kicker { display: flex; align-items: center; gap: 0.5rem; font-family: var(--f-display); font-weight: 800; color: var(--teal-700); font-size: 1rem; line-height: 1.5; padding-block-end: 0.5rem; }
+.sheet__kicker img { width: 1.7rem; height: auto; }
+.sheet nav { counter-reset: item; align-content: center; gap: 0; }
+.sheet nav a { position: relative; counter-increment: item; color: var(--ink); font-size: clamp(1.25rem, 5.4vw, 1.5rem); gap: 0.8rem; padding-block: 0.5rem; transform: translateY(12px); transition-delay: calc(300ms + var(--i) * 55ms); }
+.sheet nav a .stitch { display: none; }
+.sheet nav a::before { content: counter(item, decimal-leading-zero); font-family: var(--f-display); font-weight: 700; font-size: 0.8rem; color: var(--rose-700); min-width: 1.5rem; direction: ltr; }
+/* each item sits on a ruled line that is drawn as the sheet opens */
+.sheet nav a::after { content: ""; position: absolute; inset-inline: 0; bottom: 0; height: 1px; background: var(--line); transform: scaleX(0); transform-origin: 100% 50%; transition: transform 520ms var(--e-out); transition-delay: calc(340ms + var(--i) * 55ms); }
+.sheet.open nav a::after { transform: scaleX(1); }
+.sheet nav a:hover, .sheet nav a:focus-visible { color: var(--rose-700); }
+.sheet nav a:active { transform: translateX(-6px); transition-delay: 0s; }
+/* the page you are on is signed */
+.sheet nav a[aria-current] { color: var(--teal-700); }
+.sheet nav a[aria-current]::after { height: 9px; bottom: -3px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 9' preserveAspectRatio='none'%3E%3Cpath d='M119 4C100 0 82 8 62 4S24 1 1 5' fill='none' stroke='%23c94f78' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E") right center / 46% 100% no-repeat; }
+.sheet__sign { position: relative; display: grid; gap: 0.5rem; padding-block-start: 0.9rem; opacity: 0; transform: translateY(10px); transition: opacity 320ms, transform 420ms var(--e-out); }
+.sheet.open .sheet__sign { opacity: 1; transform: none; transition-delay: 720ms; }
+.sheet__sign p { font-family: var(--f-sign); font-size: 1.2rem; line-height: 1.6; color: var(--teal-700); padding-inline-end: 5.2rem; }
+.sheet__seal { position: absolute; inset-inline-end: -0.2rem; top: -1.4rem; width: 4.8rem; aspect-ratio: 1; display: grid; place-items: center; transform: rotate(-12deg) scale(1.9); opacity: 0; transition: transform 460ms cubic-bezier(0.2, 1.3, 0.4, 1), opacity 160ms; }
+.sheet.open .sheet__seal { transform: rotate(-12deg); opacity: 1; transition-delay: 980ms; }
+.sheet__seal svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.sheet__seal img { position: relative; width: 46%; height: auto; }
+@media (max-height: 640px) { .sheet nav a { padding-block: 0.3rem; font-size: 1.15rem; } .sheet__kicker { padding-block-end: 0.2rem; } }
+@media (prefers-reduced-motion: reduce) { .sheet__hand, .sheet__paper, .sheet__sign, .sheet__seal, .sheet nav a, .sheet nav a::after { transition: none; } .sheet__hand--rose, .sheet__hand--teal { transform: none; } .sheet__paper { transform: none; } .sheet nav a::after { transform: scaleX(1); } .sheet__seal { transform: rotate(-12deg); } }
