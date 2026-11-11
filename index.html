@@ -11,9 +11,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;700;800&family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/fp.css?v=10">
-<link rel="stylesheet" href="assets/css/home.css?v=10">
-<link rel="stylesheet" href="assets/css/world.css?v=10">
+<link rel="preload" as="image" href="assets/img/hero/cloth-wide.webp" media="(min-width: 761px)" fetchpriority="high">
+<link rel="preload" as="image" href="assets/img/hero/cloth-tall.webp" media="(max-width: 760px)" fetchpriority="high">
+<link rel="stylesheet" href="assets/css/fp.css?v=14">
+<link rel="stylesheet" href="assets/css/home.css?v=14">
+<link rel="stylesheet" href="assets/css/world.css?v=14">
 </head>
 <body>
 <a class="skip" href="#main">تخط إلى المحتوى</a>
@@ -115,9 +117,16 @@
 
 <main id="main" data-sew>
 
-<!-- ============ hero: one thread between two homes ============ -->
+<!-- ============ hero: the cloth is the world ============ -->
 <section class="hero">
-  <div class="wrap hero__copy">
+  <div class="hero__art">
+    <picture>
+      <source media="(max-width: 760px)" srcset="assets/img/hero/cloth-tall.webp" width="900" height="1350">
+      <img src="assets/img/hero/cloth-wide.webp" width="1536" height="864" fetchpriority="high" decoding="async" alt="يدا جدة تطرزان قماشا أبيض، والتطريز ينهض من القماش قرية صغيرة: بيتان من حجر وعائلتان تلوح كل منهما للأخرى، وخيط وردي واحد يخرج من الإبرة ويربط البيتين">
+    </picture>
+    <svg class="hero__glint" viewBox="0 0 1536 864" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><path id="hero-thread" d="M1200 576C1150 590 1090 598 1030 588S900 534 840 516S750 496 712 492" fill="none"/><g class="hero__run"></g></svg>
+  </div>
+  <div class="hero__copy">
     <p class="eyebrow" data-reveal><span class="dots"><i></i><i></i><i></i></span>عهد عائلة.. لعائلة</p>
     <h1 data-reveal style="--i:1">بيت يوقع.. <em>وبيت في فلسطين يصمد</em></h1>
     <p class="hero__lead" data-reveal style="--i:2">ميثاق عهد تلتزم فيه عائلتك بنصرة أهلنا في فلسطين: توقيع باسم العائلة، ودعم شهري أو مشاركة مجانية، وحقيبة توعوية تصل بيتك كل شهر.</p>
@@ -126,7 +135,6 @@
       <a class="btn btn--line" href="https://www.youtube.com/watch?v=FBhZSTvALNQ" target="_blank" rel="noopener"><svg class="ic"><use href="#i-play"/></svg>شاهد كيف تشارك</a>
     </div>
   </div>
-  <div class="hero__scene" data-scene="hero"></div>
   <p class="hero__next"><span class="stitch"></span><span>توقيع عائلتك سيكون رقم <b class="num">25,048</b></span></p>
 </section>
 
@@ -445,9 +453,9 @@
   <img src="assets/img/certificate.webp" alt="نص وثيقة ميثاق العائلة مع خانتين لاسم العائلة والدولة" width="1600" height="1135" loading="lazy">
 </dialog>
 
-<script src="assets/js/fp.js?v=10" defer></script>
-<script src="assets/js/cast.js?v=10" defer></script>
-<script src="assets/js/world.js?v=10" defer></script>
-<script defer src="assets/js/home.js?v=10"></script>
+<script src="assets/js/fp.js?v=14" defer></script>
+<script src="assets/js/cast.js?v=14" defer></script>
+<script src="assets/js/world.js?v=14" defer></script>
+<script defer src="assets/js/home.js?v=14"></script>
 </body>
 </html>

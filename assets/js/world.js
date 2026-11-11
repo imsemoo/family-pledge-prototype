@@ -7,62 +7,23 @@
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const S = {};
 
-  /* ---- hero: two painted homes and their families, tied by one sewn line ----
-     The people, houses and hills are painted layers; the line, its stitches and the
-     ground thread are drawn here so the identity's geometry runs through the picture. */
-  S.hero = (el) => {
-    const img = (name, cls, w, h, extra = '') => `<img class="scene__${cls}" src="assets/img/hero/${name}.webp" alt="" width="${w}" height="${h}" decoding="async" ${extra}>`;
-    el.setAttribute('role', 'img');
-    el.setAttribute('aria-label', 'عائلتان أمام بيتين من حجر، تلوح كل منهما للأخرى، وبين البيتين حبل علقت عليه غرز ملونة. جدار أحد البيتين مشقوق ومرمم بغرز الخيط.');
-    el.innerHTML =
-      img('land', 'land', 1792, 768, 'fetchpriority="high"') +
-      `<div class="scene__layer" data-depth="0.35">${img('house-b', 'house scene__house--b', 601, 630)}${img('house-a', 'house scene__house--a', 600, 610)}</div>` +
-      `<svg class="scene__line" data-depth="0.6" aria-hidden="true"><path class="scene__rope" fill="none"/><g class="scene__flags"></g><g class="scene__run"></g></svg>` +
-      `<div class="scene__layer" data-depth="1"><span class="scene__fam scene__fam--b">${img('family-b', 'people', 430, 660, 'fetchpriority="high"')}</span><span class="scene__fam scene__fam--a">${img('family-a', 'people', 644, 660, 'fetchpriority="high"')}</span></div>` +
-      `<span class="scene__ground"></span>`;
-
-    const svg = el.querySelector('.scene__line'), rope = svg.querySelector('.scene__rope'), flags = svg.querySelector('.scene__flags'), run = svg.querySelector('.scene__run');
-    const hb = el.querySelector('.scene__house--b'), ha = el.querySelector('.scene__house--a');
-    const tones = ['#e087a6', '#409db7', '#f4b740', '#f8bdd4', '#2a7896'];
-    let len = 0;
-    /* tie the line to the inner top corner of each house, wherever the layout puts them */
-    const layout = () => {
-      const box = el.getBoundingClientRect(), b = hb.getBoundingClientRect(), a = ha.getBoundingClientRect();
-      if (!box.width || !b.width) return;
-      svg.setAttribute('viewBox', `0 0 ${box.width} ${box.height}`);
-      const x1 = b.left - box.left + b.width * 0.72, y1 = b.top - box.top + b.height * 0.33;
-      const x2 = a.left - box.left + a.width * 0.2, y2 = a.top - box.top + a.height * 0.36;
-      const sag = Math.min(box.height * 0.2, (x2 - x1) * 0.16);
-      rope.setAttribute('d', `M${x1.toFixed(1)} ${y1.toFixed(1)}Q${((x1 + x2) / 2).toFixed(1)} ${(Math.max(y1, y2) + sag).toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}`);
-      len = rope.getTotalLength(); rope.style.setProperty('--len', len);
-      const n = Math.max(3, Math.min(11, Math.round((x2 - x1) / 62))), s = Math.max(11, Math.min(17, box.width / 76));
-      let out = '';
-      for (let i = 0; i < n; i++) { const p = rope.getPointAtLength(len * (i + 1) / (n + 1)); out += `<g class="flag" style="--i:${i};transform-origin:${p.x.toFixed(1)}px ${p.y.toFixed(1)}px"><path d="M${p.x.toFixed(1)} ${p.y.toFixed(1)}v${(s * 0.5).toFixed(1)}" stroke="#c94f78" stroke-width="1.6"/>${dia(p.x, p.y + s * 1.15, s, tones[i % tones.length])}</g>`; }
-      flags.innerHTML = out;
+  /* ---- hero: a stitch of light travels the grandmother's thread, and the cloth drifts with the pointer ---- */
+  const heroEl = document.querySelector('.hero'), thread = document.querySelector('#hero-thread');
+  if (heroEl && thread && !reduced) {
+    const run = heroEl.querySelector('.hero__run'), len = thread.getTotalLength();
+    run.innerHTML = [0, 1].map(() => dia(0, 0, 11, '#f4b740')).join('');
+    const dots = [...run.children]; let on = false, raf = 0;
+    const tick = (now) => {
+      dots.forEach((d, i) => { const t = (now / 7000 + i / 2) % 1, p = thread.getPointAtLength(len * t); d.setAttribute('transform', `translate(${p.x.toFixed(1)} ${(p.y - 3).toFixed(1)}) rotate(45)`); d.setAttribute('opacity', (Math.sin(t * Math.PI) * 0.95).toFixed(2)); });
+      if (on) raf = requestAnimationFrame(tick);
     };
-    new ResizeObserver(layout).observe(el);
-    [hb, ha].forEach((i) => i.complete || i.addEventListener('load', layout, { once: true }));
-    layout();
-
-    if (!reduced) {
-      /* stitches travelling from the signing home to the standing one */
-      run.innerHTML = [0, 1, 2].map(() => dia(0, 0, 8, '#f4b740')).join('');
-      const dots = [...run.children]; let on = false, raf = 0;
-      const tick = (now) => {
-        if (len) dots.forEach((d, i) => { const t = 1 - ((now / 5600 + i / 3) % 1), p = rope.getPointAtLength(len * t); d.setAttribute('transform', `translate(${p.x.toFixed(1)} ${(p.y - 1).toFixed(1)}) rotate(45)`); d.setAttribute('opacity', Math.sin(t * Math.PI).toFixed(2)); });
-        if (on) raf = requestAnimationFrame(tick);
-      };
-      new IntersectionObserver((es) => { on = es[0].isIntersecting; cancelAnimationFrame(raf); if (on) raf = requestAnimationFrame(tick); }).observe(el);
-
-      /* depth: each layer drifts a little with the pointer */
-      if (matchMedia('(hover: hover)').matches) {
-        let tx = 0, cur = 0, raf2 = 0;
-        const step = () => { cur += (tx - cur) * 0.08; el.style.setProperty('--px', cur.toFixed(4)); raf2 = Math.abs(tx - cur) > 0.002 ? requestAnimationFrame(step) : 0; };
-        el.closest('.hero').addEventListener('pointermove', (e) => { tx = e.clientX / innerWidth - 0.5; if (!raf2) raf2 = requestAnimationFrame(step); });
-      }
+    new IntersectionObserver((es) => { on = es[0].isIntersecting; cancelAnimationFrame(raf); if (on) raf = requestAnimationFrame(tick); }).observe(heroEl);
+    if (matchMedia('(hover: hover)').matches) {
+      let tx = 0, cur = 0, raf2 = 0;
+      const step = () => { cur += (tx - cur) * 0.07; heroEl.style.setProperty('--px', cur.toFixed(4)); raf2 = Math.abs(tx - cur) > 0.002 ? requestAnimationFrame(step) : 0; };
+      heroEl.addEventListener('pointermove', (e) => { tx = e.clientX / innerWidth - 0.5; if (!raf2) raf2 = requestAnimationFrame(step); });
     }
-    requestAnimationFrame(() => el.classList.add('is-in'));
-  };
+  }
 
   /* ---- painted scenes: one picture each, sitting on the identity's own thread ---- */
   const pic = (name, alt, w, h, cls = '') => `<img class="pic ${cls}" src="assets/img/scenes/${name}.webp" alt="${alt}" width="${w}" height="${h}" loading="lazy" decoding="async">`;
