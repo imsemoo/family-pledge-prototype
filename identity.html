@@ -9,8 +9,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;700;800&family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/fp.css?v=6">
-<link rel="stylesheet" href="assets/css/world.css?v=6">
+<link rel="stylesheet" href="assets/css/fp.css?v=10">
+<link rel="stylesheet" href="assets/css/world.css?v=10">
 <style>
 .g-hero { padding-block: var(--s-8) var(--s-7); }
 .g-hero p { font-size: var(--t-lead); color: var(--ink-2); max-width: 44rem; margin-block-start: var(--s-3); }
@@ -92,60 +92,29 @@
 </section>
 
 <section class="g-sec"><div class="wrap">
-  <div><h2>الاتجاه الفني</h2><p>ثلاثة اتجاهات جربت على السؤال نفسه: أيها يولد من الشعار، ويتحرك، ويبقى خفيفا؟</p></div>
-  <div class="g-grid dirs" style="grid-template-columns:repeat(auto-fill,minmax(15rem,1fr))">
-    <article class="g-shape dir dir--on"><span class="dir__tag">المختار</span><h3>أهل الغرزة</h3><p>شخصيات هندسية من وسط الشعار نفسه: النقطة رأس والمعين جسد. مسطحة بتدرج واحد، وتتداخل أجسادها كما تتداخل معينات الشعار. ترسم بالكود فتتحرك وتتبدل حالاتها دون ملفات إضافية.</p><p><b>الحركة:</b> رمشة، تلويحة، قفزة فرح. <b>الوزن:</b> 5 ك.ب مضغوطا للطاقم كله.</p></article>
-    <article class="g-shape dir"><h3>مجسمات طينية ثلاثية الأبعاد</h3><p>شخصيات ناعمة بإضاءة حقيقية في مشهد WebGL. حضور قوي، لكنه أسلوب شائع لا يخص الميثاق، ويحتاج مكتبة ثقيلة وبديلا للأجهزة الضعيفة، ويبتعد عن تسطيح الشعار.</p><p><b>سبب الاستبعاد:</b> الوزن، والبعد عن الشعار.</p></article>
-    <article class="g-shape dir"><h3>رسم يدوي تحريري</h3><p>شخصيات بشرية بخط حر وملامح تفصيلية. دافئ وإنساني، لكن كل مشهد جديد يحتاج رساما، وتحريكه صعب، وصلته بهندسة الشعار ضعيفة.</p><p><b>سبب الاستبعاد:</b> لا يعاد استخدامه ولا يتحرك بسهولة.</p></article>
-  </div>
-</div></section>
-
-<section class="g-sec"><div class="wrap">
-  <div><h2>أهل الغرزة</h2><p>عائلتان يربطهما خيط: بيت يوقع، وبيت في فلسطين يصمد. وهيكل واحد يرسم الجميع.</p></div>
+  <div><h2>الشخصيات</h2><p>ناس حقيقيون بأسلوب تحريري مرسوم. اعتمد بعد مقارنة ثلاثة اتجاهات، والمقارنة كاملة في <a class="link" href="characters.html">صفحة الاستكشاف</a>.</p></div>
   <div class="g-stack">
-    <div class="rig">
-      <div class="rig__step"><svg viewBox="0 0 120 160"><circle cx="60" cy="33" r="17" fill="#4b85a6"/><rect x="30" y="54" width="60" height="60" rx="16.2" transform="rotate(45 60 84)" fill="#f8bdd4"/></svg><span>نقطة ومعين من الشعار</span></div>
-      <svg class="rig__arrow ic"><use href="#i-arrow"/></svg>
-      <div class="rig__step" id="rig-b"></div>
-      <svg class="rig__arrow ic"><use href="#i-arrow"/></svg>
-      <div class="rig__step" id="rig-c"></div>
-    </div>
-    <div class="castgrid" id="cast-sheet"></div>
-    <div>
-      <h3 style="margin-block-end:.6rem">الحالات</h3>
-      <div class="castgrid castgrid--s" id="cast-poses"></div>
-    </div>
-    <div>
-      <h3 style="margin-block-end:.6rem">«غرزة»: الغرزة التي ترافق الزائر</h3>
-      <div class="castgrid castgrid--s" id="cast-sprite"></div>
-    </div>
+    <img src="art/exploration/sheet-a-cast.webp" alt="ورقة الشخصيات: سبع شخصيات في صف أطوال، وتحتها خمسة وجوه بتعبيرات مختلفة" width="1536" height="864" loading="lazy" style="width:100%;border-radius:var(--r-l);border:1px solid var(--line)">
     <div class="tok">
-      <div><span>الرأس</span><code>دائرة، قطرها ربع طول البالغ</code></div>
-      <div><span>الجسد</span><code>معين، استدارة 27%</code></div>
-      <div><span>الوجه</span><code>عينان ونصف ابتسامة وخدان</code></div>
-      <div><span>التظليل</span><code>تدرج واحد بزاوية 45°</code></div>
-      <div><span>التطريز</span><code>غرز صغيرة على صدر الثوب</code></div>
-      <div><span>البشرة</span><code>ثلاث درجات فقط</code></div>
-      <div><span>ممنوع</span><code>خطوط خارجية، ظلال ناعمة، منظور</code></div>
-      <div><span>الأرض</span><code>خيط سراجة دائما</code></div>
-    </div>
-  </div>
-</div></section>
-
-<section class="g-sec"><div class="wrap">
-  <div><h2>المشاهد والأدوات</h2><p>كل شيء في العالم مبني من الغرزة نفسها: الشجرة تاج من غرز، والقنديل غرزة مضيئة.</p></div>
-  <div class="g-stack">
-    <div class="g-grid" id="prop-sheet" style="grid-template-columns:repeat(auto-fill,minmax(9rem,1fr))"></div>
-    <div class="tok">
-      <div><span>الهيرو</span><code>بيتان وعائلتان وحبل غرز</code></div>
-      <div><span>الخطوات</span><code>مشهد صغير لكل خطوة</code></div>
-      <div><span>العهود</span><code>مشهد داخل قوسي الحضن</code></div>
-      <div><span>المشاريع</span><code>صورة حقيقية في قوس باب، ورفيق مرسوم</code></div>
-      <div><span>الأرقام</span><code>الجدة وداد تخيط الثوب</code></div>
-      <div><span>الختام</span><code>العائلة داخل قوسي الشعار</code></div>
+      <div><span>الأسلوب</span><code>مساحات جواش، بلا خط خارجي</code></div>
+      <div><span>التظليل</span><code>درجة ظل واحدة، ضوء من أعلى اليسار</code></div>
+      <div><span>طول البالغ</span><code>6.5 رؤوس تقريبا</code></div>
+      <div><span>الوقفة</span><code>الثقل على ساق واحدة</code></div>
+      <div><span>الألوان</span><code>وردي وأزرق الهوية، كحلي، ذهبي قليل</code></div>
+      <div><span>التراث</span><code>تطريز على ثوب الجدة والأم المعيلة فقط</code></div>
+      <div><span>العلامات التجارية</span><code>لا تظهر على أي ملابس أو أحذية</code></div>
       <div><span>الصور الحقيقية</span><code>لا ترسم فوقها شخصيات</code></div>
-      <div><span>الأخبار والآراء</span><code>وجوه حقيقية، بلا شخصيات</code></div>
     </div>
+    <div class="g-grid" style="grid-template-columns:repeat(auto-fill,minmax(10rem,1fr));align-items:end">
+      <img src="assets/img/scenes/step-sign.webp" alt="التوقيع" width="386" height="520" loading="lazy">
+      <img src="assets/img/scenes/step-frame.webp" alt="الوثيقة" width="322" height="520" loading="lazy">
+      <img src="assets/img/scenes/vow-embrace.webp" alt="الاحتضان" width="310" height="480" loading="lazy">
+      <img src="assets/img/scenes/sewer.webp" alt="الجدة تطرز" width="407" height="560" loading="lazy">
+      <img src="assets/img/scenes/lantern-kids.webp" alt="القناديل" width="350" height="560" loading="lazy">
+      <img src="assets/img/hero/house-b.webp" alt="بيت مرمم بالغرز" width="601" height="630" loading="lazy">
+    </div>
+    <p style="color:var(--ink-2)">أين تلتقي الرسوم بالهندسة: الشرخ في جدار البيت مخيط بغرز الهوية، وحبل الغرز وخيط الأرض يرسمان بالكود فوق اللوحة، والمشاهد الدائرية تجلس داخل قوسي الحضن. «غرزة» تبقى الشكل الهندسي الوحيد الذي له وجه.</p>
+    <div class="castgrid castgrid--s" id="cast-sprite"></div>
   </div>
 </div></section>
 
@@ -232,8 +201,8 @@
 </main>
 
 <footer class="footer on-dark"><canvas class="band" data-band="dark" data-rows="5" aria-hidden="true"></canvas><div class="wrap"><div class="footer__base"><span>ميثاق العائلة — دليل الهوية، نسخة أولى</span><a class="link" href="./">الصفحة الرئيسية</a></div></div></footer>
-<script src="assets/js/fp.js?v=6" defer></script>
-<script src="assets/js/cast.js?v=6" defer></script>
-<script src="assets/js/guide.js?v=6" defer></script>
+<script src="assets/js/fp.js?v=10" defer></script>
+<script src="assets/js/cast.js?v=10" defer></script>
+<script src="assets/js/guide.js?v=10" defer></script>
 </body>
 </html>

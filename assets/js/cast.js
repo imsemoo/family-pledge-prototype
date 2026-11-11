@@ -1,100 +1,15 @@
-/* ميثاق العائلة — «أهل الغرزة»: the cast.
-   Every figure is the logo's centre brought to life: a dot for a head, a rounded
-   diamond for a body. One rig draws them all, so they stay one family.
-   Works in the browser (window.Cast) and in Node (module.exports) for exporting SVG files. */
+/* ميثاق العائلة — the drawn-in-code pieces of the world: «غرزة» the stitch with a face,
+   and a few props built from the same rounded diamond. The people are painted
+   illustrations (assets/img/hero, assets/img/scenes), not code. */
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) module.exports = factory();
   else root.Cast = factory();
 })(typeof self !== 'undefined' ? self : this, function () {
   'use strict';
   const INK = '#10303b';
-  let uid = 0;
-
-  const PEOPLE = {
-    amin:  { name: 'أمين', role: 'الأب', size: 'adult', skin: '#c98f6b', body: '#2a7896', dark: '#1f6079', head: 'hair', hair: INK, beard: true, legs: INK, mark: 'collar' },
-    salma: { name: 'سلمى', role: 'الأم', size: 'adult', skin: '#f0c7a3', body: '#e087a6', dark: '#c94f78', head: 'hijab', veil: '#1f6079', dress: true, mark: 'panel', panel: '#ffffff' },
-    yafa:  { name: 'يافا', role: 'الابنة', size: 'child', skin: '#e8b995', body: '#f8bdd4', dark: '#e087a6', head: 'braids', hair: '#3a2a22', legs: '#2a7896', mark: 'flower', panel: '#b03a62' },
-    raed:  { name: 'رائد', role: 'الابن', size: 'child', skin: '#c98f6b', body: '#409db7', dark: '#2a7896', head: 'tuft', hair: INK, legs: INK, mark: 'stitch', panel: '#f4b740' },
-    widad: { name: 'وداد', role: 'الجدة', size: 'adult', skin: '#e8b995', body: '#10303b', dark: '#0a2029', head: 'hijab', veil: '#dfeaee', glasses: true, dress: true, mark: 'panel', panel: '#e087a6' },
-    maryam:{ name: 'مريم', role: 'الأم المعيلة', size: 'adult', skin: '#d9a07a', body: '#b03a62', dark: '#8c2b4d', head: 'hijab', veil: '#f8bdd4', dress: true, mark: 'panel', panel: '#f4b740' },
-    nour:  { name: 'نور', role: 'الصغير', size: 'child', skin: '#d9a07a', body: '#f4b740', dark: '#d99a1f', head: 'tuft', hair: '#3a2a22', legs: '#1f6079', mark: 'stitch', panel: '#b03a62' },
-  };
-  const DIMS = { adult: { hr: 17, hy: 33, a: 60, by: 84 }, child: { hr: 15, hy: 72, a: 42, by: 110 } };
 
   const n = (v) => Math.round(v * 10) / 10;
   const dia = (cx, cy, a, fill, extra) => `<rect x="${n(cx - a / 2)}" y="${n(cy - a / 2)}" width="${n(a)}" height="${n(a)}" rx="${n(a * 0.27)}" transform="rotate(45 ${n(cx)} ${n(cy)})" fill="${fill}"${extra ? ' ' + extra : ''}/>`;
-  const half = (a) => a * 0.707 - a * 0.27 * 0.414;
-
-  /* where a hand ends up, in the figure's own 120×160 box, for a given arm angle */
-  function hand(size, side, deg) {
-    const d = DIMS[size], h = half(d.a), s = side === 'r' ? 1 : -1;
-    const sx = 60 + s * h * 0.55, sy = d.by - h * 0.45, len = d.a * 0.2, drop = d.a * 0.57;
-    const t = (deg * Math.PI) / 180, x = s * len, y = drop;
-    return { sx, sy, x: sx + x * Math.cos(t) - y * Math.sin(t), y: sy + x * Math.sin(t) + y * Math.cos(t), ix: sx + x, iy: sy + y };
-  }
-
-  function person(id, o) {
-    o = o || {};
-    const c = PEOPLE[id], d = DIMS[c.size], h = half(d.a), g = 'cg' + ++uid, kid = c.size === 'child';
-    const fy = d.hy + (c.head === 'hijab' ? 2 : 1), ex = d.hr * 0.36;
-    const pose = o.pose || 'idle', mood = o.mood || 'calm';
-    const pos = o.x != null ? ` x="${o.x}" y="${o.y}" width="${n((o.h || 160) * 0.75)}" height="${o.h || 160}"` : '';
-
-    const arm = (side) => {
-      const p = hand(c.size, side, 0), s = side === 'r' ? 1 : -1, held = o.hold && o.hold[side];
-      return `<g class="arm arm--${side}" style="transform-origin:${n(p.sx)}px ${n(p.sy)}px">` +
-        `<path d="M${n(p.sx)} ${n(p.sy)}Q${n(p.sx + s * 9)} ${n(p.sy + (p.iy - p.sy) * 0.5)} ${n(p.ix)} ${n(p.iy)}" fill="none" stroke="${c.dark}" stroke-width="${kid ? 8 : 10}" stroke-linecap="round"/>` +
-        (held ? `<g transform="translate(${n(p.ix)} ${n(p.iy)})">${held}</g>` : '') +
-        `<circle cx="${n(p.ix)}" cy="${n(p.iy)}" r="${kid ? 4.6 : 5.6}" fill="${c.skin}"/></g>`;
-    };
-
-    let low;
-    if (c.dress) {
-      const top = d.by + 4;
-      low = `<rect x="43" y="${top}" width="34" height="${145 - top}" rx="10" fill="${c.dark}"/><ellipse cx="53" cy="148" rx="6" ry="3.4" fill="${INK}"/><ellipse cx="67" cy="148" rx="6" ry="3.4" fill="${INK}"/>`;
-    } else {
-      const lx = kid ? 6.5 : 8.5, top = d.by + h * 0.5;
-      low = `<path d="M${60 - lx} ${n(top)}V146M${60 + lx} ${n(top)}V146" stroke="${c.legs}" stroke-width="${kid ? 7.5 : 9.5}" stroke-linecap="round"/><ellipse cx="${60 - lx - 1.5}" cy="148.5" rx="${kid ? 5.5 : 6.5}" ry="3.4" fill="${INK}"/><ellipse cx="${60 + lx + 1.5}" cy="148.5" rx="${kid ? 5.5 : 6.5}" ry="3.4" fill="${INK}"/>`;
-    }
-
-    const m = (dx, dy, a, fill) => dia(60 + dx, d.by + dy, a, fill);
-    let mark = '';
-    if (c.mark === 'panel') mark = m(0, -7, 5.4, c.panel) + m(-7.5, -7, 5.4, c.panel) + m(7.5, -7, 5.4, c.panel) + m(0, -14.5, 5.4, c.panel) + m(0, 0.5, 5.4, c.panel) + m(0, 13, 4, c.panel) + m(-15, -7, 3.4, c.panel) + m(15, -7, 3.4, c.panel);
-    if (c.mark === 'flower') mark = m(0, -8, 4.6, c.panel) + m(-5.5, -2.5, 4.6, c.panel) + m(5.5, -2.5, 4.6, c.panel) + m(0, 3, 4.6, c.panel);
-    if (c.mark === 'stitch') mark = m(0, -2, 9, c.panel);
-    if (c.mark === 'collar') mark = `<path d="M51 ${n(d.by - h + 11)}L60 ${n(d.by - h + 21)}L69 ${n(d.by - h + 11)}" fill="none" stroke="#fff" stroke-opacity=".75" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>` + m(0, 6, 4.4, '#bfe0ea') + m(0, 17, 4.4, '#bfe0ea');
-
-    let headBack = '', headTop = '';
-    const hr = d.hr, hy = d.hy;
-    const cap = `<path d="M${60 - hr} ${hy + 1}A${hr} ${hr} 0 0 1 ${60 + hr} ${hy + 1}Q${60 + hr - 2} ${hy - 8} ${65} ${hy - 9}Q${52} ${hy - 10} ${60 - hr} ${hy + 1}Z" fill="${c.hair}"/>`;
-    let face = `<circle cx="60" cy="${hy}" r="${hr}" fill="${c.skin}"/>`;
-    if (c.head === 'hijab') {
-      headBack = `<ellipse cx="60" cy="${hy + hr + 2}" rx="${hr + 7}" ry="9.5" fill="${c.veil}"/><circle cx="60" cy="${hy}" r="${hr + 4}" fill="${c.veil}"/>`;
-      face = `<circle cx="60" cy="${hy + 2}" r="${hr - 3}" fill="${c.skin}"/>`;
-    } else if (c.head === 'hair') headTop = cap;
-    else if (c.head === 'braids') {
-      headBack = `<circle cx="${60 - hr - 3}" cy="${hy + 9}" r="6" fill="${c.hair}"/><circle cx="${60 + hr + 3}" cy="${hy + 9}" r="6" fill="${c.hair}"/>`;
-      headTop = cap + dia(60 - hr - 1, hy + 3, 4.4, '#b03a62') + dia(60 + hr + 1, hy + 3, 4.4, '#b03a62');
-    } else if (c.head === 'tuft') headTop = cap + `<path d="M59 ${hy - hr + 1}q3 -8 9 -3" fill="none" stroke="${c.hair}" stroke-width="3.4" stroke-linecap="round"/>`;
-    const beard = c.beard ? `<path d="M${60 - hr + 1} ${hy + 3}A${hr - 0.5} ${hr - 0.5} 0 0 0 ${60 + hr - 1} ${hy + 3}Q${60 + hr - 6} ${hy + 5.5} 60 ${hy + 5}Q${60 - hr + 6} ${hy + 5.5} ${60 - hr + 1} ${hy + 3}Z" fill="${c.hair}"/>` : '';
-    const lip = c.beard ? '#f6dccb' : INK, my = fy + (c.beard ? 8.5 : 6.2);
-    const eyes =
-      `<g class="eye-dot"><ellipse cx="${n(60 - ex)}" cy="${fy}" rx="1.9" ry="2.2" fill="${INK}"/><ellipse cx="${n(60 + ex)}" cy="${fy}" rx="1.9" ry="2.2" fill="${INK}"/></g>` +
-      `<g class="eye-arc" fill="none" stroke="${INK}" stroke-width="1.7" stroke-linecap="round"><path d="M${n(60 - ex - 2.6)} ${fy + 0.8}q2.6 -3.2 5.2 0"/><path d="M${n(60 + ex - 2.6)} ${fy + 0.8}q2.6 -3.2 5.2 0"/></g>`;
-    const mouth =
-      `<path class="mouth-smile" d="M${55.6} ${n(my)}q4.4 4.2 8.8 0" fill="none" stroke="${lip}" stroke-width="1.7" stroke-linecap="round"/>` +
-      `<path class="mouth-open" d="M${55.2} ${n(my - 0.6)}h9.6a4.8 4.8 0 0 1 -9.6 0z" fill="${c.beard ? '#f6dccb' : '#8c2b4d'}"/>`;
-    const cheeks = c.beard ? '' : `<circle cx="${n(60 - hr * 0.6)}" cy="${fy + 5.4}" r="2.7" fill="#e087a6" opacity=".5"/><circle cx="${n(60 + hr * 0.6)}" cy="${fy + 5.4}" r="2.7" fill="#e087a6" opacity=".5"/>`;
-    const glasses = c.glasses ? `<g fill="#fff" fill-opacity=".35" stroke="${INK}" stroke-width="1.3"><circle cx="${n(60 - ex)}" cy="${fy}" r="4.7"/><circle cx="${n(60 + ex)}" cy="${fy}" r="4.7"/><path d="M${n(60 - ex + 4.7)} ${fy}h${n(ex * 2 - 9.4)}" fill="none"/></g>` : '';
-
-    return `<svg class="cast cast--${id} pose-${pose} mood-${mood}" data-cast="${id}" viewBox="0 0 120 160" overflow="visible"${pos}${o.x == null ? ' xmlns="http://www.w3.org/2000/svg"' : ''} role="img" aria-label="${c.name}، ${c.role}">` +
-      `<defs><linearGradient id="${g}" x1="0" y1="0" x2="1" y2="1"><stop offset=".35" stop-color="${c.body}"/><stop offset="1" stop-color="${c.dark}"/></linearGradient></defs>` +
-      `<rect class="cast__hit" x="14" y="10" width="92" height="142" fill="#fff" fill-opacity="0"/>` +
-      `<ellipse class="cast__shadow" cx="60" cy="151" rx="${kid ? 20 : 27}" ry="3.6" fill="${INK}" opacity=".12"/>` +
-      `<g class="cast__all" style="--dl:${(uid * 0.61) % 4}s">${low}${arm('l')}${arm('r')}` +
-      dia(60, d.by, d.a, `url(#${g})`) + mark +
-      `<g class="cast__head">${headBack}${face}${beard}${headTop}${cheeks}${eyes}${glasses}${mouth}</g></g></svg>`;
-  }
 
   /* «غرزة»: a single stitch with a face. The guide, the loader, the cheer. */
   function sprite(o) {
@@ -181,5 +96,5 @@
     },
   };
 
-  return { PEOPLE, person, sprite, hand, props: P, dia };
+  return { sprite, props: P, dia };
 });

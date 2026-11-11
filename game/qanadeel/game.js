@@ -55,7 +55,6 @@
 
   /* ---------- the cast joins the game ---------- */
   const C = window.Cast, P = C.props;
-  const stand = (id, cx, ground, o) => { const h = o.h || 140, k = h / 160; return C.person(id, { ...o, x: cx - 60 * k, y: ground - 151 * k, h }); };
   const helper = $('#helper'); let moodT = 0;
   /* «غرزة» watches the board and reacts; she settles back after a moment */
   const mood = (m, hold) => {
@@ -63,13 +62,10 @@
     if (m !== 'calm') { if (!reduced) helper.firstElementChild.classList.add('is-pop'); if (!hold) moodT = setTimeout(() => mood('calm'), 1800); }
   };
   mood('calm');
-  $('#start-cast').innerHTML = `<svg viewBox="0 0 340 150" overflow="visible">
-    <path d="M70 12Q170 34 270 12" fill="none" stroke="#7fc4d8" stroke-width="2.2" stroke-dasharray="7 6" stroke-linecap="round"/>
-    <g class="lan-swing" style="--i:0;transform-origin:122px 20px">${P.lantern(122, 54, 0.8, true)}</g><g class="lan-swing" style="--i:2;transform-origin:170px 24px">${P.lantern(170, 62, 0.95, true)}</g><g class="lan-swing" style="--i:1;transform-origin:218px 20px">${P.lantern(218, 54, 0.8, false)}</g>
-    ${stand('yafa', 84, 148, { h: 128, pose: 'up-l', mood: 'happy' })}${stand('raed', 256, 148, { h: 128, pose: 'wave' })}</svg>`;
+  $('#start-cast').innerHTML = '<img src="../../assets/img/scenes/lantern-kids.webp" alt="" width="350" height="560" decoding="async">';
   $('#pause-art').innerHTML = C.sprite({ mood: 'sleep', tail: false });
   $('#lose-art').innerHTML = C.sprite({ mood: 'calm', tail: false, fill: '#e087a6' });
-  $('#win-art').innerHTML = `<svg viewBox="0 0 360 150" overflow="visible">${stand('yafa', 70, 148, { h: 118, pose: 'cheer' })}${stand('salma', 140, 148, { h: 146, pose: 'wave-l', mood: 'happy' })}${stand('amin', 214, 148, { h: 146, pose: 'wave' })}${stand('raed', 288, 148, { h: 114, pose: 'cheer' })}</svg>`;
+  $('#win-art').innerHTML = '<img src="../../assets/img/hero/family-a.webp" alt="" width="644" height="660" loading="lazy" decoding="async">';
   /* the skyline: the same dome and trees as the rest of the site, at night */
   const dome = (o) => P.dome(600, 220, 3.1, o);
   $('#land').innerHTML = `<svg viewBox="0 0 1200 220" preserveAspectRatio="xMidYMax meet" overflow="visible">
@@ -342,7 +338,7 @@
     const share = $('#btn-share'); share.hidden = !navigator.share;
     share.onclick = () => navigator.share({ title: 'قناديل الأقصى', text: `أضأت قناديل الأقصى كلها في ${fmt(S.t)}. جرب أنت وعائلتك!`, url: location.href }).catch(() => {});
     setTimeout(() => { sfx.win(); embers(true); }, 500);
-    setTimeout(() => el.dWin.showModal(), reduced ? 300 : 1700);
+    setTimeout(() => { el.dWin.showModal(); el.dWin.scrollTop = 0; }, reduced ? 300 : 1700);
   };
   const lose = () => {
     S.over = true; el.pause.hidden = true; el.timeBox.classList.remove('low'); sfx.lose();

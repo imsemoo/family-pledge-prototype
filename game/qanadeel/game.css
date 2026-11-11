@@ -18,12 +18,13 @@ body:not([data-screen="win"]) .sky__land { opacity: 0.85; }
 .sky__land svg { display: block; width: 100%; height: auto; }
 .dome-dawn { opacity: 0; transition: opacity 1.8s var(--e-out); }
 body[data-screen="win"] .dome-dawn { opacity: 1; }
-.start__cast { width: min(78%, 19rem); margin-block: -0.4rem -0.2rem; }
+.start__cast { width: min(46%, 10.5rem); margin-block: -0.2rem 0; filter: drop-shadow(0 0 30px rgb(244 183 64 / 0.4)); }
+.start__cast img, .dlg-art img { display: block; width: 100%; height: auto; }
 .start__cast svg, .dlg-art svg { display: block; width: 100%; height: auto; }
 .helper { display: flex; align-items: center; justify-content: center; gap: 0.6rem; width: min(100%, 34rem); min-height: 3.2rem; }
 .helper__who { width: 2.9rem; flex: none; }
 .helper .status { text-align: start; min-height: 0; }
-.dlg-art { width: min(100%, 17rem); margin-block-end: -0.2rem; }
+.dlg-art { width: min(50%, 9.5rem); margin-block-end: -0.2rem; }
 .dlg-art--s { width: 4.2rem; }
 
 /* ---------- bar ---------- */
