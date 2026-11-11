@@ -35,14 +35,13 @@
   ];
   const FACT = Object.fromEntries(WORDS);
   const SECRET = 'المسجد الأقصى';
-  const FILLER = 'ابتثجحخدذرزسشصضطظعغفقكلمنهويةى';
+  const FILLER = 'ابتثجحخدذرزسشصضطظعغفقكلمنهوي'; // base letters only: a stray ة or ى in mid-grid reads as a mistake
   const ALL = [[1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1], [0, -1], [1, -1]];
   const LEVELS = {
     buds: { n: 10, count: 12, dirs: [[1, 0], [0, 1], [1, 1]], time: 300, par: 210 },
     knights: { n: 12, count: 20, dirs: ALL, time: 420, par: 360 },
   };
   const TINTS = ['#409db7', '#e087a6', '#f4b740'];
-  const INKS = ['#1f6079', '#b03a62', '#a86f00'];
 
   const el = {
     body: document.body, start: $('#screen-start'), play: $('#screen-play'), setup: $('#setup'), best: $('#best'), dawnNote: $('#dawn-note'),
@@ -53,25 +52,18 @@
   };
   el.board.setAttribute('role', 'group');
 
-  /* ---------- the cast joins the game ---------- */
-  const C = window.Cast, P = C.props;
-  const helper = $('#helper'); let moodT = 0;
-  /* «غرزة» watches the board and reacts; she settles back after a moment */
-  const mood = (m, hold) => {
-    clearTimeout(moodT); helper.innerHTML = C.sprite({ mood: m, tail: false, fill: m === 'sad' ? '#9fd0de' : '#f4b740' });
-    if (m !== 'calm') { if (!reduced) helper.firstElementChild.classList.add('is-pop'); if (!hold) moodT = setTimeout(() => mood('calm'), 1800); }
-  };
-  mood('calm');
+  /* ---------- the scene ---------- */
+  const mood = () => {}; // the helper sprite left the game; the status line carries the feedback
   $('#start-cast').innerHTML = '<img src="../../assets/img/world/raed.webp" alt="" width="307" height="900" decoding="async">';
-  $('#pause-art').innerHTML = C.sprite({ mood: 'sleep', tail: false });
-  $('#lose-art').innerHTML = C.sprite({ mood: 'calm', tail: false, fill: '#e087a6' });
   $('#win-art').innerHTML = '<img src="../../assets/img/world/tale-18.webp" alt="" width="720" height="720" loading="lazy" decoding="async">';
-  /* the skyline: the same dome and trees as the rest of the site, at night */
-  const dome = (o) => P.dome(600, 220, 3.1, o);
-  $('#land').innerHTML = `<svg viewBox="0 0 1200 220" preserveAspectRatio="xMidYMax meet" overflow="visible">
-    <g fill="#0a2029" opacity=".85"><path d="M0 220v-58h1200v58z"/><path d="M40 162v-40a22 22 0 0 1 44 0v40zM104 162v-40a22 22 0 0 1 44 0v40zM168 162v-40a22 22 0 0 1 44 0v40zM232 162v-40a22 22 0 0 1 44 0v40zM924 162v-40a22 22 0 0 1 44 0v40zM988 162v-40a22 22 0 0 1 44 0v40zM1052 162v-40a22 22 0 0 1 44 0v40zM1116 162v-40a22 22 0 0 1 44 0v40z"/></g>
-    ${P.cypress(430, 220, 1.9, '#081c25')}${P.cypress(770, 220, 2.2, '#081c25')}${P.cypress(820, 220, 1.5, '#0a2029')}
-    <g class="dome-night">${dome({ base: '#0c2a36', drum: '#081c25', gold: '#123a48' })}</g><g class="dome-dawn">${dome({ base: '#1f6079', drum: '#174d61' })}</g></svg>`;
+  /* the skyline at night: wall, dome and minaret as one quiet silhouette */
+  const tree = (x, h, w) => `<path d="M${x} 176c${-w} ${-h * 0.35} ${-w * 0.7} ${-h * 0.8} 0 ${-h}c${w * 0.7} ${h * 0.2} ${w} ${h * 0.65} 0 ${h}z"/>`;
+  const wall = Array.from({ length: 60 }, (_, k) => `M${k * 20} 166v-10h11v10z`).join('');
+  $('#land').innerHTML = `<svg viewBox="0 0 1200 220" preserveAspectRatio="xMidYMax meet" fill="currentColor">
+    <path d="M0 220v-56h1200v56z"/><path d="${wall}"/>
+    <path d="M520 166v-34l14-10h132l14 10v34zM548 122V98h104v24zM556 98c0-34 20-52 44-52s44 18 44 52zM598.500 30h3v18h-3z"/><circle cx="600" cy="28" r="4"/>
+    <path d="M882 166V70h20v96zM877 92h30v7h-30zM885 70l7-26 7 26z"/>
+    ${tree(250, 96, 20)}${tree(292, 70, 15)}${tree(430, 84, 17)}${tree(760, 104, 21)}${tree(990, 78, 16)}${tree(1040, 60, 13)}</svg>`;
 
   let S = null; // game state
 
@@ -276,7 +268,6 @@
     path.forEach(([c, r], k) => { const x = cellEl(c, r); x.classList.add('found'); x.style.setProperty('--k', k); x.classList.remove('pop'); void x.offsetWidth; x.classList.add('pop'); });
     const [x1, y1] = pt(...path[0]), [x2, y2] = pt(...path[path.length - 1]);
     el.lines.insertBefore(svg('line', { class: 'band', x1, y1, x2, y2: y2 + 0.0001, stroke: TINTS[i % 3] }), S.live);
-    el.lines.append(svg('line', { class: 'sew', x1, y1, x2, y2: y2 + 0.0001, stroke: INKS[i % 3] }));
     $(`[data-w="${word}"]`, el.words).classList.add('found');
 
     const b = el.board.getBoundingClientRect(), s = b.width / S.n, mid = path[Math.floor(path.length / 2)];
@@ -355,8 +346,11 @@
     el.play.hidden = true; el.start.hidden = false; el.pause.hidden = true; syncSetup(); scrollTo(0, 0);
   };
   const startGame = (level, mode) => {
-    const L = LEVELS[level], words = shuffle(WORDS.map((w) => w[0])).slice(0, L.count);
-    const { grid, placed } = generate(L, words);
+    const L = LEVELS[level]; let made = null;
+    // a rare word set cannot be laid out; draw another instead of leaving the player on an empty board
+    for (let k = 0; k < 6 && !made; k++) { try { made = generate(L, shuffle(WORDS.map((w) => w[0])).slice(0, L.count)); } catch { made = null; } }
+    if (!made) return;
+    const { grid, placed } = made;
     S = { level, mode, n: L.n, grid, placed, words: placed.map((p) => p.word).sort((a, b) => a.length - b.length || a.localeCompare(b, 'ar')), found: new Set(), hints: 3, hintsUsed: 0, t: 0, limit: L.time, paused: false, over: false, anchor: null, live: null };
     embers(false); el.body.dataset.screen = 'play'; el.body.style.setProperty('--dawn', 0);
     el.start.hidden = true; el.play.hidden = false; el.pause.hidden = false; el.board.classList.remove('paused');
