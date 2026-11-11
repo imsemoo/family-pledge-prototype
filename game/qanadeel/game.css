@@ -18,7 +18,7 @@ body:not([data-screen="win"]) .sky__land { opacity: 0.85; }
 .sky__land svg { display: block; width: 100%; height: auto; }
 .dome-dawn { opacity: 0; transition: opacity 1.8s var(--e-out); }
 body[data-screen="win"] .dome-dawn { opacity: 1; }
-.start__cast { width: min(46%, 10.5rem); margin-block: -0.2rem 0; filter: drop-shadow(0 0 30px rgb(244 183 64 / 0.4)); }
+.start__cast { width: min(24%, 5.4rem); margin-block: -0.2rem 0; filter: drop-shadow(0 0 30px rgb(244 183 64 / 0.4)); }
 .start__cast img, .dlg-art img { display: block; width: 100%; height: auto; }
 .start__cast svg, .dlg-art svg { display: block; width: 100%; height: auto; }
 .helper { display: flex; align-items: center; justify-content: center; gap: 0.6rem; width: min(100%, 34rem); min-height: 3.2rem; }
@@ -183,3 +183,7 @@ dialog.win { width: min(94vw, 34rem); }
 .win__story { font-size: 0.98rem; line-height: 1.95; text-align: start; background: var(--teal-50); border-radius: var(--r-m); padding: 0.8rem 1rem; }
 
 @media (prefers-reduced-motion: reduce) { .ember, .spark { display: none; } }
+
+#win-art img { border-radius: 50%; aspect-ratio: 1; object-fit: cover; }
+
+.helper__who, .dlg-art--s { display: none; }

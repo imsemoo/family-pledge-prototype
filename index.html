@@ -10,12 +10,10 @@
 <link rel="icon" href="assets/img/logo-mark.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;700;800&family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="assets/img/hero/cloth-wide.webp" media="(min-width: 761px)" fetchpriority="high">
-<link rel="preload" as="image" href="assets/img/hero/cloth-tall.webp" media="(max-width: 760px)" fetchpriority="high">
-<link rel="stylesheet" href="assets/css/fp.css?v=14">
-<link rel="stylesheet" href="assets/css/home.css?v=14">
-<link rel="stylesheet" href="assets/css/world.css?v=14">
+<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Baloo+Bhaijaan+2:wght@500;700;800&family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/fp.css?v=30">
+<link rel="stylesheet" href="assets/css/home.css?v=30">
+<link rel="stylesheet" href="assets/css/world.css?v=30">
 </head>
 <body>
 <a class="skip" href="#main">تخط إلى المحتوى</a>
@@ -23,6 +21,7 @@
 <!-- icons: one stroke family, 24px grid -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
     <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></symbol>
     <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></symbol>
     <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
@@ -115,112 +114,131 @@
   <a class="btn" href="https://familypledge.org/SharePledge"><span class="stitch"></span>وقع الميثاق</a>
 </div>
 
-<main id="main" data-sew>
+<main id="main">
 
-<!-- ============ hero: the cloth is the world ============ -->
+<!-- ============ hero: the pledge, held between the logo's two hands, signed by the visitor ============ -->
 <section class="hero">
-  <div class="hero__art">
-    <picture>
-      <source media="(max-width: 760px)" srcset="assets/img/hero/cloth-tall.webp" width="900" height="1350">
-      <img src="assets/img/hero/cloth-wide.webp" width="1536" height="864" fetchpriority="high" decoding="async" alt="يدا جدة تطرزان قماشا أبيض، والتطريز ينهض من القماش قرية صغيرة: بيتان من حجر وعائلتان تلوح كل منهما للأخرى، وخيط وردي واحد يخرج من الإبرة ويربط البيتين">
-    </picture>
-    <svg class="hero__glint" viewBox="0 0 1536 864" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><path id="hero-thread" d="M1200 576C1150 590 1090 598 1030 588S900 534 840 516S750 496 712 492" fill="none"/><g class="hero__run"></g></svg>
-  </div>
-  <div class="hero__copy">
-    <p class="eyebrow" data-reveal><span class="dots"><i></i><i></i><i></i></span>عهد عائلة.. لعائلة</p>
-    <h1 data-reveal style="--i:1">بيت يوقع.. <em>وبيت في فلسطين يصمد</em></h1>
-    <p class="hero__lead" data-reveal style="--i:2">ميثاق عهد تلتزم فيه عائلتك بنصرة أهلنا في فلسطين: توقيع باسم العائلة، ودعم شهري أو مشاركة مجانية، وحقيبة توعوية تصل بيتك كل شهر.</p>
-    <div class="hero__cta" data-reveal style="--i:3">
-      <a class="btn" href="https://familypledge.org/SharePledge"><span class="stitch"></span>وقع الميثاق</a>
-      <a class="btn btn--line" href="https://www.youtube.com/watch?v=FBhZSTvALNQ" target="_blank" rel="noopener"><svg class="ic"><use href="#i-play"/></svg>شاهد كيف تشارك</a>
+  <div class="hero__grid">
+    <div class="hero__copy">
+      <p class="eyebrow" data-reveal><span class="dots"><i></i><i></i><i></i></span>عهد عائلة.. لعائلة</p>
+      <h1 data-reveal style="--i:1">بيت يوقع.. <em>وبيت في فلسطين يصمد</em></h1>
+      <p class="hero__lead" data-reveal style="--i:2">ميثاق عهد تلتزم فيه عائلتك بنصرة أهلنا في فلسطين: توقيع باسم العائلة، ودعم شهري أو مشاركة مجانية، وحقيبة توعوية تصل بيتك كل شهر.</p>
+      <div class="hero__cta" data-reveal style="--i:3">
+        <a class="btn" href="https://familypledge.org/SharePledge"><span class="stitch"></span>وقع الميثاق</a>
+        <a class="btn btn--line" href="https://www.youtube.com/watch?v=FBhZSTvALNQ" target="_blank" rel="noopener"><svg class="ic"><use href="#i-play"/></svg>شاهد كيف تشارك</a>
+      </div>
+    </div>
+
+    <div class="stage">
+      <img class="hand hand--rose" src="assets/img/world/hand-rose.webp" alt="" width="900" height="900" fetchpriority="high">
+      <img class="hand hand--teal" src="assets/img/world/hand-teal.webp" alt="" width="900" height="900" fetchpriority="high">
+      <form class="deed" action="https://familypledge.org/SharePledge" method="get" novalidate aria-label="جرب توقيع الميثاق باسم عائلتك">
+        <span class="deed__no">رقم التوقيع<b class="num">25,048</b></span>
+        <p class="deed__head"><img src="assets/img/world/seal-mark.webp" alt="" width="360" height="316">ميثاق العائلة</p>
+        <p class="deed__text">نتعهد، نحن عائلة</p>
+        <label class="deed__line"><span class="sr-only">اسم العائلة</span><input type="text" placeholder="اكتب اسم عائلتك هنا" maxlength="22" autocomplete="off" enterkeyhint="done"></label>
+        <svg class="deed__flourish" viewBox="0 0 240 24" preserveAspectRatio="none" aria-hidden="true"><path d="M4 14c40-12 70 10 110-2s70-8 122 2"/></svg>
+        <p class="deed__text">بنصرة أهلنا في فلسطين، وبأن تبقى قضيتها حاضرة في بيتنا.</p>
+        <p class="deed__msg" role="status" aria-live="polite"></p>
+        <button class="btn" type="submit"><span class="stitch"></span>وقع</button>
+        <span class="seal" aria-hidden="true">
+          <svg viewBox="0 0 120 120"><defs><path id="seal-arc" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1-92 0"/></defs><circle cx="60" cy="60" r="57" fill="#fff" stroke="#b03a62" stroke-width="2.5"/><circle cx="60" cy="60" r="36" fill="none" stroke="#b03a62" stroke-width="1.2" stroke-dasharray="2 4"/><text font-family="Rubik, sans-serif" font-size="9.5" font-weight="700" fill="#b03a62" letter-spacing="0"><textPath href="#seal-arc" startOffset="0">ميثاق العائلة · عهد لا ينسى · ميثاق العائلة · عهد لا ينسى ·</textPath></text></svg>
+          <img src="assets/img/world/seal-mark.webp" alt="" width="360" height="316">
+        </span>
+      </form>
+      <span class="hero__note" aria-hidden="true">اكتب اسم عائلتك<svg viewBox="0 0 68 40"><path d="M4 8c22-8 44 2 56 22M60 30l-12-2M60 30l2-12"/></svg></span>
+      <img class="hero__raed" src="assets/img/world/raed.webp" alt="رائد، أحد شخصيات حكايات ميثاق العائلة" width="307" height="900">
     </div>
   </div>
-  <p class="hero__next"><span class="stitch"></span><span>توقيع عائلتك سيكون رقم <b class="num">25,048</b></span></p>
 </section>
 
-<!-- ============ the pledge, told in three scenes ============ -->
-<section class="section section--mist" id="pledge">
+<!-- ============ tales: an editorial spread ============ -->
+<section class="section section--mist" id="tales">
   <div class="wrap">
-    <div class="head head--mid" data-reveal>
+    <div class="spread">
+      <div class="spread__lead" data-reveal>
+        <p class="eyebrow"><span class="dots"><i></i><i></i><i></i></span>حكايات الميثاق</p>
+        <h2>الجدة تحكي، ورائد ويافا يسألان</h2>
+        <p>في كل حلقة تجلس الجدة مع حفيديها وتفتح لهما بابا على فلسطين: مسجد، مخيم، ثوب، عرس، وزيتونة. هذه الحكايات تصل بيتك بعد التوقيع.</p>
+        <ul class="cast-row">
+          <li><img src="assets/img/world/cast-jadda-1.webp" alt="" width="360" height="360" loading="lazy">الجدة</li>
+          <li><img src="assets/img/world/cast-raed-2.webp" alt="" width="360" height="360" loading="lazy">رائد</li>
+          <li><img src="assets/img/world/cast-yafa-1.webp" alt="" width="360" height="360" loading="lazy">يافا</li>
+        </ul>
+        <a class="link" href="https://familypledge.org/Bagdetails/E4BD7361-27D6-4E74-BD48-109342E804C6#premium">كل الحلقات<svg class="ic"><use href="#i-arrow"/></svg></a>
+      </div>
+      <a class="spread__feature" data-reveal href="https://familypledge.org/Bagdetails/E4BD7361-27D6-4E74-BD48-109342E804C6#premium">
+        <img src="assets/img/world/scene-study.webp" alt="رائد يكتب على الحاسوب ويافا والجدة بجانبه" width="1200" height="900" loading="lazy">
+        <span class="spread__cap"><svg class="ic"><use href="#i-mic"/></svg>بودكاست للعائلة، حلقة كل شهر</span>
+      </a>
+    </div>
+    <ol class="shelf" data-shelf="https://familypledge.org/Bagdetails/E4BD7361-27D6-4E74-BD48-109342E804C6#premium" data-stagger></ol>
+  </div>
+</section>
+
+<!-- ============ the pledge: a path and a sheet ============ -->
+<section class="section" id="pledge">
+  <div class="wrap">
+    <div class="head" data-reveal>
       <p class="eyebrow"><span class="dots"><i></i><i></i><i></i></span>ما هو ميثاق العائلة</p>
       <h2>ثلاث خطوات تربط بيتك ببيت في فلسطين</h2>
     </div>
-    <ol class="tale" data-stagger>
-      <li class="tale__step" data-reveal>
-        <div class="tale__art" data-scene="step1"></div>
-        <span class="step__n num">1</span>
-        <h3>وقع باسم عائلتك</h3>
-        <p>التوقيع متاح مجانا، أو مع تعهد بالتبرع بعشرة دولارات شهريا لمدة عام تذهب لدعم العائلات الفلسطينية.</p>
-      </li>
-      <li class="tale__step" data-reveal>
-        <div class="tale__art" data-scene="step2"></div>
-        <span class="step__n num">2</span>
-        <h3>استلم وثيقة الميثاق</h3>
-        <p>وثيقة باسم عائلتكم، تقرؤونها معا وتعلقونها في البيت عهدا لا ينسى.</p>
-        <button class="link" type="button" data-open="doc">شاهد الوثيقة<svg class="ic"><use href="#i-arrow"/></svg></button>
-      </li>
-      <li class="tale__step" data-reveal>
-        <div class="tale__art" data-scene="step3"></div>
-        <span class="step__n num">3</span>
-        <h3>تصلكم حقيبة توعوية كل شهر</h3>
-        <p>كتب وقصص وبودكاست وألعاب تبقي القضية حاضرة في بيتكم، وتجعل أطفالكم أصحاب قضية.</p>
-      </li>
-    </ol>
+    <div class="path">
+      <ol class="path__steps" data-stagger>
+        <li data-reveal>
+          <span class="step__n num">1</span>
+          <div><h3>وقع باسم عائلتك</h3><p>التوقيع متاح مجانا، أو مع تعهد بالتبرع بعشرة دولارات شهريا لمدة عام تذهب لدعم العائلات الفلسطينية.</p></div>
+          <div class="path__art"><div class="mini-deed" aria-hidden="true"><i></i><i></i><b>عائلتنا</b></div></div>
+        </li>
+        <li data-reveal>
+          <span class="step__n num">2</span>
+          <div><h3>استلم وثيقة الميثاق</h3><p>وثيقة باسم عائلتكم، تقرؤونها معا وتعلقونها في البيت عهدا لا ينسى.</p></div>
+          <div class="path__art"><img class="path__doc" src="assets/img/certificate.webp" alt="وثيقة ميثاق العائلة وفيها خانتان لاسم العائلة والدولة" width="1600" height="1135" loading="lazy" data-open="doc" tabindex="0" role="button"></div>
+        </li>
+        <li data-reveal>
+          <span class="step__n num">3</span>
+          <div><h3>تصلكم حقيبة توعوية كل شهر</h3><p>كتب وقصص وبودكاست وألعاب تبقي القضية حاضرة في بيتكم، وتجعل أطفالكم أصحاب قضية.</p></div>
+          <div class="path__art"><img class="path__face" src="assets/img/world/cast-yafa-2.webp" alt="يافا تكتب على الرمل" width="360" height="360" loading="lazy"></div>
+        </li>
+      </ol>
 
-    <form class="sign" data-reveal action="https://familypledge.org/SharePledge" method="get" aria-labelledby="sign-h">
-      <span class="sign__guide" data-scene="guide" data-fill="#e087a6" data-tail="no" aria-hidden="true"></span>
-      <div class="sign__pick">
+      <form class="sign" data-reveal action="https://familypledge.org/SharePledge" method="get" aria-labelledby="sign-h">
         <h3 id="sign-h">ابدأ التوقيع</h3>
         <div class="seg" role="radiogroup" aria-label="نوع المشاركة">
           <label><input type="radio" name="plan" value="donate" checked><strong class="num">$10</strong><small>شهريا لمدة عام</small></label>
           <label><input type="radio" name="plan" value="free"><strong>مجانا</strong><small>توقيع بلا تبرع</small></label>
         </div>
-      </div>
-      <ul class="sign__gets" aria-live="polite">
-        <li><span class="stitch"></span>وثيقة ميثاق العائلة باسم عائلتك</li>
-        <li><span class="stitch"></span>المحتوى المجاني: كتب وقصص وفيديوهات مختارة</li>
-        <li data-paid><span class="stitch"></span>وصول كامل للمساقات والبطاقات والمواد الحصرية المتجددة</li>
-        <li data-paid><span class="stitch"></span>دعم مباشر لصمود المرأة المعيلة وعائلتها</li>
-      </ul>
-      <div class="sign__go">
+        <ul class="sign__gets" aria-live="polite">
+          <li><svg class="ic"><use href="#i-check"/></svg>وثيقة ميثاق العائلة باسم عائلتك</li>
+          <li><svg class="ic"><use href="#i-check"/></svg>المحتوى المجاني: كتب وقصص وفيديوهات مختارة</li>
+          <li data-paid><svg class="ic"><use href="#i-check"/></svg>وصول كامل للمساقات والبطاقات والمواد الحصرية</li>
+          <li data-paid><svg class="ic"><use href="#i-check"/></svg>دعم مباشر لصمود المرأة المعيلة وعائلتها</li>
+        </ul>
         <button class="btn" type="submit"><span class="stitch"></span>أكمل التوقيع</button>
         <p class="sign__note">يكتمل التوقيع في صفحة الميثاق على الموقع.</p>
-      </div>
-    </form>
-
-    <div class="pledge__foot" data-reveal>
-      <p><b>لمن الميثاق؟</b> العائلات والأسر المتفاعلة مع القضية الفلسطينية من كل أنحاء العالم، وجميع الأحرار والمناصرين لها.</p>
-      <div class="pledge__links">
-        <a class="link" href="https://familypledge.org/ReadPledge">اقرأ الميثاق مع عائلتك<svg class="ic"><use href="#i-arrow"/></svg></a>
-        <a class="link" href="https://dashboard.familypledge.org/images/Data/48bf4d78-0580-4533-a1de-7fbbaf3fbaf1.jpg" target="_blank" rel="noopener"><svg class="ic"><use href="#i-down-load"/></svg>بروشور الميثاق</a>
-      </div>
+        <p class="sign__links"><a class="link" href="https://familypledge.org/ReadPledge">اقرأ الميثاق<svg class="ic"><use href="#i-arrow"/></svg></a><a class="link" href="https://dashboard.familypledge.org/images/Data/48bf4d78-0580-4533-a1de-7fbbaf3fbaf1.jpg" target="_blank" rel="noopener"><svg class="ic"><use href="#i-down-load"/></svg>البروشور</a></p>
+      </form>
     </div>
   </div>
 </section>
 
 <!-- ============ the bag ============ -->
-<section class="section" id="bag">
+<section class="section section--mist" id="bag">
   <div class="wrap">
-    <div class="bagwrap">
-      <div class="bagwrap__art" data-scene="bag" data-reveal></div>
-      <div>
-        <div class="head" data-reveal>
-          <p class="eyebrow"><span class="dots"><i></i><i></i><i></i></span>في جعبتنا</p>
-          <h2>ما يصل بيتك بعد التوقيع</h2>
-          <p>قصص أبطال، وحكايا تزرع حب القدس في قلوب أطفالكم، ورحلات في مدن فلسطين وحاراتها.</p>
-        </div>
-        <ul class="bag" data-stagger>
-          <li data-reveal><a href="https://familypledge.org/Ourbag"><span class="bag__ic"><svg class="ic"><use href="#i-book"/></svg></span>كتب</a></li>
-          <li data-reveal><a href="https://familypledge.org/Ourbag"><span class="bag__ic"><svg class="ic"><use href="#i-video"/></svg></span>فيديوهات</a></li>
-          <li data-reveal><a href="https://familypledge.org/Bagdetails/E4BD7361-27D6-4E74-BD48-109342E804C6#premium"><span class="bag__ic"><svg class="ic"><use href="#i-mic"/></svg></span>بودكاست</a></li>
-          <li data-reveal><a href="https://familypledge.org/Ourbag"><span class="bag__ic"><svg class="ic"><use href="#i-image"/></svg></span>قصص مصورة</a></li>
-          <li data-reveal><a href="https://familypledge.org/Ourbag"><span class="bag__ic"><svg class="ic"><use href="#i-cards"/></svg></span>بطاقات</a></li>
-          <li data-reveal><a href="https://familypledge.org/Ourbag"><span class="bag__ic"><svg class="ic"><use href="#i-file"/></svg></span>مقالات</a></li>
-          <li data-reveal><a href="https://familypledge.org/Games/1D58B8C4-B755-4664-A328-9B608DFC798A#premium"><span class="bag__ic"><svg class="ic"><use href="#i-game"/></svg></span>ألعاب</a></li>
-        </ul>
-        <a class="link" href="https://familypledge.org/Ourbag" data-reveal>كل ما في الجعبة<svg class="ic"><use href="#i-arrow"/></svg></a>
-      </div>
+    <div class="head head--row" data-reveal>
+      <p class="eyebrow"><span class="dots"><i></i><i></i><i></i></span>في جعبتنا</p>
+      <h2>ما يصل بيتك بعد التوقيع</h2>
+      <a class="link head__side" href="https://familypledge.org/Ourbag">كل ما في الجعبة<svg class="ic"><use href="#i-arrow"/></svg></a>
     </div>
+    <ul class="bag" data-stagger>
+      <li data-reveal><a href="https://familypledge.org/Ourbag"><img src="assets/img/world/cat-1.webp" alt="" width="180" height="180" loading="lazy">كتب</a></li>
+      <li data-reveal><a href="https://familypledge.org/Ourbag"><img src="assets/img/world/cat-2.webp" alt="" width="180" height="180" loading="lazy">فيديوهات</a></li>
+      <li data-reveal><a href="https://familypledge.org/Bagdetails/E4BD7361-27D6-4E74-BD48-109342E804C6#premium"><img src="assets/img/world/cat-3.webp" alt="" width="180" height="180" loading="lazy">بودكاست</a></li>
+      <li data-reveal><a href="https://familypledge.org/Ourbag"><img src="assets/img/world/cat-4.webp" alt="" width="180" height="180" loading="lazy">قصص مصورة</a></li>
+      <li data-reveal><a href="https://familypledge.org/Ourbag"><img src="assets/img/world/cat-5.webp" alt="" width="180" height="180" loading="lazy">بطاقات</a></li>
+      <li data-reveal><a href="https://familypledge.org/Ourbag"><img src="assets/img/world/cat-6.webp" alt="" width="180" height="180" loading="lazy">مقالات</a></li>
+      <li data-reveal><a href="https://familypledge.org/Games/1D58B8C4-B755-4664-A328-9B608DFC798A#premium"><img src="assets/img/world/cat-7.webp" alt="" width="180" height="180" loading="lazy">ألعاب</a></li>
+    </ul>
 
     <div class="spot on-dark" data-reveal>
       <div class="spot__copy">
@@ -230,28 +248,36 @@
         <p class="spot__tags"><span><svg class="ic"><use href="#i-light"/></svg>20 قنديلا</span><span><svg class="ic"><use href="#i-smile"/></svg>لكل العائلة</span><span><svg class="ic"><use href="#i-game"/></svg>جوال وحاسوب</span></p>
         <a class="btn" href="game/qanadeel/"><span class="stitch"></span>العب الآن</a>
       </div>
-      <div class="spot__art" data-scene="night" aria-hidden="true"></div>
+      <div class="spot__art">
+        <img class="spot__scene" src="assets/img/world/scene-lantern.webp" alt="الجدة مع رائد ويافا حول مائدة رمضان، ويافا تحمل فانوسا مضاء" width="1081" height="667" loading="lazy">
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ============ three vows ============ -->
-<section class="section section--mist" id="goals">
-  <div class="wrap">
-    <div class="head head--mid" data-reveal>
-      <p class="eyebrow"><span class="dots"><i></i><i></i><i></i></span>لماذا الميثاق</p>
-      <h2>ثلاثة عهود يحملها كل توقيع</h2>
-    </div>
-    <div class="vows" data-stagger>
-      <article class="vow" data-reveal><div class="vow__art embrace"><div data-scene="goal1"></div></div><h3>التوعية بالقضية الفلسطينية</h3><p>لإبقاء القضية الفلسطينية حاضرة في كل بيت في العالم وإحيائها.</p></article>
-      <article class="vow" data-reveal><div class="vow__art embrace"><div data-scene="goal2"></div></div><h3>دعم المرأة الفلسطينية</h3><p>دعم وتعزيز صمود المرأة الفلسطينية والعائلة الفلسطينية.</p></article>
-      <article class="vow" data-reveal><div class="vow__art embrace"><div data-scene="goal3"></div></div><h3>تعزيز الثقافة الفلسطينية</h3><p>ربط الأسر المسلمة عقائديا وعاطفيا بالقدس والأقصى المبارك.</p></article>
+<!-- ============ three vows: one scene, three lines ============ -->
+<section class="section" id="goals">
+  <div class="wrap vowsplit">
+    <figure class="vowsplit__pic" data-reveal>
+      <img src="assets/img/world/scene-shop.webp" alt="يافا ورائد مع الجدة بين الأثواب الفلسطينية في دكان" width="1200" height="900" loading="lazy">
+      <img class="vowsplit__stamp" src="assets/img/world/cast-jadda-2.webp" alt="" width="360" height="360" loading="lazy">
+    </figure>
+    <div>
+      <div class="head" data-reveal>
+        <p class="eyebrow"><span class="dots"><i></i><i></i><i></i></span>لماذا الميثاق</p>
+        <h2>ثلاثة عهود يحملها كل توقيع</h2>
+      </div>
+      <ol class="vowlist" data-stagger>
+        <li data-reveal><span class="vowlist__ic"><svg class="ic"><use href="#i-light"/></svg></span><div><h3>التوعية بالقضية الفلسطينية</h3><p>لإبقاء القضية الفلسطينية حاضرة في كل بيت في العالم وإحيائها.</p></div></li>
+        <li data-reveal><span class="vowlist__ic"><svg class="ic"><use href="#i-heart"/></svg></span><div><h3>دعم المرأة الفلسطينية</h3><p>دعم وتعزيز صمود المرأة الفلسطينية والعائلة الفلسطينية.</p></div></li>
+        <li data-reveal><span class="vowlist__ic"><svg class="ic"><use href="#i-home"/></svg></span><div><h3>تعزيز الثقافة الفلسطينية</h3><p>ربط الأسر المسلمة عقائديا وعاطفيا بالقدس والأقصى المبارك.</p></div></li>
+      </ol>
     </div>
   </div>
 </section>
 
 <!-- ============ projects ============ -->
-<section class="section" id="projects">
+<section class="section section--mist" id="projects">
   <div class="wrap">
     <div class="head head--row" data-reveal>
       <p class="eyebrow"><span class="dots"><i></i><i></i><i></i></span>مشاريعنا</p>
@@ -267,7 +293,7 @@
           <span class="link">ادعم المشروع<svg class="ic"><use href="#i-arrow"/></svg></span>
         </div>
       </a>
-      <a class="work work--b" data-reveal href="https://familypledge.org/project/D63BBC29-335D-4BE0-938E-BB426D021E88">
+      <a class="work" data-reveal href="https://familypledge.org/project/D63BBC29-335D-4BE0-938E-BB426D021E88">
         <div class="work__photo"><img src="assets/img/proj-center.webp" alt="سيدة تعمل داخل مركز الميثاق لتمكين المرأة المعيلة" width="1600" height="1067" loading="lazy"></div>
         <div class="work__body">
           <span class="project__tag"><svg class="ic"><use href="#i-heart"/></svg>تمكين اقتصادي</span>
@@ -279,12 +305,18 @@
   </div>
 </section>
 
-<!-- ============ numbers: the cloth ============ -->
+<!-- ============ numbers ============ -->
 <section class="section numbers on-dark" id="numbers">
   <div class="wrap">
-    <div class="head" data-reveal>
-      <p class="eyebrow"><span class="dots"><i></i><i></i><i></i></span>الميثاق بالأرقام</p>
-      <h2>ثوب يكبر بكل بيت ينضم</h2>
+    <div class="numbers__top" data-reveal>
+      <div class="head">
+        <p class="eyebrow"><span class="dots"><i></i><i></i><i></i></span>الميثاق بالأرقام</p>
+        <h2>كل رقم هنا توقيع عائلة</h2>
+      </div>
+      <span class="seal seal--show numbers__seal" aria-hidden="true">
+        <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="57" fill="#fff" stroke="#b03a62" stroke-width="2.5"/><circle cx="60" cy="60" r="36" fill="none" stroke="#b03a62" stroke-width="1.2" stroke-dasharray="2 4"/><g class="seal__ring"><text font-family="Rubik, sans-serif" font-size="9.500" font-weight="700" fill="#b03a62"><textPath href="#seal-arc">ميثاق العائلة · عهد لا ينسى · ميثاق العائلة · عهد لا ينسى ·</textPath></text></g></svg>
+        <img src="assets/img/world/seal-mark.webp" alt="" width="360" height="316" loading="lazy">
+      </span>
     </div>
     <div class="stats" data-stagger>
       <div class="stat" data-reveal><svg class="ic"><use href="#i-pen"/></svg><b class="num" data-count="25047">25,047</b><span>توقيعا على الميثاق</span></div>
@@ -292,19 +324,11 @@
       <div class="stat" data-reveal><svg class="ic"><use href="#i-smile"/></svg><b class="num"><span data-count="80">80</span><small>K</small></b><span>طفلا</span></div>
       <div class="stat" data-reveal><svg class="ic"><use href="#i-globe"/></svg><b class="num" data-count="30">30</b><span>دولة</span></div>
     </div>
-
-    <div class="cloth" data-reveal>
-      <span class="cloth__sewer" data-scene="sewer" aria-hidden="true"></span>
-      <span class="cloth__you" id="you">مكان غرزة عائلتك</span>
-      <canvas data-band="dark" data-rows="11" data-unsewn="7" data-interactive role="img" aria-label="ثوب مطرز يكتمل غرزة بعد غرزة، تخيطه الجدة وداد، وآخره غرزة مضيئة تنتظر عائلتك"></canvas>
-      <p class="cloth__cap">الجدة وداد تخيط الثوب: كل توقيع غرزة، والغرزة التالية لعائلتك.</p>
-    </div>
-
     <div class="lands" data-reveal>
       <div>
         <h3>الدول الأعلى مشاركة</h3>
-        <p>من البرازيل إلى أستراليا، الخيط نفسه يمر في بيوت متباعدة.</p>
-        <p class="lands__key"><span class="stitch" style="color:var(--rose-400)"></span>كل غرزة = 10 مشتركين</p>
+        <p>من البرازيل إلى أستراليا، العهد نفسه في بيوت متباعدة.</p>
+        <p class="lands__key"><span class="stitch" style="color:var(--rose-400)"></span>كل نقطة = 10 مشتركين</p>
       </div>
       <ol>
         <li><span>البرازيل</span><span class="row" aria-hidden="true"><i style="--k:0"></i><i style="--k:1"></i><i style="--k:2"></i><i style="--k:3"></i><i style="--k:4"></i><i style="--k:5"></i><i style="--k:6"></i></span><b class="num">70</b></li>
@@ -329,27 +353,27 @@
     <div class="voices__track" data-track tabindex="0" aria-label="آراء المشاركين في الميثاق">
       <figure class="voice">
         <div class="voice__bubble"><blockquote class="voice__q">فلسطين أمانة سنسأل عنها أمام الله، إنني أدعوكم وأشجعكم وأناشدكم للانضمام إلى ميثاق العائلة، والمساهمة باستمرار بمبلغ 10 دولار فقط شهريا.</blockquote><button class="voice__more" type="button" data-more aria-expanded="false">اقرأ المزيد</button></div>
-        <figcaption class="voice__who"><div class="embrace"><img src="assets/img/person-1.webp" alt="" width="300" height="300" loading="lazy"></div><div><b>عبد الرحمن إسحاق</b><span>إمام مسجد باركلاندز، نيروبي</span></div></figcaption>
+        <figcaption class="voice__who"><img src="assets/img/person-1.webp" alt="" width="300" height="300" loading="lazy"><div><b>عبد الرحمن إسحاق</b><span>إمام مسجد باركلاندز، نيروبي</span></div></figcaption>
       </figure>
       <figure class="voice">
         <div class="voice__bubble"><blockquote class="voice__q">مشروع ميثاق العائلة من المشاريع المستدامة لدعم العائلات الفلسطينية التي لم تحصل على حقوقها الأساسية المسلوبة من قبل الاحتلال الصهيوني. هذا المشروع من أهم المشاريع التي نفذها ائتلاف المرأة العالمي نصرة للمرأة الفلسطينية. من خلال هذا المشروع يمكن للمرأة المسلمة أن تتحرك يدا بيد لإنجاحه حتى تنال كل امرأة فلسطينية حق الحرية.</blockquote><button class="voice__more" type="button" data-more aria-expanded="false">اقرأ المزيد</button></div>
-        <figcaption class="voice__who"><div class="embrace"><img src="assets/img/person-2.webp" alt="" width="300" height="300" loading="lazy"></div><div><b>الأستاذة نور جنة حلواني</b><span>رئيسة ائتلاف المرأة العالمي لنصرة القدس وفلسطين</span></div></figcaption>
+        <figcaption class="voice__who"><img src="assets/img/person-2.webp" alt="" width="300" height="300" loading="lazy"><div><b>الأستاذة نور جنة حلواني</b><span>رئيسة ائتلاف المرأة العالمي لنصرة القدس وفلسطين</span></div></figcaption>
       </figure>
       <figure class="voice">
         <div class="voice__bubble"><blockquote class="voice__q">إنه استعادة للكرامة، وحماية للحياة، وتكريم لقوة النساء اللواتي يحملن أسرهن ويحمينها في وجه الحصار والتهجير والفقدان.</blockquote><button class="voice__more" type="button" data-more aria-expanded="false">اقرأ المزيد</button></div>
-        <figcaption class="voice__who"><div class="embrace"><img src="assets/img/person-3.webp" alt="" width="300" height="300" loading="lazy"></div><div><b>د. فوزية محمد حسن</b><span>رئيسة ائتلاف نساء آسيا والمحيط الهادئ من أجل القدس وفلسطين</span></div></figcaption>
+        <figcaption class="voice__who"><img src="assets/img/person-3.webp" alt="" width="300" height="300" loading="lazy"><div><b>د. فوزية محمد حسن</b><span>رئيسة ائتلاف نساء آسيا والمحيط الهادئ من أجل القدس وفلسطين</span></div></figcaption>
       </figure>
       <figure class="voice">
         <div class="voice__bubble"><blockquote class="voice__q">نحن نؤمن بأن دعم المرأة الفلسطينية المعيلة لأسرتها هو دعم لصمود العائلة الفلسطينية بأكملها، ومن هذا المنطلق نساند ميثاق العائلة، وندعو الجميع للوقوف معنا في هذا المسار الإنساني، نصرة للعدالة وتضامنا مع فلسطين.</blockquote><button class="voice__more" type="button" data-more aria-expanded="false">اقرأ المزيد</button></div>
-        <figcaption class="voice__who"><div class="embrace"><img src="assets/img/person-4.webp" alt="" width="300" height="300" loading="lazy"></div><div><b>سيري فيرا جاندرا</b><span>رئيسة مؤسسة الأدارا العالمية للإغاثة الإندونيسية</span></div></figcaption>
+        <figcaption class="voice__who"><img src="assets/img/person-4.webp" alt="" width="300" height="300" loading="lazy"><div><b>سيري فيرا جاندرا</b><span>رئيسة مؤسسة الأدارا العالمية للإغاثة الإندونيسية</span></div></figcaption>
       </figure>
       <figure class="voice">
         <div class="voice__bubble"><blockquote class="voice__q">أتعهد بدعم مشروع ميثاق العائلة لنصرة المرأة الفلسطينية المعيلة لأسرتها، ومن خلال التزامي وموقعي، أحث أبناء الأمة جميعا على أن يلتزموا بهذا الميثاق، ليكونوا عونا لشعبنا الفلسطيني في صموده.</blockquote><button class="voice__more" type="button" data-more aria-expanded="false">اقرأ المزيد</button></div>
-        <figcaption class="voice__who"><div class="embrace"><img src="assets/img/person-5.webp" alt="" width="300" height="300" loading="lazy"></div><div><b>منير جرادة</b><span>الأمين العام للائتلاف العالمي لنصرة القدس وفلسطين</span></div></figcaption>
+        <figcaption class="voice__who"><img src="assets/img/person-5.webp" alt="" width="300" height="300" loading="lazy"><div><b>منير جرادة</b><span>الأمين العام للائتلاف العالمي لنصرة القدس وفلسطين</span></div></figcaption>
       </figure>
       <figure class="voice">
         <div class="voice__bubble"><blockquote class="voice__q">ميثاق العائلة يدعم العائلة الفلسطينية في أكناف بيت المقدس، وهو مشروع استراتيجي فمن مصلحة الأمة دعم الشعب الفلسطيني والمرابطين في الأقصى، نشكر كل من ساهم في ميثاق العائلة، وقعت ميثاق العائلة لأتبنى أسرة فلسطينية لمدة عام.</blockquote><button class="voice__more" type="button" data-more aria-expanded="false">اقرأ المزيد</button></div>
-        <figcaption class="voice__who"><div class="embrace"><img src="assets/img/person-6.webp" alt="" width="541" height="541" loading="lazy"></div><div><b>وليد الطبطبائي</b><span>نائب سابق في مجلس الأمة الكويتي</span></div></figcaption>
+        <figcaption class="voice__who"><img src="assets/img/person-6.webp" alt="" width="541" height="541" loading="lazy"><div><b>وليد الطبطبائي</b><span>نائب سابق في مجلس الأمة الكويتي</span></div></figcaption>
       </figure>
     </div>
     <a class="link" href="https://familypledge.org/whoshare" data-reveal>كل المشاركين في الميثاق<svg class="ic"><use href="#i-arrow"/></svg></a>
@@ -383,24 +407,23 @@
   </div>
 </section>
 
-<!-- ============ closing call: the logo, alive ============ -->
+<!-- ============ closing call: the two hands, opened ============ -->
 <section class="section call">
-  <div class="wrap call__in" data-reveal>
-    <div class="call__art" data-scene="call"></div>
-    <div>
-      <h2>ازرع الوعي في بيتك، <em>وادعم صمود بيت آخر</em></h2>
-      <p>احصل على ميثاق العائلة أنت وعائلتك، وكن غرزة في ثوب يسند المرأة المعيلة وأطفالها.</p>
-      <div class="call__act">
-        <a class="btn" href="https://familypledge.org/SharePledge"><span class="stitch"></span>وقع الميثاق</a>
-        <a class="btn btn--line" href="https://familypledge.org/Contactus">تواصل معنا</a>
-      </div>
+  <img class="call__hand call__hand--rose" src="assets/img/world/hand-rose.webp" alt="" width="900" height="900" loading="lazy">
+  <img class="call__hand call__hand--teal" src="assets/img/world/hand-teal.webp" alt="" width="900" height="900" loading="lazy">
+  <div class="wrap call__mid" data-reveal>
+    <h2>ازرع الوعي في بيتك، <em>وادعم صمود بيت آخر</em></h2>
+    <p>احصل على ميثاق العائلة أنت وعائلتك، وكن سندا للمرأة المعيلة وأطفالها.</p>
+    <div class="call__act">
+      <a class="btn" href="https://familypledge.org/SharePledge"><span class="stitch"></span>وقع الميثاق</a>
+      <a class="btn btn--line" href="https://familypledge.org/Contactus">تواصل معنا</a>
     </div>
   </div>
 </section>
 </main>
 
 <footer class="footer on-dark">
-  <canvas class="band" data-band="dark" data-rows="5" aria-hidden="true"></canvas>
+  
   <div class="wrap">
     <div class="footer__grid">
       <div>
@@ -453,9 +476,8 @@
   <img src="assets/img/certificate.webp" alt="نص وثيقة ميثاق العائلة مع خانتين لاسم العائلة والدولة" width="1600" height="1135" loading="lazy">
 </dialog>
 
-<script src="assets/js/fp.js?v=14" defer></script>
-<script src="assets/js/cast.js?v=14" defer></script>
-<script src="assets/js/world.js?v=14" defer></script>
-<script defer src="assets/js/home.js?v=14"></script>
+<script src="assets/js/fp.js?v=30" defer></script>
+<script src="assets/js/world.js?v=30" defer></script>
+<script defer src="assets/js/home.js?v=30"></script>
 </body>
 </html>

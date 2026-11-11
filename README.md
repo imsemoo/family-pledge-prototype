@@ -5,8 +5,7 @@ Static prototype (HTML, CSS, JS, no build step) of a new identity and home page 
 - `index.html` — home page
 - `game/qanadeel/` — the word-search game «قناديل الأقصى»
 - `identity.html` — identity guide
-- `characters.html` — the character art-direction exploration
-- `assets/img/hero`, `assets/img/scenes` — painted illustration layers (sources in `art/`)
-- `assets/js/cast.js`, `assets/js/world.js` — the code-drawn pieces (sprite, sewn line, scroll needle) and scene wiring
+- `assets/img/world` — the platform's own art: the logo's two hands, the tale pictures, the cast portraits, the category icons (sources in `art/source`)
+- `versions/` — earlier directions kept as standalone copies
 
 Forms and calls to action link to the live site. Pages carry `noindex`.

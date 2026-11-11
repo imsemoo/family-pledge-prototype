@@ -62,10 +62,10 @@
     if (m !== 'calm') { if (!reduced) helper.firstElementChild.classList.add('is-pop'); if (!hold) moodT = setTimeout(() => mood('calm'), 1800); }
   };
   mood('calm');
-  $('#start-cast').innerHTML = '<img src="../../assets/img/scenes/lantern-kids.webp" alt="" width="350" height="560" decoding="async">';
+  $('#start-cast').innerHTML = '<img src="../../assets/img/world/raed.webp" alt="" width="307" height="900" decoding="async">';
   $('#pause-art').innerHTML = C.sprite({ mood: 'sleep', tail: false });
   $('#lose-art').innerHTML = C.sprite({ mood: 'calm', tail: false, fill: '#e087a6' });
-  $('#win-art').innerHTML = '<img src="../../assets/img/hero/family-a.webp" alt="" width="644" height="660" loading="lazy" decoding="async">';
+  $('#win-art').innerHTML = '<img src="../../assets/img/world/tale-18.webp" alt="" width="720" height="720" loading="lazy" decoding="async">';
   /* the skyline: the same dome and trees as the rest of the site, at night */
   const dome = (o) => P.dome(600, 220, 3.1, o);
   $('#land').innerHTML = `<svg viewBox="0 0 1200 220" preserveAspectRatio="xMidYMax meet" overflow="visible">

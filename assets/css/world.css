@@ -1,192 +1,241 @@
-/* ميثاق العائلة — the illustrated world: cast, scenes, and how they move.
-   Loads after fp.css. Motion here follows the same «غرزة» curve. */
+/* ميثاق العائلة — «بين يدين»
+   The identity is built from what the platform already owns: the two hands of its logo,
+   the pledge as a sheet of paper that is signed and sealed, and the cast of its own
+   stories (the grandmother, Raed and Yafa). Loads after fp.css and home.css. */
 
-/* ---------- cast ---------- */
-.cast { overflow: visible; display: block; }
-.cast .arm { transform: rotate(var(--rot, 0deg)); transition: transform 620ms var(--e-stitch); }
-.cast .arm--r { --rot: var(--ar, 0deg); }
-.cast .arm--l { --rot: var(--al, 0deg); }
-.cast.pose-wave { --ar: -128deg; }
-.cast.pose-wave-l { --al: 128deg; }
-.cast.pose-cheer { --ar: -138deg; --al: 138deg; }
-.cast.pose-up-r { --ar: -150deg; }
-.cast.pose-up-l { --al: 150deg; }
-.cast.pose-reach-r { --ar: -78deg; }
-.cast.pose-reach-l { --al: 78deg; }
-.cast.pose-open { --ar: -42deg; --al: 42deg; }
-.cast.pose-wave .arm--r, .cast.is-hi .arm--r { animation: cast-wave 900ms ease-in-out infinite alternate; }
-.cast.pose-wave-l .arm--l { animation: cast-wave-l 900ms ease-in-out infinite alternate; }
-.cast.is-hi { --ar: -128deg; }
-.cast.pose-cheer .arm--r { animation: cast-wave 700ms ease-in-out infinite alternate; }
-.cast.pose-cheer .arm--l { animation: cast-wave-l 700ms ease-in-out infinite alternate; }
-@keyframes cast-wave { from { transform: rotate(calc(var(--ar) + 9deg)); } to { transform: rotate(calc(var(--ar) - 11deg)); } }
-@keyframes cast-wave-l { from { transform: rotate(calc(var(--al) - 9deg)); } to { transform: rotate(calc(var(--al) + 11deg)); } }
+/* the hands turn as they close, so their boxes swing wider than the page: clip at the root */
+html, main { overflow-x: clip; }
 
-.cast__all { animation: cast-bob 4.4s ease-in-out infinite; animation-delay: calc(var(--dl, 0s) * -1); transform-box: fill-box; transform-origin: 50% 100%; }
-@keyframes cast-bob { 50% { transform: translateY(-1.6px) scaleY(1.012); } }
-.cast.is-hi .cast__all, .cast.pose-cheer .cast__all { animation: cast-hop 520ms var(--e-stitch) infinite alternate; }
-@keyframes cast-hop { to { transform: translateY(-7px); } }
-.cast__shadow { transform-box: fill-box; transform-origin: center; transition: transform var(--d-2); }
-.cast.is-hi .cast__shadow, .cast.pose-cheer .cast__shadow { transform: scaleX(0.82); }
-.cast__head { transform-box: fill-box; transform-origin: 50% 90%; transition: transform var(--d-3) var(--e-stitch); }
-.cast.is-hi .cast__head { transform: rotate(-5deg); }
-.cast .eye-dot, .ghurza .eye-dot { transform-box: fill-box; transform-origin: center; animation: blink 5.2s infinite; animation-delay: calc(var(--dl, 0s) * -1.3); }
-@keyframes blink { 0%, 95%, 100% { transform: scaleY(1); } 97.5% { transform: scaleY(0.1); } }
-.cast .eye-arc, .cast .mouth-open, .ghurza .eye-arc, .ghurza .mouth-open { display: none; }
-.cast.mood-happy .eye-dot, .cast.is-hi .eye-dot, .cast.pose-cheer .eye-dot, .ghurza.mood-happy .eye-dot { display: none; }
-.cast.mood-happy .eye-arc, .cast.is-hi .eye-arc, .cast.pose-cheer .eye-arc, .ghurza.mood-happy .eye-arc { display: inline; }
-.cast.mood-happy .mouth-smile, .cast.is-hi .mouth-smile, .cast.pose-cheer .mouth-smile, .cast.mood-wow .mouth-smile, .ghurza.mood-happy .mouth-smile, .ghurza.mood-wow .mouth-smile { display: none; }
-.cast.mood-happy .mouth-open, .cast.is-hi .mouth-open, .cast.pose-cheer .mouth-open, .cast.mood-wow .mouth-open, .ghurza.mood-happy .mouth-open, .ghurza.mood-wow .mouth-open { display: inline; }
-.cast.mood-wow .eye-dot, .ghurza.mood-wow .eye-dot { animation: none; transform: scale(1.35); }
-.ghurza.mood-sleep .eye-dot { display: none; } .ghurza.mood-sleep .eye-arc { display: inline; transform-box: fill-box; transform-origin: center; transform: scaleY(-1); }
-.ghurza.mood-sad .mouth-smile { transform-box: fill-box; transform-origin: center; transform: scaleY(-1) translateY(-2px); }
+:root { --f-sign: "Aref Ruqaa", "Baloo Bhaijaan 2", serif; --paper: #fff; --ink-sign: #1f6079; }
 
-.ghurza { overflow: visible; display: block; }
-.ghurza__body { transform-box: fill-box; transform-origin: center; animation: ghurza-float 3.2s ease-in-out infinite; }
-@keyframes ghurza-float { 50% { transform: translateY(-3px) rotate(3deg); } }
-.ghurza__tail { animation: thread-run 1.4s linear infinite; }
-.ghurza.is-pop .ghurza__body { animation: ghurza-pop 620ms var(--e-stitch); }
-@keyframes ghurza-pop { 35% { transform: scale(1.3) rotate(-10deg); } 70% { transform: scale(0.94) rotate(6deg); } }
-
-/* ---------- props in motion ---------- */
-.float { animation: float-up 4.6s ease-in-out infinite; animation-delay: calc(var(--i, 0) * -0.9s); }
-@keyframes float-up { 50% { transform: translateY(-7px); } }
-.flag { animation: flag-swing 3.4s ease-in-out infinite; animation-delay: calc(var(--i, 0) * -0.45s); }
-@keyframes flag-swing { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
-.lan-swing { animation: flag-swing 5s ease-in-out infinite; animation-delay: calc(var(--i, 0) * -0.8s); }
-.mend { stroke-dasharray: 16; animation: mend 5s var(--e-out) infinite; }
-@keyframes mend { 0% { stroke-dashoffset: 16; } 30%, 100% { stroke-dashoffset: 0; } }
-[data-scene] svg { display: block; width: 100%; height: auto; overflow: visible; }
-
-/* ---------- hero: the cloth is the world ----------
-   One painted picture: a grandmother's hands embroider a white cloth, and what she
-   stitches stands up as two homes and their families, tied by her thread.
-   The headline sits on the cloth she has not reached yet. */
-.hero { --px: 0; position: relative; overflow: clip; padding: 0; isolation: isolate; }
-.hero__art { position: absolute; inset: auto 0 0 0; height: clamp(480px, 46vw, 780px); z-index: -1; -webkit-mask: linear-gradient(#0000, #000 16%); mask: linear-gradient(#0000, #000 16%); }
-.hero__art img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 100%; transform: translateX(calc(var(--px) * -14px)) scale(1.035); transform-origin: 50% 100%; animation: cloth-in 1600ms var(--e-out) both; }
-@keyframes cloth-in { from { opacity: 0; transform: scale(1.09); } }
-.hero__glint { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; transform: translateX(calc(var(--px) * -14px)) scale(1.035); transform-origin: 50% 100%; }
-.hero__copy { display: grid; gap: var(--s-3); justify-items: start; text-align: start; width: min(100% - 2 * var(--gutter), var(--wrap)); margin-inline: auto; padding-block-start: clamp(1.6rem, 1rem + 2vw, 3rem); min-height: calc(clamp(480px, 46vw, 780px) + 10.5rem); align-content: start; }
-.hero__copy > * { max-width: 38rem; }
-.hero h1 { font-size: clamp(2.15rem, 1.1rem + 2.7vw, 3.2rem); }
-.hero h1 em { display: block; }
-.hero__lead { max-width: 38rem; }
-.hero__cta { margin-block-start: var(--s-2); }
-.hero__next { position: absolute; z-index: 3; inset-block-end: 2.8rem; inset-inline-start: max(var(--gutter), calc(50% - var(--wrap) / 2)); margin: 0; width: max-content; max-width: calc(100% - 2rem); background: rgb(255 255 255 / 0.92); backdrop-filter: blur(6px); border-radius: 12px; padding: 0.15rem 0.9rem; box-shadow: 0 0 0 1px var(--line), var(--shadow-1); }
-@media (max-width: 760px) {
-  .hero { display: flex; flex-direction: column; }
-  .hero__copy { order: 1; min-height: 0; justify-items: center; text-align: center; position: relative; z-index: 1; }
-  .hero__art { order: 2; position: relative; inset: auto; height: auto; aspect-ratio: 2 / 3; margin-block-start: -6.4rem; -webkit-mask: linear-gradient(#0000, #000 14%); mask: linear-gradient(#0000, #000 14%); }
-  .hero__cta { justify-content: center; }
-  .hero__glint { display: none; }
-  .hero__next { inset-inline: 0; margin-inline: auto; inset-block-end: 0.9rem; }
-}
-@media (prefers-reduced-motion: reduce) { .hero__art img { animation: none; } .hero__glint { display: none; } }
-
-/* ---------- the tale ---------- */
+/* marks from the old stitch language become plain ink */
+.stitch { border-radius: 50%; transform: none; width: 0.46em; height: 0.46em; }
+.btn:hover .stitch { transform: scale(1.5); }
+.card--knot::before { display: none; }
+.numbers::before { display: none; }
 .head--mid { margin-inline: auto; text-align: center; justify-items: center; }
-.tale { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-6); position: relative; }
-.tale__step { display: grid; gap: 0.4rem; justify-items: center; text-align: center; align-content: start; position: relative; isolation: isolate; }
-.tale__art { width: min(100%, 21rem); height: 15rem; display: grid; align-items: end; justify-items: center; }
-.pic { display: block; width: auto; height: auto; max-width: 100%; }
-.pic-stage { position: relative; display: block; height: 100%; width: 100%; }
-.pic-stage .pic { position: absolute; inset: 0 0 0.7rem 0; width: 100%; height: calc(100% - 0.7rem); max-width: none; object-fit: contain; object-position: 50% 100%; z-index: 1; filter: drop-shadow(0 10px 8px rgb(16 48 59 / 0.12)); transition: transform var(--d-3) var(--e-stitch); }
-.tale__step:hover .pic { transform: translateY(-6px); }
-.pic-thread { position: absolute; inset: auto 6% 0.9rem 6%; height: 4px; background: var(--thread-teal) repeat-x; opacity: 0.7; }
-.pic-stage::before { content: ""; position: absolute; inset: auto 10% 0.2rem 10%; height: 1.6rem; border-radius: 50%; background: #fff; }
-.tale__step .step__n { margin-block-start: -0.2rem; }
-.tale__step:hover .step__n::before { transform: rotate(135deg) scale(1.08); background: var(--rose-700); }
-.tale__step p { color: var(--ink-2); max-width: 22rem; }
-/* the thread that carries the story from one scene to the next */
-.tale__step:not(:last-child)::after { content: ""; position: absolute; top: 38%; inset-inline-start: calc(100% - 1rem); width: calc(var(--s-6) + 2rem); height: 4px; background: var(--thread-rose) repeat-x; }
-@media (max-width: 860px) { .tale { grid-template-columns: 1fr; gap: var(--s-7); } .tale__step:not(:last-child)::after { display: none; } }
 
-/* the sign card reads as the document itself */
-.sign { position: relative; top: auto; margin-block-start: var(--s-8); background: #fff; border: 1px solid var(--line); border-radius: var(--r-xl); padding: clamp(1.3rem, 3vw, 2.2rem); display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr) auto; gap: var(--s-5) var(--s-6); align-items: center; box-shadow: var(--shadow-1); }
-.sign::before { content: ""; position: absolute; inset: 9px; border-radius: calc(var(--r-xl) - 9px); border: 2px dashed var(--rose-200); pointer-events: none; }
-.sign > * { position: relative; min-width: 0; }
-.sign__pick { display: grid; gap: var(--s-3); }
-.sign__go { display: grid; gap: 0.5rem; justify-items: center; }
-.sign__go .btn { width: auto; min-width: 12rem; }
-.sign__guide { position: absolute !important; inset-block-start: -2.4rem; inset-inline-end: 2.2rem; width: 4rem; cursor: pointer; }
-@media (max-width: 980px) { .sign { grid-template-columns: 1fr; } .sign__go .btn { width: 100%; } }
-.pledge__foot { margin-block-start: var(--s-6); display: flex; flex-wrap: wrap; gap: 0.6rem 2rem; align-items: center; justify-content: space-between; color: var(--ink-2); }
-.pledge__foot p { max-width: 38rem; }
-.pledge__foot .pledge__links { margin: 0; }
+/* ---------- the two hands: any picture can be held ---------- */
+.held { position: relative; aspect-ratio: 1; min-width: 0; max-width: 100%; }
+.hero__grid > *, .tales__intro > *, .call__in > *, .vows > * { min-width: 0; }
+.held > img.held__pic { position: absolute; inset: 15%; width: 70%; height: 70%; object-fit: cover; border-radius: 50%; }
+.hand { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; transition: transform 1100ms var(--e-out); }
+[data-reveal]:not(.in) .hand--rose, .held[data-reveal]:not(.in) .hand--rose { transform: rotate(-34deg) scale(1.08); }
+[data-reveal]:not(.in) .hand--teal, .held[data-reveal]:not(.in) .hand--teal { transform: rotate(-34deg) scale(1.08); }
+a:hover .held .hand, .held:hover .hand { transform: rotate(8deg) scale(0.985); }
 
-/* ---------- the bag ---------- */
-.bagwrap { display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); gap: clamp(1.5rem, 4vw, 4rem); align-items: center; }
-.bagwrap .head { margin-block-end: var(--s-5); }
-.bag-art { display: grid; place-items: center; position: relative; aspect-ratio: 1 / 1.08; }
-.bag-art::before { content: ""; position: absolute; inset: 8% 4% 2%; border-radius: 50%; background: var(--teal-50); }
-.bag-art .pic { position: relative; width: 86%; height: auto; filter: drop-shadow(0 18px 14px rgb(16 48 59 / 0.14)); }
-.float-slow { animation: float-up 6s ease-in-out infinite; }
-.bagwrap .bag { grid-template-columns: repeat(4, minmax(0, 1fr)); margin-block-end: var(--s-4); }
-.bagwrap .bag a { border: 0; background: none; padding: 0.6rem 0.2rem; }
-.bagwrap .bag a:hover { transform: translateY(-5px); }
-.bagwrap .bag__ic { width: 4rem; height: 4rem; font-size: 1.35rem; }
-.bagwrap .bag li:last-child { grid-column: auto; }
-@media (max-width: 860px) { .bagwrap { grid-template-columns: 1fr; } .bagwrap__art { max-width: 26rem; margin-inline: auto; width: 100%; } }
-@media (max-width: 520px) { .bagwrap .bag { gap: 0.2rem; } .bagwrap .bag a { font-size: 0.86rem; } .bagwrap .bag__ic { width: 3.3rem; height: 3.3rem; } }
+/* ---------- hero: the pledge, held and signed ---------- */
+.hero { --px: 0; --py: 0; padding-block: clamp(1.4rem, 0.8rem + 2.2vw, 3rem) clamp(2rem, 1rem + 3vw, 4rem); position: relative; overflow: clip; }
+.hero__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.02fr); gap: clamp(1rem, 3vw, 3.5rem); align-items: center; width: min(100% - 2 * var(--gutter), var(--wrap)); margin-inline: auto; }
+.hero__copy { display: grid; gap: var(--s-3); justify-items: start; }
+.hero h1 { font-size: clamp(2.15rem, 1.1rem + 3vw, 3.6rem); }
+.hero h1 em, .call h2 em { font-style: normal; color: var(--rose-700); display: block; }
+.hero__lead { max-width: 32rem; }
+
+.stage { position: relative; aspect-ratio: 1; min-width: 0; width: min(100%, 35rem); justify-self: center; perspective: 1200px; }
+.stage .hand { transition: transform 1500ms var(--e-out); will-change: transform; }
+.stage .hand--rose { transform: translate(calc(var(--px) * -10px), calc(var(--py) * -10px)); }
+.stage .hand--teal { transform: translate(calc(var(--px) * 10px), calc(var(--py) * 10px)); }
+.stage:not(.is-in) .hand--rose { transform: translate(8%, -16%) rotate(-46deg); opacity: 0; }
+.stage:not(.is-in) .hand--teal { transform: translate(-8%, 16%) rotate(-46deg); opacity: 0; }
+.stage.is-in .hand { opacity: 1; }
+.stage.is-held .hand--rose { transform: translate(-1.5%, 2%) scale(0.965); transition-duration: 380ms; }
+.stage.is-held .hand--teal { transform: translate(1.5%, -2%) scale(0.965); transition-duration: 380ms; }
+
+/* the deed: a sheet you can sign */
+.deed { position: absolute; inset: 21% 22% 20% 22%; background: var(--paper); border-radius: 18px; padding: clamp(0.8rem, 2.2vw, 1.4rem) clamp(0.9rem, 2.4vw, 1.5rem); display: grid; align-content: space-between; gap: 0.3rem; text-align: center; box-shadow: 0 1px 0 #fff inset, 0 0 0 1px var(--line), 0 30px 60px -28px rgb(16 48 59 / 0.45), 0 10px 20px -14px rgb(16 48 59 / 0.3); transform: rotateX(calc(var(--py) * -7deg)) rotateY(calc(var(--px) * 9deg)) rotate(-2.5deg); transition: transform 500ms var(--e-out), opacity 700ms 500ms; z-index: 2; }
+.stage:not(.is-in) .deed { opacity: 0; transform: translateY(26px) rotate(-7deg) scale(0.94); }
+.deed::after { content: ""; position: absolute; inset-block-start: 0; inset-inline-end: 0; width: 2.1rem; height: 2.1rem; background: linear-gradient(225deg, #fff 50%, var(--teal-100) 50%); border-end-start-radius: 12px; box-shadow: -3px 3px 8px -4px rgb(16 48 59 / 0.3); border-start-end-radius: 18px; }
+.deed__head { display: flex; align-items: center; justify-content: center; gap: 0.5rem; font-family: var(--f-display); font-weight: 800; color: var(--teal-700); font-size: clamp(0.95rem, 1.6vw, 1.2rem); line-height: 1.4; }
+.deed__head img { width: 2rem; height: auto; }
+.deed__text { font-size: clamp(0.8rem, 1.25vw, 0.98rem); line-height: 1.75; color: var(--ink-2); }
+.deed__line { display: block; position: relative; }
+.deed__line input { width: 100%; border: 0; border-block-end: 2px solid var(--ink); background: none; text-align: center; font-family: var(--f-sign); font-size: clamp(1.35rem, 2.6vw, 2rem); line-height: 1.5; color: var(--ink-sign); padding: 0 0.3rem 0.1rem; border-radius: 0; transition: border-color var(--d-2); min-height: 2.75rem; }
+.deed__line input::placeholder { font-family: var(--f-body); font-size: 0.9rem; color: var(--muted); }
+.deed__line input:focus { outline: 0; border-color: var(--rose-600); }
+.deed__line input[aria-invalid="true"] { border-color: var(--err); }
+.deed__line::before { content: "✕"; position: absolute; inset-inline-start: 0; bottom: 0.45rem; font-size: 0.8rem; color: var(--rose-600); font-family: var(--f-body); }
+.deed__msg { min-height: 1.2rem; font-size: 0.78rem; line-height: 1.5; color: var(--err); }
+.deed .btn { min-height: 2.75rem; font-size: clamp(0.95rem, 1.5vw, 1.05rem); padding-inline: 0.9rem; width: 100%; }
+.deed__flourish { position: absolute; inset-inline: 14%; bottom: 31%; height: 1.4rem; width: 72%; overflow: visible; pointer-events: none; }
+.deed__flourish path { fill: none; stroke: var(--ink-sign); stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 320; stroke-dashoffset: 320; }
+.is-signed .deed__flourish path { animation: ink 900ms var(--e-out) 150ms forwards; }
+@keyframes ink { to { stroke-dashoffset: 0; } }
+
+/* the seal: the heart of the logo, stamped */
+.seal { position: absolute; z-index: 3; width: 31%; aspect-ratio: 1; inset-inline-end: 9%; bottom: 9%; display: grid; place-items: center; opacity: 0; transform: scale(2.2) rotate(-28deg); pointer-events: none; }
+.seal svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.seal img { width: 46%; height: auto; position: relative; }
+.is-signed .seal { animation: stamp 520ms cubic-bezier(0.2, 1.3, 0.4, 1) 900ms forwards; }
+@keyframes stamp { 60% { opacity: 1; transform: scale(0.92) rotate(-11deg); } 100% { opacity: 1; transform: scale(1) rotate(-12deg); } }
+.seal--show { opacity: 1; transform: rotate(-12deg); position: relative; inset: auto; width: 100%; }
+.seal__ring { animation: seal-turn 40s linear infinite; transform-origin: 50% 50%; }
+@keyframes seal-turn { to { transform: rotate(360deg); } }
+
+.hero__raed { position: absolute; z-index: 4; inset-inline-end: -1%; bottom: -3%; height: 47%; width: auto; filter: drop-shadow(0 14px 10px rgb(16 48 59 / 0.18)); transition: transform 900ms var(--e-out) 700ms, opacity 600ms 700ms; transform: translateX(calc(var(--px) * 14px)); }
+.stage:not(.is-in) .hero__raed { opacity: 0; transform: translateX(-30px); }
+.is-signed .hero__raed { animation: hop 520ms var(--e-stitch) 1250ms 2 alternate; }
+@keyframes hop { to { transform: translateY(-14px); } }
+
+@media (max-width: 860px) {
+  .hero__grid { grid-template-columns: minmax(0, 1fr); }
+  .hero__copy { justify-items: center; text-align: center; }
+  .hero__cta { justify-content: center; }
+  .stage { width: min(100%, 26rem); }
+  .deed { inset: 17% 13% 15% 13%; }
+  .hero__raed { height: 36%; inset-inline-end: -3%; }
+}
+
+/* ---------- tales: an editorial spread, then a numbered shelf ---------- */
+.spread { display: grid; grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr); gap: clamp(1.5rem, 4vw, 4.5rem); align-items: center; }
+.spread > * { min-width: 0; }
+.spread__lead { display: grid; gap: var(--s-3); justify-items: start; }
+.spread__lead p { color: var(--ink-2); font-size: var(--t-lead); line-height: 1.9; }
+.cast-row { display: flex; flex-wrap: wrap; gap: 0.5rem 1.3rem; margin-block: var(--s-2); }
+.cast-row li { display: flex; align-items: center; gap: 0.6rem; font-family: var(--f-display); font-weight: 700; }
+.cast-row img { width: 3.6rem; height: 3.6rem; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 3px var(--mist), 0 0 0 5px var(--rose-300); transition: transform var(--d-3) var(--e-stitch); }
+.cast-row li:nth-child(2) img { box-shadow: 0 0 0 3px var(--mist), 0 0 0 5px var(--teal-500); }
+.cast-row li:nth-child(3) img { box-shadow: 0 0 0 3px var(--mist), 0 0 0 5px var(--ink); }
+.cast-row li:hover img { transform: scale(1.12) rotate(-4deg); }
+.spread__feature { position: relative; display: block; border-radius: var(--r-xl); overflow: hidden; aspect-ratio: 4 / 3; box-shadow: 0 30px 60px -34px rgb(16 48 59 / 0.55); transform: rotate(1.2deg); transition: transform var(--d-4) var(--e-out); }
+.spread__feature:hover { transform: rotate(0deg) scale(1.01); }
+.spread__feature img { width: 100%; height: 100%; object-fit: cover; }
+.spread__cap { position: absolute; inset-inline-start: 1rem; inset-block-end: 1rem; display: inline-flex; align-items: center; gap: 0.5rem; background: #fff; color: var(--ink); padding: 0.3rem 0.9rem; border-radius: 12px; font-weight: 500; font-size: 0.92rem; line-height: 1.7; }
+.spread__cap .ic { color: var(--rose-700); }
+.shelf { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--s-4); margin-block-start: var(--s-8); counter-reset: ep; }
+.shelf li { min-width: 0; counter-increment: ep; }
+.shelf li:nth-child(even) { margin-block-start: var(--s-5); }
+.tale { display: grid; gap: 0.6rem; align-content: start; }
+.tale__pic { aspect-ratio: 1; border-radius: var(--r-l); overflow: hidden; background: #fff; position: relative; display: block; }
+.tale__pic img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--d-4) var(--e-out); }
+.tale__pic::after { content: counter(ep, decimal-leading-zero); position: absolute; inset-block-start: 0.5rem; inset-inline-start: 0.5rem; background: #fff; color: var(--ink); font-family: var(--f-display); font-weight: 700; font-size: 0.85rem; line-height: 1; padding: 0.35rem 0.5rem; border-radius: 9px; direction: ltr; }
+.tale:hover .tale__pic img { transform: scale(1.06); }
+.tale h3 { font-size: 1rem; line-height: 1.65; font-weight: 700; transition: color var(--d-2); }
+.tale:hover h3 { color: var(--rose-700); }
+@media (max-width: 980px) { .shelf { grid-template-columns: repeat(3, minmax(0, 1fr)); } .shelf li:nth-child(even) { margin-block-start: 0; } }
+@media (max-width: 860px) { .spread { grid-template-columns: minmax(0, 1fr); } .spread__feature { transform: none; } }
+@media (max-width: 520px) { .shelf { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-4) var(--s-3); } }
+
+/* ---------- the pledge: a path on one side, the sheet on the other ---------- */
+.path { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); gap: clamp(1.5rem, 4vw, 4.5rem); align-items: start; }
+.path > * { min-width: 0; }
+.path__steps { display: grid; position: relative; }
+.path__steps li { display: grid; grid-template-columns: 3.4rem minmax(0, 1fr) 7.5rem; gap: 1.1rem; align-items: center; padding-block: var(--s-5); position: relative; isolation: isolate; }
+.path__steps li + li { border-block-start: 1px solid var(--line); }
+/* one ink line runs through the three numbers */
+.path__steps::before { content: ""; position: absolute; inset-inline-start: calc(1.7rem - 1px); top: 3.5rem; bottom: 3.5rem; width: 2px; background: var(--teal-200); }
+.path__steps .step__n { align-self: start; margin-block-start: 0.2rem; }
+.path__steps li:hover .step__n::before { transform: rotate(135deg) scale(1.08); background: var(--rose-700); }
+.path__steps h3 { margin-block-end: 0.2rem; }
+.path__steps p { color: var(--ink-2); max-width: 30rem; }
+.path__art { display: grid; place-items: center; height: 6.5rem; }
+.mini-deed { width: 6.6rem; background: #fff; border-radius: 12px; padding: 0.7rem 0.7rem 0.6rem; box-shadow: 0 0 0 1px var(--line), var(--shadow-1); transform: rotate(-5deg); display: grid; gap: 0.35rem; transition: transform var(--d-3) var(--e-stitch); }
+.mini-deed i { height: 5px; border-radius: 3px; background: var(--teal-100); }
+.mini-deed i:nth-child(2) { width: 70%; justify-self: center; }
+.mini-deed b { font-family: var(--f-sign); font-weight: 400; color: var(--ink-sign); font-size: 1.2rem; line-height: 1.3; border-block-end: 2px solid var(--ink); text-align: center; }
+.path__doc { width: 100%; height: auto; border-radius: 9px; box-shadow: 0 0 0 1px var(--line), var(--shadow-1); transform: rotate(4deg); transition: transform var(--d-3) var(--e-stitch); cursor: zoom-in; }
+.path__face { width: 5.6rem; height: 5.6rem; border-radius: 22px; object-fit: cover; transform: rotate(-4deg); box-shadow: var(--shadow-1); transition: transform var(--d-3) var(--e-stitch); }
+.path__steps li:hover :is(.mini-deed, .path__doc, .path__face) { transform: rotate(0deg) scale(1.08); }
+@media (max-width: 560px) { .path__steps li { grid-template-columns: 3.4rem minmax(0, 1fr); } .path__art { display: none; } }
+
+/* the sign form is a sheet of the pledge: folded corner, signature rule */
+.sign { position: sticky; top: 6rem; background: #fff; border: 0; border-radius: 20px; padding: clamp(1.3rem, 2.6vw, 2rem); display: grid; gap: var(--s-4); box-shadow: 0 0 0 1px var(--line), 0 30px 60px -32px rgb(16 48 59 / 0.4); margin: 0; }
+.sign::after { content: ""; position: absolute; inset-block-start: 0; inset-inline-end: 0; width: 2.4rem; height: 2.4rem; background: linear-gradient(225deg, var(--surface) 50%, var(--teal-100) 50%); border-end-start-radius: 14px; border-start-end-radius: 20px; box-shadow: -3px 3px 8px -4px rgb(16 48 59 / 0.3); }
+.sign h3 { font-size: 1.4rem; }
+.sign__gets { display: grid; gap: 0.5rem; }
+.sign__gets li { display: flex; gap: 0.6rem; align-items: start; line-height: 1.7; font-size: 0.98rem; }
+.sign__gets .ic { color: var(--teal-600); margin-block-start: 0.2rem; }
+.sign .btn { width: 100%; }
+.sign__links { display: flex; flex-wrap: wrap; gap: 0.2rem 1.4rem; justify-content: center; border-block-start: 1px solid var(--line); padding-block-start: var(--s-3); }
+@media (max-width: 860px) { .path { grid-template-columns: minmax(0, 1fr); } .sign { position: relative; top: auto; } }
+
+/* ---------- the bag, with the platform's own icons ---------- */
+.bag { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+.bag a { border: 0; background: none; padding: 0.4rem 0.2rem; }
+.bag a img { width: min(100%, 6.4rem); height: auto; border-radius: 50%; box-shadow: var(--shadow-1); transition: transform var(--d-3) var(--e-stitch); }
+.bag a:hover { transform: none; }
+.bag a:hover img { transform: translateY(-6px) rotate(-5deg) scale(1.05); }
+@media (max-width: 980px) { .bag { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .bag { grid-template-columns: repeat(3, minmax(0, 1fr)); } .bag li:last-child { grid-column: auto; } }
 .spot__art svg { position: absolute; inset: 0; width: 100%; height: 100%; }
-.night-kids { position: absolute; inset: auto 0 0 0; margin-inline: auto; height: 74%; filter: drop-shadow(0 0 26px rgb(244 183 64 / 0.35)); }
+.lan-swing { animation: lan-swing 5s ease-in-out infinite; animation-delay: calc(var(--i, 0) * -0.8s); }
+@keyframes lan-swing { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
 
-/* ---------- vows ---------- */
-.vows { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-6); }
-.vow { display: grid; gap: 0.5rem; justify-items: center; text-align: center; align-content: start; }
-.vow__art { width: min(70%, 13.5rem); --w: 8px; background: var(--teal-50); margin-block-end: var(--s-3); display: grid; place-items: center; }
-.vow__art > div { position: absolute; inset: 14%; width: auto; }
-.vow__art .pic { width: 100%; height: 100%; max-width: none; object-fit: contain; transition: transform var(--d-3) var(--e-stitch); }
-.vow:hover .vow__art .pic { transform: scale(1.06); }
-.vow:nth-child(2) .vow__art { background: var(--rose-50); }
-.vow:hover .vow__art::before { transform: rotate(60deg); }
-.vow p { color: var(--ink-2); max-width: 20rem; }
-@media (max-width: 820px) { .vows { grid-template-columns: 1fr; gap: var(--s-7); } }
+/* ---------- vows: one scene, three lines ---------- */
+.vowsplit { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: clamp(1.5rem, 4vw, 4.5rem); align-items: center; }
+.vowsplit > * { min-width: 0; }
+.vowsplit__pic { margin: 0; position: relative; }
+.vowsplit__pic > img:first-child { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--r-xl) var(--r-xl) var(--r-xl) 6rem; }
+.vowsplit__stamp { position: absolute; inset-inline-end: -1.2rem; inset-block-end: -1.4rem; width: clamp(5.5rem, 11vw, 8.5rem); height: auto; aspect-ratio: 1; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 6px var(--surface), var(--shadow-1); transition: transform var(--d-3) var(--e-stitch); }
+.vowsplit__pic:hover .vowsplit__stamp { transform: scale(1.08) rotate(-6deg); }
+.vowsplit .head { margin-block-end: var(--s-5); }
+.vowlist { display: grid; }
+.vowlist li { display: grid; grid-template-columns: 3.2rem minmax(0, 1fr); gap: 1rem; padding-block: var(--s-4); border-block-start: 1px solid var(--line); align-items: start; }
+.vowlist__ic { width: 3.2rem; height: 3.2rem; border-radius: 16px; display: grid; place-items: center; background: var(--teal-50); color: var(--teal-700); font-size: 1.25rem; transition: background-color var(--d-2), color var(--d-2), transform var(--d-3) var(--e-stitch); }
+.vowlist li:hover .vowlist__ic { background: var(--rose-700); color: #fff; transform: rotate(-8deg); }
+.vowlist p { color: var(--ink-2); }
+@media (max-width: 860px) { .vowsplit { grid-template-columns: minmax(0, 1fr); } .vowsplit__stamp { inset-inline-end: 0.6rem; } }
 
-/* ---------- works: arched windows onto the projects ---------- */
+/* ---------- works ---------- */
 .works { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.5rem, 4vw, 4rem); }
-.work { display: grid; position: relative; align-content: start; }
-.work__photo { aspect-ratio: 4 / 3.4; border-radius: 999px 999px var(--r-l) var(--r-l); overflow: hidden; background: var(--mist); position: relative; }
-.work__photo::after { content: ""; position: absolute; inset: 10px; border-radius: 999px 999px 16px 16px; border: 2px dashed rgb(255 255 255 / 0.75); pointer-events: none; }
+.work { display: grid; align-content: start; }
+.work__photo { aspect-ratio: 4 / 3.2; border-radius: var(--r-xl); overflow: hidden; background: var(--mist); }
 .work__photo img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--d-4) var(--e-out); }
 .work:hover .work__photo img { transform: scale(1.04); }
 .work__body { padding: 1.3rem 0.4rem 0; display: grid; gap: 0.6rem; justify-items: start; }
 .work h3 { transition: color var(--d-2); }
 .work:hover h3 { color: var(--teal-700); }
-@media (max-width: 760px) { .works { grid-template-columns: 1fr; gap: var(--s-7); } }
+@media (max-width: 760px) { .works { grid-template-columns: minmax(0, 1fr); gap: var(--s-7); } }
 
-/* ---------- the cloth and its maker ---------- */
-.numbers .cloth { margin-block-start: var(--s-7); position: relative; padding-block-start: 4.5rem; }
-.numbers .cloth__cap { color: #c9dde4; justify-content: flex-start; }
-.cloth__sewer { position: absolute; z-index: 2; left: 9.5rem; top: -3.4rem; width: 8.2rem; pointer-events: none; filter: drop-shadow(0 8px 10px rgb(0 0 0 / 0.35)); }
-.cloth__sewer .pic { width: 100%; }
-@media (max-width: 620px) { .cloth__sewer { left: 7rem; width: 6.4rem; top: -1.8rem; } }
-.numbers .cloth__you { background: var(--light); color: #2a1e00; }
-.numbers .cloth__you::after { background: var(--light); }
+/* ---------- numbers ---------- */
+.numbers__top { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--s-6); align-items: center; margin-block-end: var(--s-6); }
+.numbers__top .head { margin: 0; }
+.numbers__seal { width: clamp(6.5rem, 12vw, 9.5rem); }
+.lands .row i { border-radius: 50%; transform: scale(0); }
+.lands.in .row i { transform: scale(1); }
+@media (max-width: 620px) { .numbers__top { grid-template-columns: minmax(0, 1fr); } .numbers__seal { justify-self: start; } }
 
-/* ---------- voices: said aloud ---------- */
+/* ---------- voices ---------- */
 .voice { scroll-snap-align: start; display: grid; grid-template-rows: 1fr auto; gap: 1.2rem; min-width: 0; padding: 0; }
 .voice__bubble { background: var(--teal-50); border-radius: var(--r-l); padding: 1.5rem 1.4rem 1rem; position: relative; display: grid; align-content: start; }
 .voice:nth-child(even) .voice__bubble { background: var(--rose-50); }
 .voice__bubble::after { content: ""; position: absolute; top: calc(100% - 11px); inset-inline-start: 1.6rem; width: 22px; height: 22px; border-radius: 6px; background: inherit; transform: rotate(45deg); }
 .voice__q { margin: 0; }
-.voice__who { border: 0; padding-block-start: 0; padding-inline-start: 0.3rem; }
+.voice__who { border: 0; padding-block-start: 0; padding-inline-start: 0.3rem; grid-template-columns: 3.6rem minmax(0, 1fr); }
+.voice__who img { width: 3.6rem; height: 3.6rem; border-radius: 50%; object-fit: cover; }
 
-/* ---------- closing call ---------- */
-.call__in { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: clamp(1.5rem, 4vw, 4rem); }
-.call__art { max-width: 27rem; width: 100%; justify-self: center; }
-.call__art { position: relative; aspect-ratio: 1; max-width: 25rem; }
-.call__art svg.call__arcs { position: absolute; inset: 0; width: 100%; height: 100%; }
-.call__art .arcs { transform-box: fill-box; transform-origin: center; transition: transform 1400ms var(--e-out); }
-[data-reveal]:not(.in) .call__art .arcs { transform: rotate(-140deg); }
-.call__people { position: absolute; inset: auto 0 11% 0; margin-inline: auto; width: 74%; height: auto; }
-.call__act { margin-block-start: var(--s-5); }
-@media (max-width: 820px) { .call__in { grid-template-columns: 1fr; text-align: center; } .call p { margin-inline: auto; } .call__act { justify-content: center; } }
+/* ---------- closing call: the two hands, opened wide ---------- */
+.call { position: relative; overflow: clip; background: var(--rose-50); text-align: center; padding-block: clamp(4.5rem, 3rem + 7vw, 9rem); }
+.call__mid { position: relative; z-index: 1; display: grid; justify-items: center; gap: var(--s-3); }
+.call p { color: var(--ink-2); font-size: var(--t-lead); max-width: 36rem; }
+.call__act { display: flex; flex-wrap: wrap; gap: 0.7rem; justify-content: center; margin-block-start: var(--s-4); }
+.call__hand { position: absolute; width: clamp(20rem, 46vw, 40rem); height: auto; pointer-events: none; transition: transform 1600ms var(--e-out); }
+.call__hand--rose { inset-block-start: -30%; inset-inline-end: -12%; transform: rotate(-18deg); }
+.call__hand--teal { inset-block-end: -30%; inset-inline-start: -12%; transform: rotate(-18deg); }
+.call:has(.in) .call__hand--rose { transform: rotate(0deg) translate(4%, 6%); }
+.call:has(.in) .call__hand--teal { transform: rotate(0deg) translate(-4%, -6%); }
+@media (max-width: 700px) { .call__hand { opacity: 0.45; } }
 
-/* ---------- the needle's path down the page ---------- */
-main[data-sew] { position: relative; }
-.sew { position: absolute; inset: 0 0 auto 0; width: 100%; pointer-events: none; z-index: 4; overflow: visible; }
-.sew__thread { stroke: var(--teal-500); stroke-width: 3; stroke-dasharray: 11 9; stroke-linecap: round; opacity: 0.75; }
-.sew__needle path { fill: var(--rose-600); }
-@media (prefers-reduced-motion: reduce) { .sew { display: none; } }
+/* ---------- refinements ---------- */
+.hero__copy { gap: var(--s-4); }
+.deed__no { position: absolute; inset-block-start: 0.7rem; inset-inline-start: 0.9rem; font-size: 0.72rem; line-height: 1.4; color: var(--muted); text-align: start; }
+.deed__no b { display: block; font-family: var(--f-display); font-size: 1rem; color: var(--ink); }
+.deed { inset: 19% 20% 18% 20%; }
+.stage::after { content: ""; position: absolute; inset: auto 6% -3% 6%; height: 7%; border-radius: 50%; background: radial-gradient(closest-side, rgb(16 48 59 / 0.16), rgb(16 48 59 / 0)); z-index: -1; }
+.hero__raed { height: 56%; inset-inline-end: 0; bottom: -4%; }
+.hero__note { position: absolute; z-index: 5; inset-inline-end: 1%; bottom: 55%; font-family: var(--f-sign); font-size: clamp(1rem, 1.7vw, 1.35rem); line-height: 1.4; color: var(--rose-700); transform: rotate(-6deg); display: grid; justify-items: center; transition: opacity 600ms 1300ms; }
+.hero__note svg { width: 3.4rem; height: 2rem; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.stage:not(.is-in) .hero__note, .stage.is-signed .hero__note { opacity: 0; }
+@media (max-width: 860px) { .deed { inset: 15% 12% 14% 12%; } .hero__raed { height: 34%; } .hero__note { display: none; } }
+.spot { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.spot__art { min-height: 18rem; }
+.spot__scene { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; -webkit-mask: linear-gradient(to left, #0000, #000 22%); mask: linear-gradient(to left, #0000, #000 22%); }
+@media (max-width: 760px) { .spot__scene { -webkit-mask: linear-gradient(to top, #0000, #000 22%); mask: linear-gradient(to top, #0000, #000 22%); } }
+.works { grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr); align-items: end; }
+.works .work:first-child .work__photo { aspect-ratio: 16 / 10; }
+.works .work:last-child .work__photo { aspect-ratio: 4 / 4.4; border-radius: 6rem var(--r-xl) var(--r-xl) var(--r-xl); }
+.stats { grid-template-columns: 1.7fr 1fr 1fr 1fr; }
+.stat:first-child b { font-size: clamp(3rem, 1.6rem + 6vw, 6rem); color: var(--rose-200); }
+@media (max-width: 760px) { .works { grid-template-columns: minmax(0, 1fr); } .stats { grid-template-columns: 1fr 1fr; } .stat:first-child { grid-column: 1 / -1; } .stat:nth-child(2) { border-inline-start: 0; padding-inline-start: 0; } .stat:nth-child(odd):not(:first-child) { border-inline-start: 1px solid rgb(255 255 255 / 0.14); padding-inline-start: var(--s-4); } .stat:nth-child(n+2) { border-block-start: 1px solid rgb(255 255 255 / 0.14); } }
+
+@media (prefers-reduced-motion: reduce) { .seal__ring { animation: none; } .is-signed .seal { animation: none; opacity: 1; transform: rotate(-12deg); } .is-signed .deed__flourish path { animation: none; stroke-dashoffset: 0; } }
