@@ -149,22 +149,19 @@ a:hover .held .hand, .held:hover .hand { transform: rotate(8deg) scale(0.985); }
 .sign__links { display: flex; flex-wrap: wrap; gap: 0.2rem 1.4rem; justify-content: center; border-block-start: 1px solid var(--line); padding-block-start: var(--s-3); }
 @media (max-width: 860px) { .path { grid-template-columns: minmax(0, 1fr); } .sign { position: relative; top: auto; } }
 
-/* ---------- the bag: each kind of content is a small sheet with an ink drawing ---------- */
+/* ---------- the bag: seven drawn objects in the mark's own two colours ---------- */
 .bag { grid-template-columns: repeat(7, minmax(0, 1fr)); gap: var(--s-4) var(--s-3); }
-.bag a { border: 0; background: none; padding: 0.4rem 0.2rem; display: grid; justify-items: center; gap: 0.9rem; font-family: var(--f-display); font-weight: 700; font-size: 1.08rem; line-height: 1.5; }
+.bag a { position: relative; border: 0; background: none; padding: 0.4rem 0.2rem; display: grid; justify-items: center; gap: 1.1rem; font-family: var(--f-display); font-weight: 700; font-size: 1.08rem; line-height: 1.5; }
 .bag a:hover { transform: none; }
-.leaf { position: relative; width: 5.2rem; aspect-ratio: 1 / 1.16; border-radius: 14px; background: #fff; display: grid; place-items: center; color: var(--teal-700); font-size: 1.9rem; box-shadow: 0 0 0 1px var(--line), 0 16px 26px -18px rgb(16 48 59 / 0.45); transform: rotate(-4deg); transition: transform var(--d-3) var(--e-stitch), color var(--d-2), box-shadow var(--d-3); }
-.bag li:nth-child(even) .leaf { transform: rotate(4deg); }
-.leaf .ic { stroke-width: 1.6; }
-/* folded corner */
-.leaf::before { content: ""; position: absolute; inset-block-start: 0; inset-inline-end: 0; width: 1.25rem; height: 1.25rem; background: linear-gradient(225deg, var(--mist) 50%, var(--teal-100) 50%); border-end-start-radius: 8px; border-start-end-radius: 14px; }
-/* signature rule */
-.leaf::after { content: ""; position: absolute; inset-inline: 22%; bottom: 14%; height: 2px; border-radius: 2px; background: var(--rose-400); transform: scaleX(0.45); transform-origin: 100% 50%; transition: transform var(--d-3) var(--e-out); }
-.bag a:hover .leaf { transform: rotate(0deg) translateY(-7px); color: var(--rose-700); box-shadow: 0 0 0 1px var(--rose-200), 0 22px 30px -18px rgb(176 58 98 / 0.45); }
-.bag a:hover .leaf::after { transform: scaleX(1); }
-.bag a:focus-visible .leaf { transform: rotate(0deg); }
+.glyph { display: block; width: 5rem; height: 5rem; overflow: visible; direction: ltr; transform: rotate(-5deg); transform-origin: 50% 90%; transition: transform var(--d-3) var(--e-stitch); }
+.bag li:nth-child(even) .glyph { transform: rotate(5deg); }
+/* the ground it stands on */
+.bag a::before { content: ""; position: absolute; inset-block-start: 5.15rem; inset-inline-start: 50%; width: 3.4rem; height: 0.5rem; margin-inline-start: -1.7rem; border-radius: 50%; background: rgb(16 48 59 / 0.13); transition: transform var(--d-3) var(--e-out), opacity var(--d-3); }
+.bag a:hover .glyph, .bag a:focus-visible .glyph { transform: rotate(0deg) translateY(-9px) scale(1.06); }
+.bag a:hover::before, .bag a:focus-visible::before { transform: scaleX(0.7); opacity: 0.6; }
+.bag a:hover { color: var(--rose-700); }
 @media (max-width: 980px) { .bag { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
-@media (max-width: 520px) { .bag { grid-template-columns: repeat(3, minmax(0, 1fr)); } .bag li:last-child { grid-column: 2; } .leaf { width: 4.4rem; font-size: 1.6rem; } .bag a { font-size: 0.98rem; } }
+@media (max-width: 520px) { .bag { grid-template-columns: repeat(3, minmax(0, 1fr)); } .bag li:last-child { grid-column: 2; } .glyph { width: 4.2rem; height: 4.2rem; } .bag a::before { inset-block-start: 4.35rem; } .bag a { font-size: 0.98rem; } }
 .spot__art svg { position: absolute; inset: 0; width: 100%; height: 100%; }
 .lan-swing { animation: lan-swing 5s ease-in-out infinite; animation-delay: calc(var(--i, 0) * -0.8s); }
 @keyframes lan-swing { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
