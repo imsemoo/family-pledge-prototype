@@ -386,3 +386,24 @@ a:hover .held .hand, .held:hover .hand { transform: rotate(8deg) scale(0.985); }
 @media (max-width: 760px) { .spot--minbar .spot__art { min-height: 0; padding-block-end: 0; } .spot__minbar { width: min(78%, 18rem); } }
 /* both game cards stack on a phone (the two-column rule above had no breakpoint) */
 @media (max-width: 760px) { .spot { grid-template-columns: minmax(0, 1fr); } .spot--minbar .spot__art { order: -1; padding-block-start: var(--s-5); } }
+
+/* the two newer games share a row; each card is picture above, words below */
+.spot-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-4); margin-block-start: var(--s-4); }
+.spot-row .spot { grid-template-columns: minmax(0, 1fr); margin-block-start: 0; align-content: start; }
+.spot-row .spot__art { order: -1; min-height: 0; display: grid; place-items: center; padding: clamp(1.2rem, 3vw, 2.2rem) clamp(1.2rem, 3vw, 2.2rem) 0; height: clamp(13rem, 22vw, 17rem); }
+.spot-row .spot__copy { padding-block-start: var(--s-4); }
+.spot-row .spot__art { grid-template: minmax(0, 1fr) / minmax(0, 1fr); }
+.spot-row .spot__minbar { width: 100%; height: 100%; min-height: 0; object-fit: contain; }
+.spot--album { background: linear-gradient(200deg, #0c2530, #174d61 75%, #1f6079); }
+.spot__fan { position: relative; height: 100%; aspect-ratio: 1.5; display: block; }
+.spot__fan > * { position: absolute; width: 44%; aspect-ratio: 1; border-radius: 16px; box-shadow: 0 20px 26px -14px rgb(0 0 0 / 0.6); transition: transform var(--d-4) var(--e-stitch); }
+.spot__fan img { object-fit: cover; height: auto; }
+.spot__fan > :nth-child(1) { left: 2%; top: 12%; transform: rotate(-9deg); }
+.spot__fan > :nth-child(2) { right: 2%; top: 4%; transform: rotate(8deg); }
+.spot__fan > span { left: 28%; top: 26%; transform: rotate(-2deg); background: #fff; color: var(--ink); display: grid; align-content: center; justify-items: center; gap: 0.15rem; text-align: center; padding: 8%; }
+.spot__fan small { font-family: var(--f-display); font-weight: 700; font-size: 0.78rem; color: var(--rose-700); line-height: 1.5; }
+.spot__fan b { font-family: var(--f-display); font-weight: 800; font-size: 1.15rem; line-height: 1.5; }
+.spot__fan i { width: 42%; height: 3px; border-radius: 3px; background: var(--rose-400); }
+.spot--album:hover .spot__fan > :nth-child(1) { transform: rotate(-13deg) translateX(-6%); }
+.spot--album:hover .spot__fan > :nth-child(2) { transform: rotate(12deg) translateX(6%); }
+@media (max-width: 760px) { .spot-row { grid-template-columns: minmax(0, 1fr); } .spot-row .spot__art { height: 13rem; padding-block-start: var(--s-5); } .spot__minbar { width: auto; } }
