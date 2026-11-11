@@ -1,0 +1,73 @@
+/* منبر صلاح الدين — builds on ../qanadeel/game.css (bar, sky, hud, panel, dialogs) */
+
+/* ---------- start ---------- */
+.mstart { width: min(100%, 44rem); }
+.mstart__art { position: relative; width: min(100%, 25rem); margin-block-end: 0.4rem; }
+.mstart__minbar { display: block; width: 100%; height: auto; filter: drop-shadow(0 26px 30px rgb(0 0 0 / 0.45)); }
+.mstart__photo { position: absolute; inset-inline-start: -7%; top: -4%; width: 27%; margin: 0; padding: 5px 5px 0; background: #fff; border-radius: 10px; transform: rotate(7deg); box-shadow: 0 14px 26px -10px rgb(0 0 0 / 0.6); }
+.mstart__photo img { display: block; width: 100%; height: auto; border-radius: 6px; filter: grayscale(1) contrast(1.05); }
+.mstart__photo figcaption { color: var(--ink); font-family: var(--f-display); font-weight: 700; font-size: 0.62rem; line-height: 1.9; text-align: center; }
+.mstart h1 { font-size: clamp(2.4rem, 1.6rem + 4.4vw, 4rem); }
+.msetup { grid-template-columns: minmax(0, 1fr) !important; }
+
+/* ---------- board ---------- */
+.mplay { grid-template-columns: minmax(0, 1fr) minmax(0, 21rem); }
+.mplay .stage { --bw: min(100%, 46rem, (100dvh - 13.5rem) * 1.2526); }
+.mb { position: relative; width: var(--bw); min-width: min(100%, 17rem); aspect-ratio: 1200 / 958; user-select: none; -webkit-user-select: none; }
+.mb::before { content: ""; position: absolute; inset: -5% 0 -7%; z-index: -1; border-radius: 34px; background: radial-gradient(60% 55% at 50% 60%, rgb(64 157 183 / 0.16), transparent 70%); }
+/* what the fire left: the same picture, burnt */
+.mb__ash { position: absolute; inset: 0; width: 100%; height: 100%; filter: grayscale(1) brightness(0.3) contrast(1.15); opacity: 0.92; pointer-events: none; }
+/* when the last piece is set the whole picture comes back as one, with no seams */
+.mb.is-done .mb__ash { filter: none; opacity: 1; z-index: 3; }
+/* the cut lines and the hint glow show only where there is wood, not in the empty corners of the picture */
+.mb__slots { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; direction: ltr; -webkit-mask: url("img/minbar.webp") center / 100% 100% no-repeat; mask: url("img/minbar.webp") center / 100% 100% no-repeat; }
+.mb__slots polygon { fill: transparent; stroke: rgb(255 255 255 / 0.2); stroke-width: 2.5; stroke-linejoin: round; vector-effect: non-scaling-stroke; transition: stroke var(--d-3), fill var(--d-3); }
+.mb__slots polygon.is-set { stroke: transparent; }
+.mb__slots polygon.is-hint { stroke: var(--light); stroke-width: 3.5; fill: rgb(244 183 64 / 0.22); animation: slot-hint 900ms ease-in-out 3; }
+@keyframes slot-hint { 50% { fill: rgb(244 183 64 / 0.42); } }
+.mb.is-done { animation: mb-done 1400ms var(--e-out); }
+@keyframes mb-done { 30% { filter: drop-shadow(0 0 34px rgb(244 183 64 / 0.75)); transform: scale(1.02); } }
+
+/* ---------- a piece ---------- */
+.pc { display: block; padding: 0; position: relative; touch-action: none; cursor: grab; -webkit-tap-highlight-color: transparent; filter: drop-shadow(0 6px 8px rgb(0 0 0 / 0.45)); transition: filter var(--d-2); }
+.pc__turn { display: block; width: 100%; height: 100%; transform: rotate(var(--rot, 0deg)); transition: transform 320ms var(--e-stitch); }
+.pc__img { display: block; width: 100%; height: 100%; background: url("img/minbar.webp") no-repeat; }
+.pc:hover { filter: drop-shadow(0 10px 12px rgb(0 0 0 / 0.5)) brightness(1.08); }
+.pc:focus-visible { outline: 3px solid #fff; outline-offset: 6px; border-radius: 6px; }
+.pc.is-drag { cursor: grabbing; filter: drop-shadow(0 22px 22px rgb(0 0 0 / 0.5)); pointer-events: auto; }
+.pc.is-drag .pc__turn { transition: none; }
+.pc.is-placed { cursor: default; filter: none; animation: pc-set 620ms var(--e-stitch); }
+@keyframes pc-set { 0% { transform: scale(1.12); filter: brightness(1.7) drop-shadow(0 0 22px rgb(244 183 64 / 0.9)); } 100% { transform: none; filter: none; } }
+.pc.is-no { animation: pc-no 320ms ease-in-out; }
+@keyframes pc-no { 25% { transform: translateX(6px); } 60% { transform: translateX(-5px); } 85% { transform: translateX(2px); } }
+.pc.is-hint { animation: pc-hint 900ms ease-in-out 4; }
+@keyframes pc-hint { 50% { filter: drop-shadow(0 0 14px var(--light)) brightness(1.2); } }
+
+/* ---------- tray ---------- */
+.mtray { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5rem; }
+.mtray__cell { position: relative; aspect-ratio: 1; display: grid; place-items: center; border-radius: var(--r-m); background: rgb(255 255 255 / 0.05); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.07); min-width: 0; }
+.mtray__cell.is-empty { background: none; box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.05); }
+.mtray__mix { margin-inline-start: auto; display: inline-flex; align-items: center; gap: 0.4rem; min-height: 2.2rem; padding-inline: 0.7rem; border-radius: 10px; background: rgb(255 255 255 / 0.08); color: #dbe9ee; font-family: var(--f-body); font-weight: 500; font-size: 0.86rem; transition: background-color var(--d-2); }
+.mtray__mix:hover { background: rgb(255 255 255 / 0.16); }
+.mtray__mix .ic { color: #9fd0de !important; font-size: 0.95rem; }
+.mplay .hud { flex-wrap: wrap; }
+
+/* ---------- win ---------- */
+.mwin__art { width: min(62%, 13rem); }
+.mwin__art img { display: block; width: 100%; height: auto; }
+.mwin__quote { font-family: var(--f-display); font-weight: 700; font-size: 1.08rem; line-height: 1.8; color: var(--rose-700) !important; }
+.mcard { width: 100%; display: grid; gap: 0.4rem; text-align: start; background: var(--mist); border-radius: var(--r-m); padding: 0.8rem 0.9rem; }
+.mcard label { font-family: var(--f-display); font-weight: 700; color: var(--ink); line-height: 1.6; }
+.mcard__row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0.5rem; }
+.mcard__msg { font-size: 0.84rem; line-height: 1.7; color: var(--muted) !important; }
+.mcard__msg[data-state="error"] { color: var(--rose-700) !important; }
+.mcard__msg[data-state="ok"] { color: var(--ok, #1c7c54) !important; }
+
+@media (max-width: 860px) {
+  .mplay { grid-template-columns: minmax(0, 1fr); }
+  .mplay .stage { --bw: min(100%, 34rem); }
+  .mtray { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.4rem; }
+}
+@media (max-width: 420px) { .mcard__row { grid-template-columns: minmax(0, 1fr); } .mstart__art { width: min(86%, 20rem); } }
+@media (prefers-reduced-motion: reduce) { .pc__turn { transition: none; } .pc.is-placed, .mb.is-done { animation: none; } }
+body { overflow-x: clip; }

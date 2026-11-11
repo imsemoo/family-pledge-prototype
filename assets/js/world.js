@@ -50,12 +50,52 @@
     let lastW = 0; new ResizeObserver(() => { if (Math.abs(wall.clientWidth - lastW) > 40) { lastW = wall.clientWidth; fill(); } }).observe(wall); fill();
   }
 
-  /* ---- the shelf: six real episodes, each with its own picture ---- */
-  const shelf = $('[data-shelf]');
-  if (shelf) {
+  /* ---- the reel: one episode on stage, six on the strip. It moves on by itself and waits while you look. ---- */
+  const reel = $('[data-reel]');
+  if (reel) {
     const T = [[2, 'المسجد العمري: لم يبق منه إلا مئذنة'], [4, 'زوارق غزة: كيف يمنع البحر أن يكون بحرا'], [5, 'الأطراف المبتورة: هل نركض بدونها؟'], [7, 'المخيمات أصل الحكاية'], [12, 'جد الزيتون'], [15, 'العلم الفلسطيني']];
-    shelf.innerHTML = T.map(([n, t], i) => `<li data-reveal style="--i:${i}"><a class="tale" href="${shelf.dataset.shelf}"><span class="tale__pic"><img src="assets/img/world/tale-${String(n).padStart(2, '0')}.webp" alt="" width="720" height="720" loading="lazy" decoding="async"></span><h3>${t}</h3></a></li>`).join('');
-    const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.15 });
-    [...shelf.children].forEach((li) => io.observe(li));
+    const two = (n) => String(n).padStart(2, '0'), src = (n) => `assets/img/world/tale-${two(n)}.webp`, href = reel.dataset.reel;
+    reel.innerHTML = `
+      <div class="reel__stage">
+        <a class="reel__pic" href="${href}" aria-label="استمع إلى الحلقة">${T.map(([n], i) => `<img src="${src(n)}" alt="" width="720" height="720" ${i ? 'loading="lazy"' : ''} decoding="async" draggable="false">`).join('')}</a>
+        <div class="reel__info">
+          <p class="reel__kicker"><svg class="ic"><use href="#i-mic"/></svg>من حلقات البودكاست</p>
+          <p class="reel__no num" aria-hidden="true"><b data-no>01</b><span>/ ${two(T.length)}</span></p>
+          <h3 class="reel__name" data-name aria-live="polite"></h3>
+          <div class="reel__act">
+            <a class="btn" href="${href}"><span class="stitch"></span>استمع إلى الحلقة</a>
+            <div class="arrows">
+              <button type="button" data-prev aria-label="الحلقة السابقة"><svg class="ic"><use href="#i-right"/></svg></button>
+              <button type="button" data-next aria-label="الحلقة التالية"><svg class="ic"><use href="#i-left"/></svg></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ol class="reel__strip">${T.map(([n, t], i) => `<li><button type="button" class="reel__thumb" data-i="${i}" aria-label="الحلقة ${i + 1}: ${t}"><span class="reel__bar"><i></i></span><img src="${src(n)}" alt="" width="720" height="720" loading="lazy" decoding="async"><span class="reel__t"><small class="num">${two(i + 1)}</small>${t}</span></button></li>`).join('')}</ol>`;
+
+    const pics = [...reel.querySelectorAll('.reel__pic img')], thumbs = [...reel.querySelectorAll('.reel__thumb')], no = $('[data-no]', reel), name = $('[data-name]', reel), info = $('.reel__info', reel), strip = $('.reel__strip', reel);
+    let at = -1;
+    const show = (i, byUser) => {
+      i = (i + T.length) % T.length; if (i === at) return; at = i;
+      pics.forEach((p, k) => p.classList.toggle('on', k === i));
+      thumbs.forEach((b, k) => { b.classList.toggle('on', k === i); b.setAttribute('aria-current', k === i); });
+      no.textContent = two(i + 1); name.textContent = T[i][1];
+      if (!reduced) { info.classList.remove('swap'); void info.offsetWidth; info.classList.add('swap'); }
+      // keep the active thumb in view on a phone, without moving the page
+      const b = thumbs[i], s = strip.getBoundingClientRect(), r = b.getBoundingClientRect();
+      if (r.left < s.left || r.right > s.right) strip.scrollBy({ left: r.left - s.left - (s.width - r.width) / 2, behavior: reduced || !byUser ? 'auto' : 'smooth' });
+    };
+    $('[data-prev]', reel).addEventListener('click', () => show(at - 1, true));
+    $('[data-next]', reel).addEventListener('click', () => show(at + 1, true));
+    thumbs.forEach((b) => b.addEventListener('click', () => show(+b.dataset.i, true)));
+    reel.addEventListener('keydown', (e) => { if (e.key === 'ArrowLeft') show(at + 1, true); else if (e.key === 'ArrowRight') show(at - 1, true); });
+    // the active thumb's line fills in six seconds; when it ends the next episode comes on. CSS pauses it on hover and focus.
+    reel.addEventListener('animationend', (e) => { if (e.animationName === 'reel-fill') show(at + 1); });
+    new IntersectionObserver((es) => es.forEach((e) => reel.classList.toggle('is-live', e.isIntersecting)), { threshold: 0.35 }).observe(reel);
+    let sx = null; // a swipe on the picture
+    const pic = $('.reel__pic', reel);
+    pic.addEventListener('pointerdown', (e) => { sx = e.clientX; });
+    pic.addEventListener('pointerup', (e) => { if (sx === null) return; const dx = e.clientX - sx; sx = null; if (Math.abs(dx) < 40) return; show(at + (dx > 0 ? 1 : -1), true); pic.addEventListener('click', (c) => c.preventDefault(), { once: true }); });
+    show(0);
   }
 })();
