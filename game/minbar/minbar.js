@@ -72,7 +72,7 @@
   const upright = (st) => ((st.rot % 360) + 360) % 360 === 0;
   /* in the tray every piece is scaled to fit its cell */
   const fit = (st) => {
-    const cell = st.cell.getBoundingClientRect().width * 0.8, k = cell / Math.max(st.p.w, st.p.h);
+    const r = st.cell.getBoundingClientRect(), k = (Math.min(r.width, r.height) * 0.86) / Math.max(st.p.w, st.p.h); // fits at any rotation
     Object.assign(st.node.style, { position: '', left: '', top: '', width: `${st.p.w * k}px`, zIndex: '' });
   };
   const toTray = (st) => { st.node.classList.remove('is-drag'); st.cell.append(st.node); fit(st); };
