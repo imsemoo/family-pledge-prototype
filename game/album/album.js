@@ -8,7 +8,7 @@
   const rand = (n) => Math.floor(Math.random() * n);
   const shuffle = (a) => { for (let i = a.length - 1; i > 0; i--) { const j = rand(i + 1); [a[i], a[j]] = [a[j], a[i]]; } return a; };
   const fmt = (s) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
-  const IMG = '../../assets/img/world/', LISTEN = 'https://familypledge.org/Bagdetails/E4BD7361-27D6-4E74-BD48-109342E804C6#premium';
+  const IMG = '../../assets/img/world/', LISTEN = '../../bag.html#podcast';
 
   /* six episodes of the platform's podcast, then the three people who tell them */
   const TALES = [
@@ -68,7 +68,7 @@
     el.board.style.setProperty('--cols', L.cols); el.board.parentElement.style.setProperty('--cols', L.cols); el.board.dataset.n = S.cards.length;
     el.board.innerHTML = S.cards.map((c, i) => `<button type="button" class="ac ac--${c.side}" data-i="${i}" aria-label="بطاقة مقلوبة رقم ${i + 1}" style="--d:${i}"><span class="ac__in"><span class="ac__back"><img src="../../assets/img/logo-mark.png" alt="" width="120" height="120" draggable="false"></span><span class="ac__face">${faceHTML(c)}</span></span></button>`).join('');
     S.cards.forEach((c, i) => { c.node = el.board.children[i]; c.open = false; c.done = false; });
-    el.album.innerHTML = L.set.map((item) => `<li data-id="${item.id}"><span class="album__pic"><img src="${IMG}${item.img}" alt="" width="720" height="720" loading="lazy" decoding="async"></span><span class="album__t">؟</span></li>`).join('');
+    el.album.innerHTML = L.set.map((item) => `<li data-id="${item.id}"><span class="album__pic"><img src="${IMG}${item.img}" alt="" width="720" height="720" loading="lazy" decoding="async"></span><span class="album__t">· · ·</span></li>`).join('');
     el.total.textContent = L.set.length; el.found.textContent = 0; el.moves.textContent = 0; el.time.textContent = '0:00'; el.hints.textContent = S.hints; el.hint.disabled = false;
     say('اقلب بطاقتين: صورة وعنوان حكايتها.');
   };
@@ -101,7 +101,7 @@
   el.board.addEventListener('keydown', (e) => {
     const b = e.target.closest('.ac'); if (!b || !S) return;
     const cols = +getComputedStyle(el.board).getPropertyValue('--cols-now') || LEVELS[S.level].cols, i = +b.dataset.i;
-    const step = { ArrowLeft: 1, ArrowRight: -1, ArrowDown: cols, ArrowUp: -cols }[e.key]; if (!step) return;
+    const fwd = getComputedStyle(el.board).direction === 'rtl' ? 1 : -1; const step = { ArrowLeft: fwd, ArrowRight: -fwd, ArrowDown: cols, ArrowUp: -cols }[e.key]; if (!step) return;
     e.preventDefault(); const t = el.board.children[i + step]; if (t) t.focus();
   });
 

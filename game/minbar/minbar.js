@@ -208,11 +208,11 @@
       x.fillStyle = '#f3f7f9'; x.beginPath(); x.roundRect(70, 190, 940, 760, 56); x.fill();
       const mw = 820, mh = mw * (H / W); x.drawImage(minbar, 130, 190 + (760 - mh) / 2, mw, mh);
       x.fillStyle = '#fff'; x.beginPath(); x.arc(540, 105, 52, 0, Math.PI * 2); x.fill(); x.drawImage(logo, 496, 61, 88, 88);
-      x.direction = 'rtl'; x.textAlign = 'center';
-      x.fillStyle = '#f8bdd4'; x.font = '700 44px "Baloo Bhaijaan 2", sans-serif'; x.fillText(`أنا ${name}`, 540, 1030);
-      x.fillStyle = '#fff'; x.font = '800 74px "Baloo Bhaijaan 2", sans-serif'; x.fillText('أعدت بناء منبر صلاح الدين', 540, 1125);
-      x.fillStyle = '#c9dde4'; x.font = '500 34px Rubik, sans-serif'; x.fillText('قد يحرق الخشب، لكن الذاكرة التي نحفظها لا تحترق.', 540, 1195);
-      x.fillStyle = '#f4b740'; x.font = '700 30px "Baloo Bhaijaan 2", sans-serif'; x.fillText('ميثاق العائلة', 540, 1280);
+      const tr = window.FPI18N?.t || ((v) => v); x.direction = document.documentElement.dir || 'rtl'; x.textAlign = 'center';
+      x.fillStyle = '#f8bdd4'; x.font = '700 44px "Baloo Bhaijaan 2", sans-serif'; x.fillText(tr('أنا {0}').replace('{0}', name), 540, 1030);
+      x.fillStyle = '#fff'; x.font = '800 74px "Baloo Bhaijaan 2", sans-serif'; x.fillText(tr('أعدت بناء منبر صلاح الدين'), 540, 1125, 960);
+      x.fillStyle = '#c9dde4'; x.font = '500 34px Rubik, sans-serif'; x.fillText(tr('قد يحرق الخشب، لكن الذاكرة التي نحفظها لا تحترق.'), 540, 1195, 960);
+      x.fillStyle = '#f4b740'; x.font = '700 30px "Baloo Bhaijaan 2", sans-serif'; x.fillText(tr('ميثاق العائلة'), 540, 1280);
       const blob = await new Promise((ok) => c.toBlob(ok, 'image/png'));
       const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'minbar-card.png'; document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
       msg.textContent = 'نزلت بطاقتك. شاركها مع عائلتك.'; msg.dataset.state = 'ok';

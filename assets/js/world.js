@@ -33,8 +33,18 @@
       btn.innerHTML = '<span class="stitch"></span>أكمل في صفحة الميثاق';
       msg.style.color = 'var(--ok)'; msg.textContent = 'اسم العائلة يبقى هنا فقط، ولا يرسل مع الانتقال.';
       window.FP?.toast?.(`ميثاق عائلة ${name} جاهز للتوقيع`);
+      const next = $('[data-next]'); if (next) { next.textContent = `عائلة ${name}`; next.closest('li').classList.add('is-signed'); }
     });
   }
+
+  /* ---- single signatures on the hero's sheets and register: the gesture only, never a name ---- */
+  const oneSig = (seed) => {
+    const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647; rnd();
+    const n = 3 + Math.floor(rnd() * 2); let x = 95, d = `M${x} ${18 + rnd() * 8}`;
+    for (let k = 0; k < n; k++) { const w = 15 + rnd() * 11, up = -10 + rnd() * 12, dn = 36 + rnd() * 12; d += `C${(x + w * 0.1).toFixed(1)} ${up.toFixed(1)} ${(x - w * 0.9).toFixed(1)} ${dn.toFixed(1)} ${(x - w).toFixed(1)} ${(14 + rnd() * 10).toFixed(1)}`; x -= w; }
+    return `<path d="${d}M${(x + 14).toFixed(1)} 39H${Math.max(5, x - 6 - rnd() * 10).toFixed(1)}"/>`;
+  };
+  document.querySelectorAll('svg[data-sig]').forEach((el) => { el.innerHTML = oneSig(+el.dataset.sig * 91); });
 
   /* ---- the register: a wall of signatures. No names, only the gesture of signing ---- */
   const wall = $('[data-wall]');
@@ -97,5 +107,53 @@
     pic.addEventListener('pointerdown', (e) => { sx = e.clientX; });
     pic.addEventListener('pointerup', (e) => { if (sx === null) return; const dx = e.clientX - sx; sx = null; if (Math.abs(dx) < 40) return; show(at + (dx > 0 ? 1 : -1), true); pic.addEventListener('click', (c) => c.preventDefault(), { once: true }); });
     show(0);
+  }
+  /* ---- tonight: one suggestion for the evening, from what the bag already holds ---- */
+  const tonight = $('[data-tonight]');
+  if (tonight) {
+    const BAG = 'bag.html#podcast';
+    const ep = (n, title) => ({ kicker: 'حلقة بودكاست', title, text: 'حكاية تحكيها الجدة لرائد ويافا. استمعوا إليها معا ثم تحدثوا عنها.', img: `assets/img/world/tale-${n}.webp`, href: BAG, cta: 'استمعوا الآن' });
+    const q = (title) => ({ kicker: 'سؤال الليلة', title, text: 'اطرحوا السؤال على المائدة، واتركوا كل واحد يجيب بطريقته.', img: 'assets/img/world/cast-jadda-2.webp', href: 'bag.html', cta: 'حكايات تساعدكم' });
+    const SETS = {
+      play: [
+        { kicker: 'لعبة', title: 'قناديل الأقصى', text: 'ابحثوا عن كلمات من رحاب الأقصى، وكل كلمة تضيء قنديلا.', img: 'assets/img/world/scene-lantern.webp', href: 'game/qanadeel/', cta: 'العبوا الآن' },
+        { kicker: 'لعبة', title: 'منبر صلاح الدين', text: 'أعيدوا بناء المنبر قطعة بعد قطعة، وتعرفوا على أجزائه.', img: 'game/minbar/img/minbar.webp', contain: true, href: 'game/minbar/', cta: 'ابدؤوا البناء' },
+        { kicker: 'لعبة', title: 'صورة وحكاية', text: 'اقلبوا البطاقات وأعيدوا كل صورة إلى عنوان حكايتها.', img: 'assets/img/world/tale-12.webp', href: 'game/album/', cta: 'افتحوا الألبوم' },
+      ],
+      listen: [ep('02', 'المسجد العمري: لم يبق منه إلا مئذنة'), ep('04', 'زوارق غزة: كيف يمنع البحر أن يكون بحرا'), ep('05', 'الأطراف المبتورة: هل نركض بدونها؟'), ep('07', 'المخيمات أصل الحكاية'), ep('12', 'جد الزيتون'), ep('15', 'العلم الفلسطيني')],
+      ask: [q('ما أول صورة تخطر لكم عند سماع كلمة القدس؟'), q('لو زرنا المسجد الأقصى، ماذا نريد أن نرى أولا؟'), q('ماذا نعرف عن شجرة الزيتون في فلسطين؟'), q('ما معنى ألوان العلم الفلسطيني؟'), q('كيف يقضي طفل في المخيم يومه؟'), q('ماذا يستطيع بيتنا أن يفعل هذا الشهر من أجل فلسطين؟')],
+    };
+    const root = tonight.closest('.tonight'), modes = [...root.querySelectorAll('[data-mode]')], at = { play: 0, listen: 0, ask: 0 }; let mode = 'play';
+    const T = (k) => $(`[data-t-${k}]`, tonight), pic = $('.tonight__pic', tonight);
+    const show = (animate) => {
+      const it = SETS[mode][at[mode]];
+      T('kicker').textContent = it.kicker; T('title').textContent = it.title; T('text').textContent = it.text; T('cta').textContent = it.cta;
+      T('link').href = it.href; if (/^https/.test(it.href)) { T('link').target = '_blank'; T('link').rel = 'noopener'; } else { T('link').removeAttribute('target'); T('link').removeAttribute('rel'); }
+      T('img').src = it.img; pic.classList.toggle('is-contain', !!it.contain);
+      if (animate && !reduced) { tonight.classList.remove('is-swap'); void tonight.offsetWidth; tonight.classList.add('is-swap'); }
+    };
+    modes.forEach((b) => b.addEventListener('click', () => { mode = b.dataset.mode; modes.forEach((x) => { const on = x === b; x.classList.toggle('is-on', on); x.setAttribute('aria-pressed', on); }); show(true); }));
+    $('[data-t-next]', tonight).addEventListener('click', () => { at[mode] = (at[mode] + 1) % SETS[mode].length; show(true); });
+    show(false);
+  }
+
+  /* ---- the chain: if every home invites n homes, how far does the pledge travel in three rounds ---- */
+  const rounds = $('[data-rounds]');
+  if (rounds) {
+    const root = rounds.closest('.chain'), picks = [...root.querySelectorAll('[data-n]')], total = $('[data-total]', root), LINK = new URL('pledge.html', document.baseURI).href;
+    const NAMES = ['بيتك', 'الجولة الأولى', 'الجولة الثانية', 'الجولة الثالثة'], SHOW = 30;
+    const draw = (n) => {
+      const counts = [1, n, n * n, n * n * n];
+      rounds.innerHTML = counts.map((c, r) => `<li><small>${NAMES[r]}</small><span class="chain__homes" aria-hidden="true">${Array.from({ length: Math.min(c, SHOW) }, (_, k) => `<i style="--k:${k}"></i>`).join('')}${c > SHOW ? `<em>+${c - SHOW}</em>` : ''}</span><b class="num">${c}</b></li>`).join('');
+      total.textContent = counts.reduce((a, b) => a + b, 0);
+    };
+    picks.forEach((b) => b.addEventListener('click', () => { picks.forEach((x) => { const on = x === b; x.classList.toggle('is-on', on); x.setAttribute('aria-pressed', on); }); draw(+b.dataset.n); }));
+    draw(3);
+    const share = $('[data-share]', root); const say = window.FPI18N?.t || ((x) => x);
+    Promise.resolve(window.FPI18N?.ready).then(() => { share.href = 'https://wa.me/?text=' + encodeURIComponent(say('عائلتنا في ميثاق العائلة، عهد لنصرة أهلنا في فلسطين. انضموا معنا:') + ' ' + LINK); });
+    $('[data-copy]', root).addEventListener('click', async (e) => {
+      try { await navigator.clipboard.writeText(LINK); window.FP?.toast?.('نسخ رابط الميثاق'); } catch { window.FP?.toast?.(LINK); }
+      e.currentTarget.blur();
+    });
   }
 })();

@@ -327,7 +327,7 @@
     const key = `qanadeel-best-${S.level}`, prev = +localStorage.getItem(key) || 0, wb = $('#win-best');
     if (!prev || S.t < prev) { localStorage.setItem(key, S.t); wb.hidden = !prev; wb.textContent = 'رقم جديد! هذا أفضل وقت لك في هذا المستوى.'; } else { wb.hidden = false; wb.textContent = `أفضل وقت لك: ${fmt(prev)}`; wb.style.color = ''; }
     const share = $('#btn-share'); share.hidden = !navigator.share;
-    share.onclick = () => navigator.share({ title: 'قناديل الأقصى', text: `أضأت قناديل الأقصى كلها في ${fmt(S.t)}. جرب أنت وعائلتك!`, url: location.href }).catch(() => {});
+    share.onclick = () => navigator.share({ title: (window.FPI18N?.t || ((v) => v))('قناديل الأقصى'), text: (window.FPI18N?.t || ((v) => v))('أضأت قناديل الأقصى كلها في {0}. جرب أنت وعائلتك!').replace('{0}', fmt(S.t)), url: location.href }).catch(() => {});
     setTimeout(() => { sfx.win(); embers(true); }, 500);
     setTimeout(() => { el.dWin.showModal(); el.dWin.scrollTop = 0; }, reduced ? 300 : 1700);
   };

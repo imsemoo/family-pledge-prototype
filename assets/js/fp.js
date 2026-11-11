@@ -5,20 +5,32 @@
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const FP = (window.FP = { reduced });
 
-  /* ---- loader: once per session, never longer than the page needs ---- */
+  /* ---- loader: it covers the page while the next one is fetched, then lifts ---- */
   const loader = $('.loader');
-  if (loader) {
-    const seen = sessionStorage.getItem('fp-seen');
-    if (seen || reduced) loader.remove();
-    else {
-      const t0 = performance.now();
-      const close = () => {
-        const wait = Math.max(0, 850 - (performance.now() - t0));
-        setTimeout(() => { loader.classList.add('done'); sessionStorage.setItem('fp-seen', '1'); setTimeout(() => loader.remove(), 700); }, wait);
-      };
-      if (document.readyState === 'complete') close(); else addEventListener('load', close, { once: true });
-      setTimeout(close, 2600);
-    }
+  if (loader && new URLSearchParams(location.search).has('noloader')) loader.remove();
+  else if (loader) {
+    const t0 = performance.now(), first = !sessionStorage.getItem('fp-seen');
+    let opened = false;
+    const open = () => {
+      if (opened) return; opened = true;
+      const wait = Math.max(0, (first ? 950 : 420) - (performance.now() - t0));
+      // the cover lifts only once the page is in the visitor's language
+      Promise.resolve(window.FPI18N?.ready).then(() => setTimeout(() => { loader.classList.remove('leaving'); loader.classList.add('done'); sessionStorage.setItem('fp-seen', '1'); }, wait));
+    };
+    if (document.readyState !== 'loading') open(); else addEventListener('DOMContentLoaded', open, { once: true });
+    setTimeout(open, 2600);
+    // coming back with the browser's Back button: the page is restored as it was left, so lift the cover
+    addEventListener('pageshow', (e) => { if (e.persisted) { loader.classList.remove('leaving'); loader.classList.add('done'); } });
+    FP.leave = (url) => { loader.classList.remove('done'); loader.classList.add('leaving'); setTimeout(() => { location.href = url; }, reduced ? 0 : 470); };
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest('a[href]');
+      if (!a || e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      if (a.target === '_blank' || a.hasAttribute('download') || a.dataset.lang) return;
+      const u = new URL(a.href, location.href);
+      if (u.origin !== location.origin || !/^https?:$/.test(u.protocol)) return;
+      if (u.pathname === location.pathname && u.search === location.search) return; // a jump inside this page
+      e.preventDefault(); FP.leave(a.href);
+    });
   }
 
   /* ---- reveal on scroll ---- */
