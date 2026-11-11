@@ -11,9 +11,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Baloo+Bhaijaan+2:wght@500;700;800&family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/fp.css?v=30">
-<link rel="stylesheet" href="assets/css/home.css?v=30">
-<link rel="stylesheet" href="assets/css/world.css?v=30">
+<link rel="stylesheet" href="assets/css/fp.css?v=38">
+<link rel="stylesheet" href="assets/css/home.css?v=38">
+<link rel="stylesheet" href="assets/css/world.css?v=38">
 </head>
 <body>
 <a class="skip" href="#main">تخط إلى المحتوى</a>
@@ -231,13 +231,13 @@
       <a class="link head__side" href="https://familypledge.org/Ourbag">كل ما في الجعبة<svg class="ic"><use href="#i-arrow"/></svg></a>
     </div>
     <ul class="bag" data-stagger>
-      <li data-reveal><a href="https://familypledge.org/Ourbag"><img src="assets/img/world/cat-1.webp" alt="" width="180" height="180" loading="lazy">كتب</a></li>
-      <li data-reveal><a href="https://familypledge.org/Ourbag"><img src="assets/img/world/cat-2.webp" alt="" width="180" height="180" loading="lazy">فيديوهات</a></li>
-      <li data-reveal><a href="https://familypledge.org/Bagdetails/E4BD7361-27D6-4E74-BD48-109342E804C6#premium"><img src="assets/img/world/cat-3.webp" alt="" width="180" height="180" loading="lazy">بودكاست</a></li>
-      <li data-reveal><a href="https://familypledge.org/Ourbag"><img src="assets/img/world/cat-4.webp" alt="" width="180" height="180" loading="lazy">قصص مصورة</a></li>
-      <li data-reveal><a href="https://familypledge.org/Ourbag"><img src="assets/img/world/cat-5.webp" alt="" width="180" height="180" loading="lazy">بطاقات</a></li>
-      <li data-reveal><a href="https://familypledge.org/Ourbag"><img src="assets/img/world/cat-6.webp" alt="" width="180" height="180" loading="lazy">مقالات</a></li>
-      <li data-reveal><a href="https://familypledge.org/Games/1D58B8C4-B755-4664-A328-9B608DFC798A#premium"><img src="assets/img/world/cat-7.webp" alt="" width="180" height="180" loading="lazy">ألعاب</a></li>
+      <li data-reveal><a href="https://familypledge.org/Ourbag"><span class="leaf"><svg class="ic"><use href="#i-book"/></svg></span>كتب</a></li>
+      <li data-reveal><a href="https://familypledge.org/Ourbag"><span class="leaf"><svg class="ic"><use href="#i-video"/></svg></span>فيديوهات</a></li>
+      <li data-reveal><a href="https://familypledge.org/Bagdetails/E4BD7361-27D6-4E74-BD48-109342E804C6#premium"><span class="leaf"><svg class="ic"><use href="#i-mic"/></svg></span>بودكاست</a></li>
+      <li data-reveal><a href="https://familypledge.org/Ourbag"><span class="leaf"><svg class="ic"><use href="#i-image"/></svg></span>قصص مصورة</a></li>
+      <li data-reveal><a href="https://familypledge.org/Ourbag"><span class="leaf"><svg class="ic"><use href="#i-cards"/></svg></span>بطاقات</a></li>
+      <li data-reveal><a href="https://familypledge.org/Ourbag"><span class="leaf"><svg class="ic"><use href="#i-file"/></svg></span>مقالات</a></li>
+      <li data-reveal><a href="https://familypledge.org/Games/1D58B8C4-B755-4664-A328-9B608DFC798A#premium"><span class="leaf"><svg class="ic"><use href="#i-game"/></svg></span>ألعاب</a></li>
     </ul>
 
     <div class="spot on-dark" data-reveal>
@@ -305,7 +305,7 @@
   </div>
 </section>
 
-<!-- ============ numbers ============ -->
+<!-- ============ numbers: the register of signatures ============ -->
 <section class="section numbers on-dark" id="numbers">
   <div class="wrap">
     <div class="numbers__top" data-reveal>
@@ -318,23 +318,34 @@
         <img src="assets/img/world/seal-mark.webp" alt="" width="360" height="316" loading="lazy">
       </span>
     </div>
-    <div class="stats" data-stagger>
-      <div class="stat" data-reveal><svg class="ic"><use href="#i-pen"/></svg><b class="num" data-count="25047">25,047</b><span>توقيعا على الميثاق</span></div>
-      <div class="stat" data-reveal><svg class="ic"><use href="#i-home"/></svg><b class="num" data-count="820">820</b><span>عائلة</span></div>
-      <div class="stat" data-reveal><svg class="ic"><use href="#i-smile"/></svg><b class="num"><span data-count="80">80</span><small>K</small></b><span>طفلا</span></div>
-      <div class="stat" data-reveal><svg class="ic"><use href="#i-globe"/></svg><b class="num" data-count="30">30</b><span>دولة</span></div>
-    </div>
-    <div class="lands" data-reveal>
-      <div>
-        <h3>الدول الأعلى مشاركة</h3>
-        <p>من البرازيل إلى أستراليا، العهد نفسه في بيوت متباعدة.</p>
-        <p class="lands__key"><span class="stitch" style="color:var(--rose-400)"></span>كل نقطة = 10 مشتركين</p>
+
+    <div class="ledger">
+      <div class="ledger__book" data-reveal>
+        <p class="ledger__label"><svg class="ic"><use href="#i-pen"/></svg>سجل التواقيع</p>
+        <p class="ledger__count"><b class="num" data-count="25047">25,047</b><span>توقيعا حتى اليوم</span></p>
+        <div class="ledger__wall" data-wall aria-hidden="true"></div>
+        <div class="ledger__next">
+          <p><span class="ledger__x">✕</span><span>السطر التالي لعائلتك: التوقيع رقم <b class="num">25,048</b></span></p>
+          <a class="btn" href="https://familypledge.org/SharePledge"><span class="stitch"></span>وقع الميثاق</a>
+        </div>
       </div>
-      <ol>
-        <li><span>البرازيل</span><span class="row" aria-hidden="true"><i style="--k:0"></i><i style="--k:1"></i><i style="--k:2"></i><i style="--k:3"></i><i style="--k:4"></i><i style="--k:5"></i><i style="--k:6"></i></span><b class="num">70</b></li>
-        <li><span>ألبانيا</span><span class="row" aria-hidden="true"><i style="--k:0"></i><i style="--k:1"></i><i style="--k:2"></i><i style="--k:3"></i><i style="--k:4"></i><i style="--k:5"></i></span><b class="num">60</b></li>
-        <li><span>أستراليا</span><span class="row" aria-hidden="true"><i style="--k:0"></i><i style="--k:1"></i><i style="--k:2"></i><i style="--k:3"></i><i style="--k:4"></i></span><b class="num">50</b></li>
-      </ol>
+
+      <div class="ledger__side">
+        <ul class="tally" data-stagger>
+          <li data-reveal><span class="tally__ic"><svg class="ic"><use href="#i-home"/></svg></span><b class="num" data-count="820">820</b><span>عائلة</span></li>
+          <li data-reveal><span class="tally__ic"><svg class="ic"><use href="#i-smile"/></svg></span><b class="num"><span data-count="80">80</span><small>K</small></b><span>طفلا</span></li>
+          <li data-reveal><span class="tally__ic"><svg class="ic"><use href="#i-globe"/></svg></span><b class="num" data-count="30">30</b><span>دولة</span></li>
+        </ul>
+        <div class="rank" data-reveal>
+          <h3>الدول الأعلى مشاركة</h3>
+          <ol>
+            <li><span class="rank__n num">1</span><span class="rank__name">البرازيل</span><span class="rank__bar" style="--v:1"></span><b class="num">70</b></li>
+            <li><span class="rank__n num">2</span><span class="rank__name">ألبانيا</span><span class="rank__bar" style="--v:.857"></span><b class="num">60</b></li>
+            <li><span class="rank__n num">3</span><span class="rank__name">أستراليا</span><span class="rank__bar" style="--v:.714"></span><b class="num">50</b></li>
+          </ol>
+          <p class="rank__note">عدد المشتركين في كل دولة</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -380,7 +391,7 @@
   </div>
 </section>
 
-<!-- ============ news ============ -->
+<!-- ============ news: one lead story, four dated lines ============ -->
 <section class="section section--mist" id="news">
   <div class="wrap">
     <div class="head head--row" data-reveal>
@@ -388,22 +399,35 @@
       <h2>أخبار ميثاق العائلة</h2>
       <a class="link head__side" href="https://familypledge.org/News">كل الأخبار<svg class="ic"><use href="#i-arrow"/></svg></a>
     </div>
-    <div class="news">
-      <a class="card story" data-reveal href="https://familypledge.org/details/7B17D5E6-3B30-4BF1-9F01-5BB5E3A2E416">
-        <div class="media"><img src="assets/img/news-1.webp" alt="مشهد من فعالية لميثاق العائلة تعرض قصة طفل فلسطيني" width="770" height="770" loading="lazy"></div>
-        <div class="story__body"><h3>ما وراء التبرعات: ميثاق العائلة يرسخ التزاما مستداما تجاه فلسطين</h3><span class="link">اقرأ الخبر<svg class="ic"><use href="#i-arrow"/></svg></span></div>
-      </a>
-      <div class="news__side" data-stagger>
-        <a class="card story story--row" data-reveal href="https://familypledge.org/details/2D177F82-4A41-4CF5-B6E8-22BA7EF933E2">
-          <div class="media"><img src="assets/img/news-2.webp" alt="أطفال ومعلمات في لقاء لنصرة الأقصى" width="770" height="770" loading="lazy"></div>
-          <div class="story__body"><h3>«خطوات صغيرة نحو الأقصى».. رسالة نصرة وأخوة بين أطفال إندونيسيا وفلسطين</h3></div>
-        </a>
-        <a class="card story story--row" data-reveal href="https://familypledge.org/details/28E56246-3F6D-4423-B724-EE671FF68875">
-          <div class="media"><img src="assets/img/news-3.webp" alt="جلسة لنادي الأقصى يشارك فيها شباب" width="770" height="770" loading="lazy"></div>
-          <div class="story__body"><h3>مسارات ريادية ومبادرات نوعية.. «نادي الأقصى» يسطر قصة نجاح في المشهد الشبابي الكيني</h3></div>
-        </a>
-      </div>
-    </div>
+
+    <a class="lead" data-reveal href="https://familypledge.org/details/7B17D5E6-3B30-4BF1-9F01-5BB5E3A2E416">
+      <span class="lead__pic"><img src="assets/img/news-1.webp" alt="مشهد من فعالية في بانكوك يعرض على الشاشة صورة طفل فلسطيني بين الخيام" width="770" height="770" loading="lazy"></span>
+      <span class="lead__body">
+        <span class="lead__meta"><time datetime="2026-10-27">27 أكتوبر 2026</time><span class="lead__flag">الخبر الأحدث</span></span>
+        <h3>ما وراء التبرعات: ميثاق العائلة يرسخ التزاما مستداما تجاه فلسطين</h3>
+        <span class="lead__lede">شارك ميثاق العائلة في فعالية بالعاصمة التايلاندية بانكوك، وقدم فيها عرضا تعريفيا بالمبادرة تحت شعار «ليس تبرعا، بل عهد والتزام».</span>
+        <span class="link">اقرأ الخبر<svg class="ic"><use href="#i-arrow"/></svg></span>
+      </span>
+    </a>
+
+    <ul class="wire" data-stagger>
+      <li data-reveal><a class="wire__item" href="https://familypledge.org/details/2D177F82-4A41-4CF5-B6E8-22BA7EF933E2">
+        <img src="assets/img/news-2.webp" alt="أطفال ومعلمات يحملون رسوماتهم في لقاء لنصرة الأقصى" width="770" height="770" loading="lazy">
+        <span><time datetime="2026-10-26">26 أكتوبر 2026</time><h3>«خطوات صغيرة نحو الأقصى».. رسالة نصرة وأخوة بين أطفال إندونيسيا وفلسطين</h3></span>
+      </a></li>
+      <li data-reveal><a class="wire__item" href="https://familypledge.org/details/28E56246-3F6D-4423-B724-EE671FF68875">
+        <img src="assets/img/news-3.webp" alt="أطفال يرفعون أيديهم في جلسة لنادي الأقصى" width="770" height="770" loading="lazy">
+        <span><time datetime="2026-10-16">16 أكتوبر 2026</time><h3>مسارات ريادية ومبادرات نوعية.. «نادي الأقصى» يسطر قصة نجاح في المشهد الشبابي الكيني</h3></span>
+      </a></li>
+      <li data-reveal><a class="wire__item" href="https://familypledge.org/details/4AEB2609-72F7-4707-8C59-2A81696EA1BF">
+        <img src="assets/img/news-4.webp" alt="شابات يجلسن في قاعة أثناء جلسة توعوية" width="770" height="770" loading="lazy">
+        <span><time datetime="2026-10-16">16 أكتوبر 2026</time><h3>أكثر من 60 شابة يشاركن في جلسة توعوية لنادي الأقصى بالعاصمة الكينية نيروبي</h3></span>
+      </a></li>
+      <li data-reveal><a class="wire__item" href="https://familypledge.org/details/114D76E4-D417-444A-98EB-6280ACB93DBC">
+        <img src="assets/img/news-5.webp" alt="أطفال يجلسون حول طاولة مع معلمتهم" width="770" height="770" loading="lazy">
+        <span><time datetime="2026-10-15">15 أكتوبر 2026</time><h3>تقرير إنجاز نشاطات مجموعة ميثاق العائلة في موريتانيا</h3></span>
+      </a></li>
+    </ul>
   </div>
 </section>
 
@@ -476,8 +500,8 @@
   <img src="assets/img/certificate.webp" alt="نص وثيقة ميثاق العائلة مع خانتين لاسم العائلة والدولة" width="1600" height="1135" loading="lazy">
 </dialog>
 
-<script src="assets/js/fp.js?v=30" defer></script>
-<script src="assets/js/world.js?v=30" defer></script>
-<script defer src="assets/js/home.js?v=30"></script>
+<script src="assets/js/fp.js?v=38" defer></script>
+<script src="assets/js/world.js?v=38" defer></script>
+<script defer src="assets/js/home.js?v=38"></script>
 </body>
 </html>

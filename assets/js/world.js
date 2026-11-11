@@ -36,6 +36,20 @@
     });
   }
 
+  /* ---- the register: a wall of signatures. No names, only the gesture of signing ---- */
+  const wall = $('[data-wall]');
+  if (wall) {
+    let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+    const sig = (i) => {
+      const n = 3 + Math.floor(rnd() * 2); let x = 95, d = `M${x} ${18 + rnd() * 8}`;
+      for (let k = 0; k < n; k++) { const w = 15 + rnd() * 11, up = -10 + rnd() * 12, dn = 36 + rnd() * 12; d += `C${(x + w * 0.1).toFixed(1)} ${up.toFixed(1)} ${(x - w * 0.9).toFixed(1)} ${dn.toFixed(1)} ${(x - w).toFixed(1)} ${(14 + rnd() * 10).toFixed(1)}`; x -= w; }
+      d += `M${(x + 14).toFixed(1)} 39H${Math.max(5, x - 6 - rnd() * 10).toFixed(1)}`;
+      return `<svg viewBox="0 0 100 42" style="--i:${i}"><path d="${d}"/></svg>`;
+    };
+    const fill = () => { const cols = wall.clientWidth < 380 ? 3 : wall.clientWidth < 560 ? 4 : 5; wall.style.setProperty('--cols', cols); seed = 7; wall.innerHTML = Array.from({ length: cols * 3 }, (_, i) => sig(i)).join(''); };
+    let lastW = 0; new ResizeObserver(() => { if (Math.abs(wall.clientWidth - lastW) > 40) { lastW = wall.clientWidth; fill(); } }).observe(wall); fill();
+  }
+
   /* ---- the shelf: six real episodes, each with its own picture ---- */
   const shelf = $('[data-shelf]');
   if (shelf) {
