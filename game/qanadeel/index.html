@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>قناديل الأقصى — لعبة الكلمات المخفية | ميثاق العائلة</title>
+<meta name="description" content="ابحث عن الكلمات المرتبطة بالمسجد الأقصى، وأضئ قنديلا مع كل كلمة حتى تنكشف العبارة السرية.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0c2530">
+<link rel="icon" href="../../assets/img/logo-mark.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;700;800&family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/fp.css?v=6">
+<link rel="stylesheet" href="../../assets/css/world.css?v=6">
+<link rel="stylesheet" href="game.css?v=6">
+</head>
+<body class="on-dark" data-screen="start">
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+    <symbol id="i-sound" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4zM15.500 8.500a5 5 0 0 1 0 7M18.500 5.500a9 9 0 0 1 0 13"/></symbol>
+    <symbol id="i-mute" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4zM22 9.500l-5 5M17 9.500l5 5"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M9 5v14M15 5v14"/></symbol>
+    <symbol id="i-light" viewBox="0 0 24 24"><path d="M9 18h6M10 21.500h4M12 2.500a6.500 6.500 0 0 0-4 11.700c.600.500 1 1.300 1 2.300v.500h6v-.500c0-1 .400-1.800 1-2.300a6.500 6.500 0 0 0-4-11.700z"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.500"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-redo" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.700L3 8M3 3v5h5"/></symbol>
+    <symbol id="i-drag" viewBox="0 0 24 24"><path d="M4 18 18 4M18 4h-6M18 4v6"/><circle cx="5" cy="19" r="1.500"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="10.500" width="16" height="11" rx="3"/><path d="M8 10.500V7a4 4 0 0 1 8 0v3.500"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 2.500 2.900 6 6.600.900-4.800 4.600 1.200 6.500-5.900-3.100-5.900 3.100 1.200-6.500L2.500 9.400l6.600-.900z"/></symbol>
+    <symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.500"/><circle cx="6" cy="12" r="2.500"/><circle cx="18" cy="19" r="2.500"/><path d="m8.200 10.800 7.600-4.500M8.200 13.200l7.600 4.500"/></symbol>
+  </defs>
+</svg>
+
+<div class="sky" aria-hidden="true"><div class="sky__stars"></div><div class="sky__dawn"></div>
+  <div class="sky__land" id="land"></div>
+</div>
+
+<header class="bar">
+  <a class="icon-btn" href="../../index.html#bag" aria-label="العودة إلى ميثاق العائلة"><svg class="ic"><use href="#i-arrow"/></svg></a>
+  <a class="bar__brand" href="../../index.html"><img src="../../assets/img/logo-mark.png" alt="" width="34" height="34"><span>ميثاق العائلة</span></a>
+  <div class="bar__act">
+    <button class="icon-btn" id="btn-pause" type="button" aria-label="إيقاف مؤقت" hidden><svg class="ic"><use href="#i-pause"/></svg></button>
+    <button class="icon-btn" id="btn-sound" type="button" aria-pressed="true" aria-label="الصوت"><svg class="ic"><use href="#i-sound"/></svg></button>
+  </div>
+</header>
+
+<main>
+<!-- ============ start ============ -->
+<section class="start" id="screen-start" aria-labelledby="t-start">
+  <div class="start__rail" aria-hidden="true"><i class="lan lit" style="--drop:26px"><b></b></i><i class="lan" style="--drop:52px"><b></b></i><i class="lan lit" style="--drop:14px"><b></b></i><i class="lan lit" style="--drop:44px"><b></b></i><i class="lan" style="--drop:22px"><b></b></i></div>
+  <p class="eyebrow"><span class="dots"><i></i><i></i><i></i></span>لعبة الكلمات المخفية</p>
+  <h1 id="t-start">قناديل الأقصى</h1>
+  <div class="start__cast" id="start-cast" aria-hidden="true"></div>
+  <p class="start__lead">ابحث عن الكلمات المرتبطة بالمسجد الأقصى. كل كلمة تجدها تضيء قنديلا، ومع آخر قنديل تنكشف العبارة السرية.</p>
+
+  <ol class="how">
+    <li><span class="how__ic"><svg class="ic"><use href="#i-drag"/></svg></span><span>اسحب من أول حرف إلى آخر حرف، أو المس الحرفين</span></li>
+    <li><span class="how__ic"><i class="lan lit mini"><b></b></i></span><span>كل كلمة صحيحة تضيء قنديلا</span></li>
+    <li><span class="how__ic"><svg class="ic"><use href="#i-lock"/></svg></span><span>أضئ القناديل كلها لتنكشف العبارة</span></li>
+  </ol>
+
+  <form class="setup" id="setup">
+    <fieldset>
+      <legend>المستوى</legend>
+      <div class="pick">
+        <label><input type="radio" name="level" value="buds" checked><strong>براعم</strong><small>12 كلمة، اتجاهات القراءة فقط</small></label>
+        <label><input type="radio" name="level" value="knights"><strong>فرسان</strong><small>20 كلمة، في كل الاتجاهات</small></label>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>طريقة اللعب</legend>
+      <div class="pick">
+        <label><input type="radio" name="mode" value="calm" checked><strong>على مهل</strong><small>بلا وقت محدد</small></label>
+        <label><input type="radio" name="mode" value="dawn"><strong>قبل الفجر</strong><small id="dawn-note">أضئها كلها قبل انتهاء الوقت</small></label>
+      </div>
+    </fieldset>
+    <button class="btn start__go" type="submit"><span class="stitch"></span>هيا نلعب</button>
+    <p class="start__best" id="best" hidden></p>
+  </form>
+</section>
+
+<!-- ============ play ============ -->
+<section class="play" id="screen-play" aria-label="اللعب" hidden>
+  <div class="rail" id="rail" aria-hidden="true"></div>
+
+  <div class="play__grid">
+    <div class="stage">
+      <div class="hud">
+        <div class="hud__item" title="القناديل المضيئة"><i class="lan lit mini"><b></b></i><b class="num"><span id="hud-found">0</span>/<span id="hud-total">20</span></b></div>
+        <div class="hud__item" id="hud-time-box"><svg class="ic"><use href="#i-clock"/></svg><b class="num" id="hud-time">0:00</b></div>
+        <button class="hud__hint" id="btn-hint" type="button"><svg class="ic"><use href="#i-light"/></svg><span>تلميح</span><b class="num" id="hud-hints">3</b></button>
+      </div>
+      <div class="board-wrap">
+        <div class="board" id="board" role="grid" aria-label="شبكة البحث عن الكلمات"></div>
+        <svg class="lines" id="lines" aria-hidden="true"></svg>
+      </div>
+      <div class="helper"><span class="helper__who" id="helper" aria-hidden="true"></span><p class="status" id="status" role="status" aria-live="polite">اسحب من أول حرف إلى آخر حرف.</p></div>
+    </div>
+
+    <aside class="panel">
+      <section class="panel__box" aria-labelledby="t-words">
+        <h2 id="t-words">الكلمات المطلوبة</h2>
+        <ul class="words" id="words"></ul>
+      </section>
+      <section class="panel__box" aria-labelledby="t-secret">
+        <h2 id="t-secret"><svg class="ic"><use href="#i-lock"/></svg>العبارة السرية</h2>
+        <p class="secret" id="secret" aria-label="العبارة السرية، تنكشف مع تقدمك"></p>
+      </section>
+      <section class="panel__box fact" aria-live="polite">
+        <h2><svg class="ic"><use href="#i-light"/></svg><span id="fact-word">هل تعلم؟</span></h2>
+        <p id="fact">يضم المسجد الأقصى معالم تاريخية كثيرة، منها قبة الصخرة والمصلى القبلي.</p>
+      </section>
+    </aside>
+  </div>
+</section>
+</main>
+
+<!-- ============ pause ============ -->
+<dialog class="sheet-d" id="dlg-pause" aria-labelledby="t-pause">
+  <span class="dlg-art dlg-art--s" id="pause-art" aria-hidden="true"></span>
+  <h2 id="t-pause">استراحة قصيرة</h2>
+  <p>القناديل تنتظرك، والوقت متوقف.</p>
+  <div class="sheet-d__act">
+    <button class="btn" type="button" data-act="resume"><span class="stitch"></span>أكمل اللعب</button>
+    <button class="btn btn--line" type="button" data-act="restart"><svg class="ic"><use href="#i-redo"/></svg>شبكة جديدة</button>
+    <button class="btn btn--line" type="button" data-act="home">الخروج إلى البداية</button>
+  </div>
+</dialog>
+
+<!-- ============ lose ============ -->
+<dialog class="sheet-d" id="dlg-lose" aria-labelledby="t-lose">
+  <span class="dlg-art dlg-art--s" id="lose-art" aria-hidden="true"></span>
+  <div class="sheet-d__rail" id="lose-rail" aria-hidden="true"></div>
+  <h2 id="t-lose">طلع الفجر قبل أن تكتمل القناديل</h2>
+  <p id="lose-msg">أضأت 0 من 20. بقي القليل، والمحاولة التالية أقرب.</p>
+  <div class="sheet-d__act">
+    <button class="btn" type="button" data-act="restart"><span class="stitch"></span>حاول من جديد</button>
+    <button class="btn btn--line" type="button" data-act="calm">أكمل هذه الشبكة على مهل</button>
+  </div>
+</dialog>
+
+<!-- ============ win ============ -->
+<dialog class="sheet-d win" id="dlg-win" aria-labelledby="t-win">
+  <div class="dlg-art" id="win-art" aria-hidden="true"></div>
+  <p class="eyebrow"><span class="dots"><i></i><i></i><i></i></span>اكتملت القناديل</p>
+  <h2 id="t-win">أحسنت يا بطل!</h2>
+  <p class="win__phrase" id="win-phrase" aria-label="المسجد الأقصى"></p>
+  <div class="win__stats">
+    <div><span class="stars" id="win-stars" role="img"></span><small>تقييمك</small></div>
+    <div><b class="num" id="win-time">0:00</b><small>الوقت</small></div>
+    <div><b class="num" id="win-hints">0</b><small>تلميحات</small></div>
+  </div>
+  <p class="win__best" id="win-best" hidden></p>
+  <p class="win__story">المسجد الأقصى المبارك ليس مجرد بناء، بل هو مجمع مقدس يمتد على 144 دونما؛ كل ما جمعته في هذه اللعبة من قباب ومحاريب وأبواب وأسوار جزء لا يتجزأ من هذا الحرم الشريف. احفظ حكايته في ذاكرتك.</p>
+  <div class="sheet-d__act">
+    <button class="btn" type="button" data-act="restart"><span class="stitch"></span>العب مرة أخرى</button>
+    <button class="btn btn--line" type="button" id="btn-share" hidden><svg class="ic"><use href="#i-share"/></svg>شارك نتيجتك</button>
+    <a class="btn btn--line" href="https://familypledge.org/SharePledge">وقع الميثاق مع عائلتك</a>
+  </div>
+</dialog>
+
+<script src="../../assets/js/cast.js?v=6" defer></script>
+<script src="game.js?v=6" defer></script>
+</body>
+</html>
