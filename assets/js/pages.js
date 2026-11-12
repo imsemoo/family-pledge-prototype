@@ -462,21 +462,26 @@ window.FPHome = (() => {
   const norm = (s) => s.toLowerCase().replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي').replace(/[ً-ْ]/g, '').trim();
   let kind = '', acc = '';
   const apply = () => {
-    const term = norm(q.value); let any = false;
+    const term = norm(q.value); let any = false, found = 0;
     shelves.forEach((sh) => {
       let n = 0;
       sh.querySelectorAll('[data-item]').forEach((li) => {
         const on = (!acc || li.dataset.access === acc) && (!term || norm(li.querySelector('.bk').dataset.title).includes(term));
         li.hidden = !on; if (on) n++;
       });
-      const show = (!kind || sh.dataset.shelf === kind) && n > 0; sh.hidden = !show; if (show) any = true;
+      const show = (!kind || sh.dataset.shelf === kind) && n > 0; sh.hidden = !show; if (show) { any = true; found += n; }
+      const shown = sh.querySelector('[data-shown]'); if (shown) shown.textContent = n;
       sh.querySelector('[data-rail]')?.dispatchEvent(new Event('scroll'));
     });
-    none.hidden = any; feat.hidden = !!(term || acc === 'free' || (kind && kind !== 'cards'));
+    none.hidden = any; feat.hidden = !!(term || acc || (kind && kind !== 'cards'));
+    /* a narrowed bag is a short list, not six wide shelves: the shelves shrink to what they hold and sit side by side */
+    const narrowed = !!(term || acc); root.classList.toggle('is-results', narrowed && found <= 12);
+    const fl = root.querySelector('[data-bag-found]'); fl.hidden = !narrowed || !any; root.querySelector('[data-bag-n]').textContent = found;
   };
   kinds.forEach((b) => b.addEventListener('click', () => { kind = b.dataset.kindF; kinds.forEach((x) => x.setAttribute('aria-pressed', x === b)); apply(); }));
   accs.forEach((b) => b.addEventListener('click', () => { acc = b.dataset.accessF; accs.forEach((x) => x.setAttribute('aria-pressed', x === b)); apply(); }));
   q.addEventListener('input', apply);
+  root.querySelector('[data-bag-clear]').addEventListener('click', () => { q.value = ''; acc = ''; accs.forEach((x, i) => x.setAttribute('aria-pressed', i === 0)); apply(); });
   /* shelves: the arrows move by most of a screen and hide at the ends */
   root.querySelectorAll('.bg__rail-wrap').forEach((w) => {
     const rail = w.querySelector('[data-rail]'), prev = w.querySelector('[data-rail-prev]'), next = w.querySelector('[data-rail-next]');

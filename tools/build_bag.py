@@ -27,7 +27,7 @@ def item(kind, i, title, free):
 
 def shelf(kind):
     items = ''.join(item(kind, i, t, free) for i, (t, f, free) in enumerate(ITEMS[kind], 1))
-    more = '<a class="fh__more" href="games.html">كل الألعاب%s</a>' % LEFT if kind == 'game' else '<span class="bg__of"><b class="num">%d</b> من <b class="num">%d</b></span>' % (len(ITEMS[kind]), TOTAL[kind])
+    more = '<a class="fh__more" href="games.html">كل الألعاب%s</a>' % LEFT if kind == 'game' else '<span class="bg__of"><b class="num" data-shown>%d</b> من <b class="num">%d</b></span>' % (len(ITEMS[kind]), TOTAL[kind])
     return '''
     <section class="pj__blk bg__shelf" data-shelf="%s" id="%s" aria-labelledby="h-%s">
       <div class="bg__shelf-head"><span class="pj__ic">%s</span><div><h2 id="h-%s">%s</h2><p><span class="num">%d</span> مادة على المنصة</p></div>%s</div>
@@ -36,8 +36,9 @@ def shelf(kind):
         <button class="bg__arrow bg__arrow--next" type="button" data-rail-next aria-label="التالي"><svg class="ic"><use href="#i-left"/></svg></button></div>
     </section>''' % (kind, kind, kind, glyph(GL[kind]), kind, KIND[kind], TOTAL[kind], more, KIND[kind], items)
 
-kinds = '<button type="button" data-kind-f="" aria-pressed="true"><span>الكل</span><i class="num">%d</i></button>' % ALL + ''.join(
-    '<button type="button" data-kind-f="%s" aria-pressed="false">%s<span>%s</span><i class="num">%d</i></button>' % (k, glyph(GL[k]), KIND[k], TOTAL[k]) for k in ORDER)
+def tab(k, name, n, g, on=False):
+    return '<button type="button" data-kind-f="%s" aria-pressed="%s"><span class="bg__tab-ic">%s<i class="num">%d</i></span><b>%s</b></button>' % (k, 'true' if on else 'false', glyph(g), n, name)
+kinds = tab('', 'الكل', ALL, 'all', True) + ''.join(tab(k, KIND[k], TOTAL[k], GL[k]) for k in ORDER)
 mosaic = ''.join('<img src="assets/img/bag/%s-%d.webp" alt="" width="%d" height="%d">' % ((k, i) + size(k, i)) for k, i in (('cards', 1), ('comic', 2), ('podcast', 2), ('cards', 4), ('comic', 4), ('podcast', 4)))
 
 BAG2 = ('''<main id="main">
@@ -61,7 +62,7 @@ BAG2 = ('''<main id="main">
   <div class="bg__bar" data-bag>
     <div class="pj__in bg__bar-in">
       <div class="bg__kinds" role="group" aria-label="نوع المحتوى">%s</div>
-      <div class="bg__access" role="group" aria-label="الاشتراك"><button type="button" data-access-f="" aria-pressed="true">الكل</button><button type="button" data-access-f="free" aria-pressed="false">مجاني</button><button type="button" data-access-f="sub" aria-pressed="false">للمشتركين</button></div>
+      <div class="bg__access" role="group" aria-label="الاشتراك"><small>الاشتراك</small><button type="button" data-access-f="" aria-pressed="true">الكل</button><button type="button" data-access-f="free" aria-pressed="false">مجاني</button><button type="button" data-access-f="sub" aria-pressed="false">للمشتركين</button></div>
     </div>
   </div>
 
@@ -75,7 +76,10 @@ BAG2 = ('''<main id="main">
         <a class="btn" href="cards.html"><span class="stitch"></span>افتحوا الكتاب</a>
       </div>
     </section>
-    <p class="bg__none" data-bag-none hidden>لا شيء بهذا الاسم. جربوا كلمة أخرى.</p>%s
+    <p class="bg__found" data-bag-found hidden><span>النتائج</span><b class="num" data-bag-n>0</b><button type="button" data-bag-clear>عرض الكل</button></p>
+    <p class="bg__none" data-bag-none hidden>لا شيء بهذا الاسم. جربوا كلمة أخرى.</p>
+    <div class="bg__shelves" data-shelves>%s
+    </div>
   </div>
 
   <dialog class="peek" data-peek-dialog aria-labelledby="peek-t">
