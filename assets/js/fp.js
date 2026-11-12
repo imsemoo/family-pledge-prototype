@@ -7,7 +7,9 @@
 
   /* ---- loader: it covers the page while the next one is fetched, then lifts ---- */
   const loader = $('.loader');
-  if (loader && new URLSearchParams(location.search).has('noloader')) loader.remove();
+  const still = new URLSearchParams(location.search).has('noloader');   // for captures: no loader, nothing waiting to be scrolled to
+  if (loader && still) loader.remove();
+  if (still) addEventListener('load', () => document.querySelectorAll('[data-reveal]').forEach((e) => e.classList.add('in')));
   else if (loader) {
     const t0 = performance.now(), first = !sessionStorage.getItem('fp-seen');
     let opened = false;

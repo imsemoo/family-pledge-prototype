@@ -151,6 +151,7 @@
     prev.disabled = first; next.disabled = last;
     const tOn = thumbs.find((t) => t.classList.contains('is-on')), strip = tOn?.parentElement;
     if (tOn && strip.scrollWidth > strip.clientWidth) strip.scrollTo({ left: tOn.offsetLeft - (strip.clientWidth - tOn.offsetWidth) / 2, behavior: 'smooth' });
+    try { const far = Math.max(+localStorage.getItem('fp-story-boycott') || 0, on[on.length - 1]); localStorage.setItem('fp-story-boycott', far); } catch { /* private mode */ }
     try { history.replaceState(null, '', on[0] > 1 ? `#${on[0]}` : location.pathname + location.search); } catch { /* opened from a file */ }
   };
   const turnTo = (t, quick) => {
@@ -209,4 +210,71 @@
 
   const start = parseInt(location.hash.slice(1), 10);
   go(start > 0 ? start : 1, true);
+})();
+
+/* the family's home: everything on it is read from this browser — the games' own records, the reader's
+   last page, and the two things the family ticks here. Nothing leaves the device. */
+(() => {
+  const fh = document.querySelector('[data-family]'); if (!fh) return;
+  const $ = (s) => fh.querySelector(s), PAGES = 8;
+  const ls = {
+    get: (k) => { try { return localStorage.getItem(k); } catch { return null; } },
+    set: (k, v) => { try { localStorage.setItem(k, v); } catch { /* private mode */ } },
+    keys: () => { try { return Object.keys(localStorage); } catch { return []; } },
+    del: (k) => { try { localStorage.removeItem(k); } catch { /* private mode */ } },
+  };
+  const played = (g) => ls.keys().some((k) => k.startsWith(`${g}-best-`));
+  let before = null;
+
+  const render = () => {
+    const name = (ls.get('fp-family') || '').trim();
+    $('[data-fam-hello]').textContent = name ? `أهلا بعائلة ${name}` : 'أهلا بكم في بيتكم';
+    const fill = $('[data-fam-fill]'); fill.textContent = name || 'اسم عائلتكم'; fill.classList.toggle('is-empty', !name);
+    const input = $('#fam-name'); if (document.activeElement !== input) input.value = name;
+
+    const page = Math.min(PAGES, +ls.get('fp-story-boycott') || 0);
+    const games = ['qanadeel', 'minbar', 'album'].filter(played);
+    const week = { read: page >= PAGES, play: played('qanadeel'), ask: ls.get('fp-ask-week') === '1' };
+    const weekN = Object.values(week).filter(Boolean).length;
+    const got = { pledge: true, story: page >= PAGES, qanadeel: played('qanadeel'), minbar: played('minbar'), album: played('album'), week: weekN === 3, invite: ls.get('fp-invited') === '1' };
+
+    fh.querySelectorAll('[data-task]').forEach((t) => t.classList.toggle('is-done', week[t.dataset.task]));
+    const ask = $('[data-ask]'); ask.textContent = week.ask ? 'تراجع' : 'تحدثنا عنه'; ask.setAttribute('aria-pressed', week.ask);
+    $('[data-week-bar]').style.width = `${(weekN / 3) * 100}%`;
+    fh.querySelectorAll('[data-stamp]').forEach((s) => {
+      const on = got[s.dataset.stamp]; s.classList.toggle('is-on', on);
+      s.classList.toggle('is-new', !!before && on && !before[s.dataset.stamp]);
+      const small = s.querySelector('small'); if (!small.dataset.how) small.dataset.how = small.textContent;
+      small.textContent = on ? 'نلتم الختم' : small.dataset.how;
+    });
+    before = got;
+    $('[data-n-stamps]').textContent = Object.values(got).filter(Boolean).length;
+    $('[data-n-pages]').textContent = page; $('[data-n-games]').textContent = games.length; $('[data-n-week]').textContent = weekN;
+
+    const go = $('[data-go]'), next = page >= PAGES ? 1 : Math.max(1, page);
+    $('[data-go-pic]').src = `assets/img/cards/boycott-t${page >= PAGES ? PAGES : next}.webp`;
+    $('[data-go-bar]').style.width = `${(page / PAGES) * 100}%`;
+    $('[data-go-line]').textContent = !page ? 'لم تبدؤوا القصة بعد.' : page >= PAGES ? 'أتممتم القصة كلها.' : `وصلتم إلى الصفحة ${page} من ${PAGES}`;
+    $('[data-go-cta]').textContent = !page ? 'ابدؤوا القراءة' : page >= PAGES ? 'اقرؤوها من جديد' : 'كملوا القراءة';
+    go.href = `cards.html${page > 1 && page < PAGES ? `#${page}` : ''}`;
+  };
+
+  $('[data-fam-form]').addEventListener('submit', (e) => {
+    e.preventDefault(); const v = $('#fam-name').value.replace(/[<>]/g, '').trim().slice(0, 30);
+    if (v) ls.set('fp-family', v); else ls.del('fp-family');
+    $('#fam-name').blur(); render(); window.FP?.toast?.(v ? 'تم حفظ الاسم على هذا الجهاز' : 'تم حذف الاسم');
+  });
+  $('[data-ask]').addEventListener('click', () => { if (ls.get('fp-ask-week') === '1') ls.del('fp-ask-week'); else ls.set('fp-ask-week', '1'); render(); });
+  const inv = $('[data-invite]');
+  const t = window.FPI18N?.t || ((v) => v);
+  inv.addEventListener('click', () => {
+    inv.href = `https://wa.me/?text=${encodeURIComponent(`${t('وقعنا ميثاق العائلة، وندعوكم لتوقيعه معنا:')} ${new URL('pledge.html', document.baseURI).href}`)}`;
+    ls.set('fp-invited', '1'); setTimeout(render, 400);
+  });
+  $('[data-fam-reset]').addEventListener('click', () => {
+    ls.keys().filter((k) => /^(fp-(family|story-|ask-|invited)|(qanadeel|minbar|album)-best-)/.test(k)).forEach(ls.del);
+    before = null; render(); window.FP?.toast?.('عاد الدفتر إلى أوله');
+  });
+  addEventListener('pageshow', render); addEventListener('storage', render);
+  render();
 })();

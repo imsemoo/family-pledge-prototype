@@ -320,3 +320,6 @@ html.no-loader .loader { display: none; }
   [data-reveal] { opacity: 1; transform: none; clip-path: none; }
   .loader { display: none; }
 }
+/* the way into the family's home: a small house in the header */
+.acct { width: 2.75rem; height: 2.75rem; display: grid; place-items: center; border-radius: 50%; color: var(--ink); font-size: 1.25rem; flex: none; transition: background-color var(--d-2), color var(--d-2); }
+.acct:hover, .acct[aria-current] { background: var(--teal-50); color: var(--teal-700); }
