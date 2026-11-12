@@ -84,31 +84,6 @@
     $('[data-again]', done).addEventListener('click', () => { done.hidden = true; cert.classList.remove('is-sealed'); go(0); });
     go(0); window.scrollTo(0, 0);
   }
-
-  /* ================= the bag: one bar filters everything on the page ================= */
-  const bag = $('[data-bag]');
-  if (bag) {
-    const kinds = $$('.kinds button', bag), access = $$('.seg2 button', bag), find = $('#bag-find'), items = $$('[data-kind]', $('.baglist')), shelves = $$('.shelf2'), empty = $('.bag-empty');
-    const state = { kind: 'all', access: 'all', q: '' };
-    const norm = (s) => s.toLowerCase().replace(/[ً-ْـ]/g, '').replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي').trim();
-    const apply = () => {
-      let shown = 0;
-      items.forEach((li) => {
-        const okKind = state.kind === 'all' || li.dataset.kind === state.kind;
-        const okAccess = state.access === 'all' || li.dataset.access === 'both' || li.dataset.access === state.access;
-        const okText = !state.q || norm(li.textContent).includes(state.q);
-        const on = okKind && okAccess && okText; li.hidden = !on; if (on) shown++;
-      });
-      shelves.forEach((s) => (s.hidden = !$$('[data-kind]', s).some((li) => !li.hidden)));
-      empty.hidden = shown > 0; $('[data-count]').textContent = shown;
-    };
-    kinds.forEach((b) => b.addEventListener('click', () => { state.kind = b.dataset.kind; kinds.forEach((x) => { const on = x === b; x.classList.toggle('is-on', on); x.setAttribute('aria-pressed', on); }); apply(); }));
-    access.forEach((b) => b.addEventListener('click', () => { state.access = b.dataset.access; access.forEach((x) => { const on = x === b; x.classList.toggle('is-on', on); x.setAttribute('aria-pressed', on); }); apply(); }));
-    find.addEventListener('input', () => { state.q = norm(find.value); apply(); });
-    $('[data-reset]')?.addEventListener('click', () => { find.value = ''; state.q = ''; kinds[0].click(); access[0].click(); });
-    // a kind can be opened from the address, e.g. bag.html#podcast
-    const want = location.hash.slice(1), hit = kinds.find((b) => b.dataset.kind === want); if (hit) hit.click(); else apply();
-  }
 })();
 
 /* contact form: a demo, the message is not sent from this page */
@@ -477,4 +452,51 @@ window.FPHome = (() => {
   };
   chips.forEach((c) => c.addEventListener('click', () => show(c.dataset.placeF)));
   show('');
+})();
+
+/* the bag: kind, access and the search all narrow the same shelves; a cover without a page opens a small card */
+(() => {
+  const bar = document.querySelector('[data-bag]'); if (!bar) return;
+  const root = bar.closest('.bg'), shelves = [...root.querySelectorAll('[data-shelf]')], q = root.querySelector('[data-bag-q]');
+  const kinds = [...root.querySelectorAll('[data-kind-f]')], accs = [...root.querySelectorAll('[data-access-f]')], none = root.querySelector('[data-bag-none]'), feat = root.querySelector('.bg__feat');
+  const norm = (s) => s.toLowerCase().replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي').replace(/[ً-ْ]/g, '').trim();
+  let kind = '', acc = '';
+  const apply = () => {
+    const term = norm(q.value); let any = false;
+    shelves.forEach((sh) => {
+      let n = 0;
+      sh.querySelectorAll('[data-item]').forEach((li) => {
+        const on = (!acc || li.dataset.access === acc) && (!term || norm(li.querySelector('.bk').dataset.title).includes(term));
+        li.hidden = !on; if (on) n++;
+      });
+      const show = (!kind || sh.dataset.shelf === kind) && n > 0; sh.hidden = !show; if (show) any = true;
+      sh.querySelector('[data-rail]')?.dispatchEvent(new Event('scroll'));
+    });
+    none.hidden = any; feat.hidden = !!(term || acc === 'free' || (kind && kind !== 'cards'));
+  };
+  kinds.forEach((b) => b.addEventListener('click', () => { kind = b.dataset.kindF; kinds.forEach((x) => x.setAttribute('aria-pressed', x === b)); apply(); }));
+  accs.forEach((b) => b.addEventListener('click', () => { acc = b.dataset.accessF; accs.forEach((x) => x.setAttribute('aria-pressed', x === b)); apply(); }));
+  q.addEventListener('input', apply);
+  /* shelves: the arrows move by most of a screen and hide at the ends */
+  root.querySelectorAll('.bg__rail-wrap').forEach((w) => {
+    const rail = w.querySelector('[data-rail]'), prev = w.querySelector('[data-rail-prev]'), next = w.querySelector('[data-rail-next]');
+    const rtl = () => getComputedStyle(rail).direction === 'rtl';
+    const sync = () => { const max = rail.scrollWidth - rail.clientWidth - 2, x = Math.abs(rail.scrollLeft); prev.disabled = x <= 2; next.disabled = x >= max; };
+    const go = (d) => rail.scrollBy({ left: d * rail.clientWidth * 0.8 * (rtl() ? -1 : 1), behavior: 'smooth' });
+    prev.addEventListener('click', () => go(-1)); next.addEventListener('click', () => go(1));
+    rail.addEventListener('scroll', sync, { passive: true }); addEventListener('resize', sync); sync();
+  });
+  /* a cover with no page of its own yet opens a card that says what it is */
+  const dlg = root.querySelector('[data-peek-dialog]');
+  root.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-peek]'); if (!b) return;
+    dlg.querySelector('[data-peek-img]').src = b.querySelector('img').src;
+    dlg.querySelector('[data-peek-kind]').textContent = b.dataset.kindName;
+    dlg.querySelector('[data-peek-title]').textContent = b.dataset.title;
+    dlg.querySelector('[data-peek-line]').textContent = b.dataset.free === '1' ? 'محتوى مجاني لكل من يشارك في الميثاق.' : 'محتوى خاص بالمشتركين. يفتح بعد الاشتراك في الميثاق.';
+    dlg.showModal();
+  });
+  dlg.querySelector('[data-peek-x]').addEventListener('click', () => dlg.close());
+  dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
+  const want = location.hash.slice(1); const k0 = kinds.find((b) => b.dataset.kindF === want); if (k0) k0.click();
 })();

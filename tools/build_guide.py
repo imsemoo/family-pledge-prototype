@@ -3,7 +3,7 @@ between them, what is real and what is a demonstration. Run this one; it runs ev
 Its pictures are captures of the pages themselves (assets/img/guide)."""
 import os, re
 HERE = os.path.dirname(os.path.abspath(__file__))
-exec(open(os.path.join(HERE, 'build_lists.py'), encoding='utf-8').read())   # ROOT, shell ...
+exec(open(os.path.join(HERE, 'build_bag.py'), encoding='utf-8').read())   # ROOT, shell ...
 
 LIVE, DEMO = ('يعمل كاملا', 'live'), ('عرض تجريبي', 'demo')
 # group, [ (file, picture, name, what it is for, [what the visitor does], status) ]
@@ -30,6 +30,7 @@ GROUPS = [
         ('cards.html', 'cards', 'القصة في صور', 'صفحات المنصة كما هي، في كتاب يتقلب.', ['يقلب الصفحات كالكتاب', 'يطبع أو ينزل PDF', 'يقرأ بملء الشاشة مع أولاده'], LIVE),
     ]),
     ('play', 'الألعاب', 'ثلاث ألعاب جديدة مبنية من رسوم المنصة نفسها.', [
+        ('games.html', 'games', 'صفحة الألعاب', 'كل الألعاب في مكان واحد: الجاهزة أولا، ثم ألعاب المنصة كلها.', ['يبدأ لعبة من الثلاث الجاهزة', 'يرى الاثنتي عشرة لعبة بأغلفتها'], LIVE),
         ('game/qanadeel/', 'qanadeel', 'قناديل الأقصى', 'بحث عن الكلمات: كل كلمة تضيء قنديلا.', ['ثلاثة مستويات', 'تلميحات ووقت ونجوم'], LIVE),
         ('game/minbar/', 'minbar', 'منبر صلاح الدين', 'تركيب صورة المنبر قطعة قطعة، ثم بطاقة تذكارية.', ['يدير القطع ويضعها', 'ينزل بطاقة باسمه'], LIVE),
         ('game/album/', 'album', 'صورة وحكاية', 'لعبة ذاكرة: كل صورة تطابق عنوان حكايتها.', ['يقلب البطاقات', 'يحفظ أسماء الحكايات'], LIVE),
