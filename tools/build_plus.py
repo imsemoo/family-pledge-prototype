@@ -4,6 +4,7 @@ own, from page 10 of that profile). Run at the end of build_extra.py."""
 import json
 
 DL = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.500-4.500M12 15l4.500-4.500M5 19.500h14"/></svg>'
+ZOOM = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.800-3.800M11 8v6M8 11h6"/></svg>'
 PR = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 8V4h10v4M7 17H5a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M7 14h10v6H7z"/></svg>'
 
 # ---------------------------------------------------------------- the profile: seventeen pages, shown whole
@@ -32,7 +33,7 @@ PROFILE = ('''<main id="main">
   <div class="pj__in">
     <div class="dv__stage">
       <button class="dv__nav dv__nav--prev" type="button" data-dv-prev aria-label="الصفحة السابقة"><svg class="ic"><use href="#i-right"/></svg></button>
-      <figure class="dv__page"><img src="assets/img/profile/p1.webp" alt="الصفحة 1: الغلاف" width="1100" height="1556" data-dv-img><figcaption><b data-dv-title>الغلاف</b><span><i class="num" data-dv-cur>1</i> / <i class="num">%d</i></span></figcaption></figure>
+      <figure class="dv__page"><div class="dv__sheet" data-dv-sheet><img src="assets/img/profile/p1.webp" alt="الصفحة 1: الغلاف" width="1100" height="1556" data-dv-img></div><figcaption><b data-dv-title>الغلاف</b><button type="button" class="dv__zoom" data-dv-zoom aria-pressed="false">''' + ZOOM + '''<span data-dv-zoom-t>تكبير</span></button><span><i class="num" data-dv-cur>1</i> / <i class="num">%d</i></span></figcaption></figure>
       <button class="dv__nav dv__nav--next" type="button" data-dv-next aria-label="الصفحة التالية"><svg class="ic"><use href="#i-left"/></svg></button>
     </div>
     <div class="dv__strip" data-dv-strip aria-label="صفحات الملف">%s</div>
@@ -66,12 +67,14 @@ ITEM = ('''<main id="main">
         <p class="it__badge" data-it-badge></p>
         <p class="it__line" data-it-line></p>
         <div class="pj__act it__act"><a class="btn" href="pledge.html" data-it-main><span class="stitch"></span><span data-it-cta>توقيع الميثاق</span></a><a class="btn btn--line" href="login.html" data-it-login>لديكم حساب؟ ادخلوا</a></div>
-        <div class="it__share"><button class="btn btn--line btn--s" type="button" data-copy-link>''' + SHARE + '''<span>نسخ الرابط</span></button><a class="fh__more" href="bag.html" data-it-back>كل الرف''' + LEFT + '''</a></div>
+        <div class="it__share"><button class="btn btn--line btn--s" type="button" data-copy-link>''' + SHARE + '''<span>نسخ الرابط</span></button></div>
       </div>
     </div>
     <section class="pj__blk it__more" aria-labelledby="h-same">
-      <div class="pj__blk-head"><h2 id="h-same">من الرف نفسه</h2></div>
-      <ul class="it__rail" data-it-rail></ul>
+      <div class="bg__shelf-head it__shelf-head"><span class="pj__ic" data-it-glyph2></span><div><h2 id="h-same">من الرف نفسه</h2><p><span class="num" data-it-count>0</span> <span>مادة أخرى</span></p></div><a class="fh__more" href="bag.html" data-it-back2>كل الرف''' + LEFT + '''</a></div>
+      <div class="bg__rail-wrap" data-it-wrap><ul class="bg__rail" data-rail data-it-rail tabindex="0" aria-label="من الرف نفسه"></ul>
+        <button class="bg__arrow bg__arrow--prev" type="button" data-rail-prev aria-label="السابق"><svg class="ic"><use href="#i-right"/></svg></button>
+        <button class="bg__arrow bg__arrow--next" type="button" data-rail-next aria-label="التالي"><svg class="ic"><use href="#i-left"/></svg></button></div>
     </section>
   </div>
   <script type="application/json" data-it-data>%s</script>%s

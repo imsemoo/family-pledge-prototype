@@ -552,8 +552,8 @@ window.FPHome = (() => {
   const f = document.querySelector('[data-lg]'); if (!f) return;
   const by = [...f.querySelectorAll('[data-lg-by]')];
   by.forEach((b) => b.addEventListener('click', () => {
-    by.forEach((x) => x.setAttribute('aria-pressed', x === b));
     f.querySelectorAll('[data-lg-field]').forEach((e) => { e.hidden = e.dataset.lgField !== b.dataset.lgBy; });
+    f.querySelector('[data-lg-field="' + b.dataset.lgBy + '"] input').focus();
   }));
   document.querySelectorAll('[data-lg-demo]').forEach((b) => b.addEventListener('click', () => window.FP?.toast?.('شاشة للعرض: لم يحفظ شيء ولم يرسل. شاهدوا بيتا مثالا.')));
 })();
@@ -579,7 +579,10 @@ window.FPHome = (() => {
   };
   prev.addEventListener('click', () => go(at - 1)); next.addEventListener('click', () => go(at + 1));
   thumbs.forEach((t) => t.addEventListener('click', () => go(+t.dataset.dvGo)));
-  root.querySelector('.dv__page').addEventListener('click', () => go(at + 1));
+  const zoomB = root.querySelector('[data-dv-zoom]'), sheet = root.querySelector('[data-dv-sheet]');
+  const zoom = (on) => { root.classList.toggle('is-zoom', on); zoomB.setAttribute('aria-pressed', on); zoomB.querySelector('[data-dv-zoom-t]').textContent = on ? 'تصغير' : 'تكبير'; if (on) sheet.scrollLeft = 0; };
+  zoomB.addEventListener('click', () => zoom(!root.classList.contains('is-zoom')));
+  sheet.addEventListener('click', () => zoom(!root.classList.contains('is-zoom')));
   document.addEventListener('keydown', (e) => {
     if (e.target.closest('input, textarea, select')) return;
     const rtl = document.documentElement.dir !== 'ltr';
@@ -606,16 +609,27 @@ window.FPHome = (() => {
   $('[data-it-glyph]').append(root.querySelector('[data-it-g="' + d.k + '"]').content.cloneNode(true));
   const badge = $('[data-it-badge]'); badge.textContent = d.f ? 'مجاني' : 'للمشتركين'; badge.classList.add(d.f ? 'is-free' : 'is-sub');
   $('[data-it-line]').textContent = d.f ? 'محتوى مجاني لكل من يشارك في الميثاق.' : 'محتوى خاص بالمشتركين. يفتح بعد الاشتراك في الميثاق.';
-  $('[data-it-back]').href = 'bag.html#' + d.k;
   if (d.o) { $('[data-it-main]').href = d.o; $('[data-it-cta]').textContent = 'افتحوا المادة'; $('[data-it-login]').hidden = true; }
   document.title = d.t + ' | ' + document.title.split('|').pop().trim();
-  const rail = $('[data-it-rail]');
-  Object.keys(data).filter((k) => data[k].k === d.k && k !== id).slice(0, 8).forEach((k) => {
-    const li = document.createElement('li'), a = document.createElement('a'), p = new Image(), b = document.createElement('b');
-    a.href = data[k].o || 'item.html?id=' + encodeURIComponent(k); p.src = src(k); p.alt = ''; p.loading = 'lazy'; p.width = data[k].w; p.height = data[k].h;
-    b.textContent = data[k].t; a.append(p, b); li.append(a); rail.append(li);
+  const rail = $('[data-it-rail]'), wrap = $('[data-it-wrap]'), more = root.querySelector('.it__more');
+  const same = Object.keys(data).filter((k) => data[k].k === d.k && k !== id);
+  if (!same.length) { more.hidden = true; return; }
+  more.dataset.shelf = d.k; $('[data-it-count]').textContent = same.length; $('[data-it-back2]').href = 'bag.html#' + d.k;
+  $('[data-it-glyph2]').append(root.querySelector('[data-it-g="' + d.k + '"]').content.cloneNode(true));
+  same.forEach((k) => {
+    const x = data[k], li = document.createElement('li'), a = document.createElement('a'), cover = document.createElement('span'), p = new Image(), tag = document.createElement('span'), b = document.createElement('b');
+    a.className = 'bk'; a.href = x.o || 'item.html?id=' + encodeURIComponent(k);
+    cover.className = 'bk__cover'; cover.style.setProperty('--r', (x.w / x.h).toFixed(4));
+    p.src = src(k); p.alt = ''; p.loading = 'lazy'; p.decoding = 'async'; p.width = x.w; p.height = x.h;
+    tag.className = 'bk__tag bk__tag--' + (x.f ? 'free' : 'sub'); tag.textContent = x.f ? 'مجاني' : 'للمشتركين';
+    b.textContent = x.t; cover.append(p, tag); a.append(cover, b); li.append(a); rail.append(li);
   });
-  if (!rail.children.length) root.querySelector('.it__more').hidden = true;
+  const prev = wrap.querySelector('[data-rail-prev]'), next = wrap.querySelector('[data-rail-next]');
+  const rtl = () => getComputedStyle(rail).direction === 'rtl';
+  const sync = () => { const max = rail.scrollWidth - rail.clientWidth - 2, x = Math.abs(rail.scrollLeft); prev.disabled = x <= 2; next.disabled = x >= max; };
+  const move = (dir) => rail.scrollBy({ left: dir * rail.clientWidth * 0.8 * (rtl() ? -1 : 1), behavior: 'smooth' });
+  prev.addEventListener('click', () => move(-1)); next.addEventListener('click', () => move(1));
+  rail.addEventListener('scroll', sync, { passive: true }); addEventListener('resize', sync); addEventListener('load', sync); sync();
 })();
 
 /* the map: a name and its pin light together */
