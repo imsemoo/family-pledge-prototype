@@ -183,7 +183,7 @@ print('identity.html built')
 import glob as _g
 _F = '<a class="acct acct--find" href="search.html" aria-label="بحث" title="بحث"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.800-3.800"/></svg></a>'
 for _p in _g.glob(os.path.join(os.path.dirname(HERE), '*.html')):
-    if os.path.basename(_p) in ('index.html', 'hero-options.html'): continue
+    if os.path.basename(_p) == 'hero-options.html': continue
     _h = open(_p, encoding='utf-8').read()
     if '<a class="acct"' not in _h: continue
     if 'acct--find' not in _h: _h = _h.replace('<a class="acct"', _F + '<a class="acct"', 1)

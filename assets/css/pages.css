@@ -1410,3 +1410,12 @@ html[dir="rtl"] .nf__links a { padding: 0.5rem 0.5rem 0.5rem 0.9rem; }
 .sx__none p { color: var(--ink-2); line-height: 1.8; }
 .lg__form .demo-note b { white-space: nowrap; }
 .sx__head { padding-block-end: clamp(1.2rem, 3vw, 2rem); }
+
+/* ---- six stories: two lead the page side by side and four follow, so no card is left alone on a row ---- */
+@media (min-width: 561px) {
+  .nw__grid:has(> li:nth-child(6):last-child) > li:nth-child(-n+2) { grid-column: span 2; }
+  .nw__grid:has(> li:nth-child(6):last-child) > li:nth-child(-n+2) .nw__card { grid-template-rows: none; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr); align-items: center; }
+  .nw__grid:has(> li:nth-child(6):last-child) > li:nth-child(-n+2) .nw__card figure { aspect-ratio: 1; max-height: none; }
+  .nw__grid:has(> li:nth-child(6):last-child) > li:nth-child(-n+2) .nw__card > div { padding: clamp(0.9rem, 2vw, 1.5rem); gap: 0.5rem; }
+  .nw__grid:has(> li:nth-child(6):last-child) > li:nth-child(-n+2) .nw__card h3 { font-size: clamp(1.15rem, 0.95rem + 0.8vw, 1.5rem); line-height: 1.65; text-wrap: balance; }
+}

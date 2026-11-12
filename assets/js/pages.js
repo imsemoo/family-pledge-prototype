@@ -543,4 +543,5 @@ window.FPHome = (() => {
   let t; q.addEventListener('input', () => { clearTimeout(t); t = setTimeout(apply, 120); });
   root.querySelectorAll('[data-sx-try]').forEach((b) => b.addEventListener('click', () => { q.value = b.textContent; apply(); q.focus(); }));
   apply();
+  (window.FPI18N?.ready || Promise.resolve()).then(() => { const T = window.FPI18N?.t; if (!T || window.FPI18N.lang === 'ar') return; data.forEach((d) => { d.n += ' ' + norm(T(d.t) + ' ' + T(d.k)); }); });
 })();
