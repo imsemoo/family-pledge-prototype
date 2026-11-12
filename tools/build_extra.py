@@ -66,6 +66,10 @@ NEWS = {
 SLUG = {'news-1.webp': 'news-bangkok.html', 'news-2.webp': 'article.html', 'news-3.webp': 'news-aqsa-club.html', 'news-4.webp': 'news-nairobi.html', 'news-5.webp': 'news-mauritania.html', 'news-6.webp': 'news-warda.html'}
 SHARE = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.700 0l3.200-3.200a4 4 0 0 0-5.700-5.700L12 6.300M14 10a4 4 0 0 0-5.700 0l-3.200 3.200a4 4 0 0 0 5.700 5.700l1.200-1.200"/></svg>'
 
+def mins(d):
+    n = max(1, round(sum(len(x.split()) for x in d['text'] + [d['lead']]) / 180))
+    return 'دقيقة قراءة' if n == 1 else 'دقيقتان قراءة' if n == 2 else '<span class="num">%d</span> دقائق قراءة' % n
+
 def news_page(slug, d):
     pts = ''.join('''
         <li><figure><img src="assets/img/world/%s" alt="" width="720" height="720" loading="lazy" decoding="async"><span class="num">%d</span></figure><h3>%s</h3><p>%s</p></li>''' % (im, i + 1, t, x) for i, (im, t, x) in enumerate(d['points']))
@@ -82,7 +86,7 @@ def news_page(slug, d):
         <p class="pj__sub">%s</p>
         <ul class="rd__meta">
           <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.500" y="5" width="17" height="15.500" rx="3"/><path d="M3.500 10h17M8 3v4M16 3v4"/></svg><time datetime="%s">%s</time></li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.500"/><path d="M12 7.500V12l3 2"/></svg><span>دقيقة قراءة</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.500"/><path d="M12 7.500V12l3 2"/></svg><span>%s</span></li>
         </ul>
         <div class="pj__act"><a class="btn" href="#now"><span class="stitch"></span>ماذا يفعل بيتنا الآن؟</a><button class="btn btn--line" type="button" data-copy-link>''' + SHARE + '''<span>نسخ الرابط</span></button></div>
       </div>
@@ -124,7 +128,7 @@ def news_page(slug, d):
     </section>
   </div>
 </article>
-''') % (d['crumb'], d['title'], d['sub'], d['iso'], d['date'], d['img'], d['alt'], d['place'], d['date'],
+''') % (d['crumb'], d['title'], d['sub'], d['iso'], d['date'], mins(d), d['img'], d['alt'], d['place'], d['date'],
         ''.join(fact(*f) for f in d['facts']), pts, d['pic'], d['kick'], d['quote'], d['lead'], ''.join('<p>%s</p>' % p for p in d['text']),
         way('yafa', 'يافا', 'لعبة من الجعبة', 'قناديل الأقصى: كلمات عن المسجد الأقصى للأطفال.', 'game/qanadeel/', 'ابدؤوا اللعب'),
         way('raed', 'رائد', 'قصة تقرأ معا', 'المقاطعة: ثماني صفحات في ثلاث دقائق.', 'cards.html', 'افتحوا الكتاب'),
@@ -316,8 +320,8 @@ SX = [
     ('صفحة', 'أخبارنا', 'news.html', 'article', '', 'اخبار انشطة'),
     ('صفحة', 'تواصل معنا', 'contact.html', 'chat', '', 'اتصال بريد هاتف اسئلة شائعة'),
     ('صفحة', 'الدخول', 'login.html', 'home', '', 'تسجيل حساب جديد'),
-    ('مشروع', 'اغرس باسمي شجرة', 'project.html', 'tree', 'assets/img/proj-tree.webp', 'زيتون شجرة غزة زراعة'),
-    ('مشروع', 'مركز الميثاق لتمكين المرأة المعيلة للأسرة', 'center.html', 'people', 'assets/img/proj-center.webp', 'تمكين نساء خياطة وردة خان يونس'),
+    ('مشروع', 'اغرس باسمي شجرة', 'project.html', 'tree', 'assets/img/proj-tree-640.webp', 'زيتون شجرة غزة زراعة'),
+    ('مشروع', 'مركز الميثاق لتمكين المرأة المعيلة للأسرة', 'center.html', 'people', 'assets/img/proj-center-640.webp', 'تمكين نساء خياطة وردة خان يونس'),
     ('لعبة', 'قناديل الأقصى', 'game/qanadeel/', 'game', 'assets/img/guide/qanadeel.webp', 'كلمات بحث'),
     ('لعبة', 'منبر صلاح الدين', 'game/minbar/', 'game', 'assets/img/guide/minbar.webp', 'تركيب'),
     ('لعبة', 'صورة وحكاية', 'game/album/', 'game', 'assets/img/guide/album.webp', 'ذاكرة'),

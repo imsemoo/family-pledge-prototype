@@ -30,11 +30,12 @@ def shelf(kind):
     more = '<a class="fh__more" href="games.html">كل الألعاب%s</a>' % LEFT if kind == 'game' else '<span class="bg__of"><b class="num" data-shown>%d</b> من <b class="num">%d</b></span>' % (len(ITEMS[kind]), TOTAL[kind])
     return '''
     <section class="pj__blk bg__shelf" data-shelf="%s" id="%s" aria-labelledby="h-%s">
+      <a class="bg__skip" href="#%s">تخطوا هذا الرف</a>
       <div class="bg__shelf-head"><span class="pj__ic">%s</span><div><h2 id="h-%s">%s</h2><p><span class="num">%d</span> مادة على المنصة</p></div>%s</div>
       <div class="bg__rail-wrap"><ul class="bg__rail" data-rail tabindex="0" aria-label="%s">%s</ul>
         <button class="bg__arrow bg__arrow--prev" type="button" data-rail-prev aria-label="السابق"><svg class="ic"><use href="#i-right"/></svg></button>
         <button class="bg__arrow bg__arrow--next" type="button" data-rail-next aria-label="التالي"><svg class="ic"><use href="#i-left"/></svg></button></div>
-    </section>''' % (kind, kind, kind, glyph(GL[kind]), kind, KIND[kind], TOTAL[kind], more, KIND[kind], items)
+    </section>''' % (kind, kind, kind, ORDER[ORDER.index(kind) + 1] if kind != ORDER[-1] else 'bag-end', glyph(GL[kind]), kind, KIND[kind], TOTAL[kind], more, KIND[kind], items)
 
 def tab(k, name, n, g, on=False):
     return '<button type="button" data-kind-f="%s" aria-pressed="%s"><span class="bg__tab-ic">%s<i class="num">%d</i></span><b>%s</b></button>' % (k, 'true' if on else 'false', glyph(g), n, name)
@@ -80,6 +81,7 @@ BAG2 = ('''<main id="main">
     <p class="bg__none" data-bag-none hidden>لا شيء بهذا الاسم. جربوا كلمة أخرى.</p>
     <div class="bg__shelves" data-shelves>%s
     </div>
+    <span id="bag-end" tabindex="-1"></span>
   </div>
 
   <dialog class="peek" data-peek-dialog aria-labelledby="peek-t">

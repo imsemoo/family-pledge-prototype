@@ -3,18 +3,26 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>من نحن — ميثاق العائلة</title>
+<title>من نحن | ميثاق العائلة</title>
 <meta name="description" content="تعرف على ميثاق العائلة: الرؤية والأهداف والفئات التي يتوجه إليها.">
 <meta name="robots" content="noindex">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ميثاق العائلة">
+<meta property="og:title" content="ميثاق العائلة — عهد من بيتك يسند بيتا في فلسطين">
+<meta property="og:description" content="ميثاق عهد تلتزم فيه العائلات بنصرة أهلنا في فلسطين: توقيع، ودعم شهري أو مشاركة مجانية، وحقيبة توعوية تصل كل بيت.">
+<meta property="og:image" content="https://imsemoo.github.io/family-pledge-prototype/assets/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#10303b">
 <link rel="icon" href="assets/img/logo-mark.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Baloo+Bhaijaan+2:wght@500;700;800&family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/fp.css?v=155">
-<link rel="stylesheet" href="assets/css/home.css?v=155">
-<link rel="stylesheet" href="assets/css/world.css?v=155">
-<link rel="stylesheet" href="assets/css/pages.css?v=155">
+<link rel="stylesheet" href="assets/css/fp.css?v=157">
+<link rel="stylesheet" href="assets/css/home.css?v=157">
+<link rel="stylesheet" href="assets/css/world.css?v=157">
+<link rel="stylesheet" href="assets/css/pages.css?v=157">
 </head>
 <body>
 <a class="skip" href="#main">تخط إلى المحتوى</a>
@@ -63,8 +71,8 @@
 <div class="loader" aria-hidden="true">
   <div class="loader__in">
     <div class="loader__mark">
-      <img class="loader__hand loader__hand--rose" src="assets/img/world/hand-rose.webp" alt="" width="900" height="900">
-      <img class="loader__hand loader__hand--teal" src="assets/img/world/hand-teal.webp" alt="" width="900" height="900">
+      <img class="loader__hand loader__hand--rose" src="assets/img/world/hand-rose.webp" alt="" width="900" height="900" srcset="assets/img/world/hand-rose-480.webp 480w, assets/img/world/hand-rose.webp 900w" sizes="(max-width: 700px) 45vw, 420px">
+      <img class="loader__hand loader__hand--teal" src="assets/img/world/hand-teal.webp" alt="" width="900" height="900" srcset="assets/img/world/hand-teal-480.webp 480w, assets/img/world/hand-teal.webp 900w" sizes="(max-width: 700px) 45vw, 420px">
       <img class="loader__heart" src="assets/img/world/seal-mark.webp" alt="" width="360" height="316">
     </div>
     <p class="loader__name">ميثاق العائلة</p>
@@ -103,8 +111,8 @@
 
 <div class="sheet on-dark" id="sheet" role="dialog" aria-modal="true" aria-label="القائمة">
   <div class="sheet__hands" aria-hidden="true">
-    <img class="sheet__hand sheet__hand--rose" src="assets/img/world/hand-rose.webp" alt="" width="900" height="900" loading="lazy">
-    <img class="sheet__hand sheet__hand--teal" src="assets/img/world/hand-teal.webp" alt="" width="900" height="900" loading="lazy">
+    <img class="sheet__hand sheet__hand--rose" src="assets/img/world/hand-rose.webp" alt="" width="900" height="900" loading="lazy" srcset="assets/img/world/hand-rose-480.webp 480w, assets/img/world/hand-rose.webp 900w" sizes="(max-width: 700px) 45vw, 420px">
+    <img class="sheet__hand sheet__hand--teal" src="assets/img/world/hand-teal.webp" alt="" width="900" height="900" loading="lazy" srcset="assets/img/world/hand-teal-480.webp 480w, assets/img/world/hand-teal.webp 900w" sizes="(max-width: 700px) 45vw, 420px">
   </div>
   <div class="sheet__top">
     <button class="icon-btn sheet__close" type="button" aria-label="إغلاق القائمة"><svg class="ic" style="font-size:1.3rem"><use href="#i-x"/></svg></button>
@@ -137,7 +145,7 @@
 <main id="main">
 <div class="pj ab">
   <header class="ab__hero">
-    <img class="ab__photo" src="assets/img/hero.webp" alt="عائلة فلسطينية تجتمع على مائدة بين ركام البيوت" width="1440" height="600">
+    <img class="ab__photo" src="assets/img/hero.webp" alt="عائلة فلسطينية تجتمع على مائدة بين ركام البيوت" width="1440" height="600" srcset="assets/img/hero-720.webp 720w, assets/img/hero.webp 1440w" sizes="100vw">
     <div class="pj__in ab__hero-in">
       <p class="crumbs"><a href="./">الرئيسية</a><span aria-hidden="true">/</span><span>تعرف على الميثاق</span></p>
       <p class="pj__kick">من نحن</p>
@@ -155,7 +163,7 @@
     </ul>
 
     <section class="ab__what" id="what" aria-labelledby="h-what">
-      <figure class="ab__cert"><img src="assets/img/certificate.webp" alt="وثيقة ميثاق العائلة: نص العهد وتحته خانتان لاسم العائلة والدولة" width="1600" height="1135" loading="lazy" decoding="async"></figure>
+      <figure class="ab__cert"><img src="assets/img/certificate.webp" alt="وثيقة ميثاق العائلة: نص العهد وتحته خانتان لاسم العائلة والدولة" width="1600" height="1135" loading="lazy" decoding="async" srcset="assets/img/certificate-720.webp 720w, assets/img/certificate.webp 1600w" sizes="(max-width: 700px) 92vw, 560px"></figure>
       <div class="ab__what-txt">
         <p class="rd__kind"><span class="dots"><i></i><i></i><i></i></span><span>ما الميثاق؟</span></p>
         <h2 id="h-what">وثيقة تحمل اسم عائلتكم</h2>
@@ -182,7 +190,7 @@
         <li><figure><img src="assets/img/article/step-1.webp" alt="رسم من حكايات الجدة: الجدة تحكي عن القدس" width="800" height="600" loading="lazy" decoding="async"><span class="pj__ic"><svg class="glyph" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="7" r="4" fill="none" stroke="#10303b" stroke-width="2.600"/><path d="M24 20c0-6 3.500-9 8-9s8 3 8 9z" fill="#2a7896"/><rect x="19" y="19" width="26" height="5" rx="2.500" fill="#10303b"/><path d="M21 24h22l4 22H17z" fill="#f4b740"/><path d="M32 24v22M26.500 24l-3 22M37.500 24l3 22" stroke="#10303b" stroke-width="2" opacity=".35"/><path d="M32 30c3 3.500 4.500 6 4.500 8.500a4.500 4.500 0 0 1-9 0c0-2.500 1.500-5 4.500-8.500z" fill="#fff"/><rect x="15" y="45" width="34" height="5.500" rx="2.750" fill="#10303b"/><path d="M22 50.500h20l-3 8H25z" fill="#c94f78"/></svg></span></figure><h3>التوعية بالقضية</h3><p>إبقاء القضية الفلسطينية حاضرة في كل بيت حول العالم وإحياؤها.</p></li>
         <li><figure><img src="assets/img/project/step-3.webp" alt="سيدة تعمل في برنامج الميثاق للتمكين الاقتصادي للمرأة" width="800" height="600" loading="lazy" decoding="async"><span class="pj__ic"><svg class="glyph" viewBox="0 0 64 64" aria-hidden="true"><circle cx="52" cy="10" r="4.500" fill="#f4b740"/><path d="M31 57S6 43 6 24.500A13.500 13.500 0 0 1 31 17a13.500 13.500 0 0 1 25 7.500C56 43 31 57 31 57z" fill="#c94f78"/><path d="M16 23a7 7 0 0 1 7-7" fill="none" stroke="#fff" stroke-width="3.200" stroke-linecap="round" opacity=".75"/></svg></span></figure><h3>دعم المرأة الفلسطينية</h3><p>دعم وتعزيز صمود المرأة الفلسطينية في بيتها.</p></li>
         <li><figure><img src="assets/img/world/tale-13.webp" alt="رسم من حكايات الجدة: رائد ويافا في دكان الأثواب" width="800" height="600" loading="lazy" decoding="async"><span class="pj__ic"><svg class="glyph" viewBox="0 0 64 64" aria-hidden="true"><path d="M9 30L32 10l23 20v21a6 6 0 0 1-6 6H15a6 6 0 0 1-6-6z" fill="#2a7896"/><path d="M4 31L32 7l28 24" fill="none" stroke="#10303b" stroke-width="4.400" stroke-linecap="round" stroke-linejoin="round"/><rect x="25" y="36" width="14" height="21" rx="5" fill="#f4b740"/><circle cx="48" cy="12" r="0" fill="none"/><rect x="42" y="38" width="8" height="8" rx="2.500" fill="#f2aec7"/></svg></span></figure><h3>ربط الأسرة بالقدس</h3><p>ربط الأسرة فكريا وعاطفيا بالقدس والأقصى المبارك.</p></li>
-        <li><figure><img src="assets/img/news-4.webp" alt="شابات في قاعة أثناء جلسة توعوية" width="800" height="600" loading="lazy" decoding="async"><span class="pj__ic"><svg class="glyph" viewBox="0 0 64 64" aria-hidden="true"><circle cx="29" cy="35" r="23" fill="#2a7896"/><path d="M6 35h46M29 12c8 7 11.500 14 11.500 23S37 51 29 58c-8-7-11.500-14-11.500-23S21 19 29 12z" fill="none" stroke="#fff" stroke-width="2.600" opacity=".75"/><circle cx="18" cy="30" r="3.600" fill="#f4b740"/><path d="M48 3c-6 0-10.500 4.600-10.500 10.200C37.500 20.500 48 31 48 31s10.500-10.500 10.500-17.800C58.500 7.600 54 3 48 3z" fill="#c94f78" stroke="#fff" stroke-width="2.600" stroke-linejoin="round"/><circle cx="48" cy="13.500" r="3.800" fill="#fff"/></svg></span></figure><h3>حشد المؤسسات</h3><p>حشد المنظمات والمؤسسات للعمل وتبني قضية فلسطين.</p></li>
+        <li><figure><img src="assets/img/news-4.webp" alt="شابات في قاعة أثناء جلسة توعوية" width="800" height="600" loading="lazy" decoding="async" srcset="assets/img/news-4-360.webp 360w, assets/img/news-4.webp 770w" sizes="(max-width: 700px) 92vw, 560px"><span class="pj__ic"><svg class="glyph" viewBox="0 0 64 64" aria-hidden="true"><circle cx="29" cy="35" r="23" fill="#2a7896"/><path d="M6 35h46M29 12c8 7 11.500 14 11.500 23S37 51 29 58c-8-7-11.500-14-11.500-23S21 19 29 12z" fill="none" stroke="#fff" stroke-width="2.600" opacity=".75"/><circle cx="18" cy="30" r="3.600" fill="#f4b740"/><path d="M48 3c-6 0-10.500 4.600-10.500 10.200C37.500 20.500 48 31 48 31s10.500-10.500 10.500-17.800C58.500 7.600 54 3 48 3z" fill="#c94f78" stroke="#fff" stroke-width="2.600" stroke-linejoin="round"/><circle cx="48" cy="13.500" r="3.800" fill="#fff"/></svg></span></figure><h3>حشد المؤسسات</h3><p>حشد المنظمات والمؤسسات للعمل وتبني قضية فلسطين.</p></li>
       </ol>
     </section>
 
@@ -262,8 +270,8 @@
       </div>
       <div class="call__art" aria-hidden="true">
         <span class="call__ring"></span>
-        <img class="call__hand call__hand--rose" src="assets/img/world/hand-rose.webp" alt="" width="900" height="900" loading="lazy">
-        <img class="call__hand call__hand--teal" src="assets/img/world/hand-teal.webp" alt="" width="900" height="900" loading="lazy">
+        <img class="call__hand call__hand--rose" src="assets/img/world/hand-rose.webp" alt="" width="900" height="900" loading="lazy" srcset="assets/img/world/hand-rose-480.webp 480w, assets/img/world/hand-rose.webp 900w" sizes="(max-width: 700px) 45vw, 420px">
+        <img class="call__hand call__hand--teal" src="assets/img/world/hand-teal.webp" alt="" width="900" height="900" loading="lazy" srcset="assets/img/world/hand-teal-480.webp 480w, assets/img/world/hand-teal.webp 900w" sizes="(max-width: 700px) 45vw, 420px">
         <div class="call__sheet"><small>ميثاق العائلة</small><b data-call-name>عائلتكم</b><i></i><em>السطر التالي لعائلتك</em>
           <span class="call__seal"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="57" fill="#fff" stroke="#b03a62" stroke-width="2.500"/><circle cx="60" cy="60" r="44" fill="none" stroke="#b03a62" stroke-width="1.200" stroke-dasharray="2 4"/></svg><img src="assets/img/world/seal-mark.webp" alt="" width="360" height="316" loading="lazy"></span></div>
       </div>
@@ -282,7 +290,7 @@
         <p>ميثاق عهد تشارك فيه العائلات التزاما بنصرة أهلنا في فلسطين.</p>
       </div>
       <div class="fend__nl" data-reveal>
-        <h3><svg class="ic"><use href="#i-mail"/></svg>النشرة البريدية</h3>
+        <h2><svg class="ic"><use href="#i-mail"/></svg>النشرة البريدية</h2>
         <p>أخبار الميثاق ومواد الجعبة الجديدة في بريدك.</p>
         <form class="news-form" data-newsletter novalidate>
           <label class="sr-only" for="nl">البريد الإلكتروني</label>
@@ -295,7 +303,7 @@
 
     <div class="fend__cols">
       <nav class="footer__links" aria-label="روابط سريعة">
-        <h3>روابط سريعة</h3>
+        <h2>روابط سريعة</h2>
         <ul>
           <li><a href="about.html"><span class="stitch"></span>من نحن</a></li>
           <li><a href="projects.html"><span class="stitch"></span>مشاريعنا</a></li>
@@ -305,14 +313,14 @@
         </ul>
       </nav>
       <div class="footer__contact">
-        <h3>تواصل</h3>
+        <h2>تواصل</h2>
         <ul>
           <li><a href="mailto:info@familypledge.com"><svg class="ic"><use href="#i-mail"/></svg><span dir="ltr">info@familypledge.com</span></a></li>
           <li><a href="tel:00905465276557"><svg class="ic"><use href="#i-phone"/></svg><span class="num">+90 546 527 65 57</span></a></li>
         </ul>
       </div>
       <div class="fend__follow">
-        <h3>تابعنا</h3>
+        <h2>تابعنا</h2>
         <div class="social">
           <a href="https://x.com/familypledge2" aria-label="إكس" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18.900 2H22l-7.600 8.700L23 22h-6.600l-5.200-6.800L5.300 22H2.200l8.100-9.300L1.600 2h6.800l4.700 6.200zm-1.200 18h1.800L7.100 3.900H5.200z"/></svg></a>
           <a href="https://facebook.com/familypledge2" aria-label="فيسبوك" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M13.500 22v-8h2.700l.400-3.300h-3.100V8.600c0-.900.300-1.600 1.600-1.600h1.700V4.100c-.300 0-1.300-.100-2.400-.100-2.400 0-4.100 1.400-4.100 4.200v2.500H7.500V14h2.800v8z"/></svg></a>
@@ -338,9 +346,9 @@
 
 <button class="to-top" type="button" aria-label="العودة إلى أعلى الصفحة"><svg class="ic"><use href="#i-up"/></svg></button>
 
-<script src="assets/js/fp.js?v=155" defer></script>
-<script src="assets/js/i18n.js?v=155" defer></script>
-<script src="assets/js/world.js?v=155" defer></script>
-<script src="assets/js/pages.js?v=155" defer></script>
+<script src="assets/js/fp.js?v=157" defer></script>
+<script src="assets/js/i18n.js?v=157" defer></script>
+<script src="assets/js/world.js?v=157" defer></script>
+<script src="assets/js/pages.js?v=157" defer></script>
 </body>
 </html>

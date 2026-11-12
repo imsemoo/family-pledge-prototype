@@ -339,8 +339,8 @@ a:hover .held .hand, .held:hover .hand { transform: rotate(8deg) scale(0.985); }
 .fend__line { font-family: var(--f-display); font-weight: 800; font-size: clamp(2rem, 1.3rem + 2.8vw, 3.4rem); line-height: 1.45; color: #fff; margin-block-end: 0.3rem; }
 .fend__say p:last-child { max-width: 30rem; }
 .fend__nl { background: rgb(255 255 255 / 0.05); border-radius: var(--r-l); padding: var(--s-5); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.08); }
-.fend__nl h3 { display: flex; align-items: center; gap: 0.55rem; margin-block-end: 0.3rem; }
-.fend__nl h3 .ic { color: var(--rose-300); }
+.fend__nl h3, .fend__nl h2 { display: flex; align-items: center; gap: 0.55rem; margin-block-end: 0.3rem; }
+.fend__nl h3 .ic, .fend__nl h2 .ic { color: var(--rose-300); }
 .fend__cols { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr) auto; gap: var(--s-6) var(--s-7); padding-block: var(--s-7) var(--s-5); }
 .fend .footer__links ul { display: grid; grid-template-columns: repeat(3, max-content); gap: 0.3rem var(--s-6); }
 .fend .footer__links li + li { margin-block-start: 0; }
@@ -368,7 +368,7 @@ a:hover .held .hand, .held:hover .hand { transform: rotate(8deg) scale(0.985); }
 .fend .brand { font-size: 1.3rem; margin-block-end: var(--s-3); } .fend .brand img { width: 44px; height: 44px; }
 .fend__line { font-size: clamp(1.5rem, 1.2rem + 1vw, 1.9rem); }
 .fend .footer__links ul { grid-template-columns: minmax(0, 1fr); gap: 0.15rem; }
-.fend h3 { margin-block-end: var(--s-3); }
+.fend h3, .fend h2 { margin-block-end: var(--s-3); }
 .fend__nl { padding: var(--s-4); }
 .fend__word { font-size: 9.6cqw; line-height: 1.4; }
 .fend__stroke { width: 52%; height: 4.6cqw; bottom: 10%; }

@@ -190,3 +190,34 @@ for _p in _g.glob(os.path.join(os.path.dirname(HERE), '*.html')):
     _a = '<span class="stitch"></span>تواصل</a>'   # phones get the search as the menu's last item
     if _a in _h and 'href="search.html" style' not in _h: _h = _h.replace(_a, _a + '\n      <a href="search.html" style="--i:7"><span class="stitch"></span>بحث</a>', 1)
     open(_p, 'w', encoding='utf-8', newline='\n').write(_h)
+
+# ---- last pass over every page: sharing tags, smaller pictures, one title style, headings
+from PIL import Image as _I
+SITE = 'https://imsemoo.github.io/family-pledge-prototype/'   # the address the sharing picture is fetched from; change with the domain
+_SMALL = {'assets/img/hero.webp': 720, 'assets/img/proj-center.webp': 640, 'assets/img/proj-tree.webp': 640, 'assets/img/certificate.webp': 720, 'assets/img/world/hand-rose.webp': 480, 'assets/img/world/hand-teal.webp': 480, 'assets/img/news-1.webp': 360, 'assets/img/news-2.webp': 360, 'assets/img/news-3.webp': 360, 'assets/img/news-4.webp': 360, 'assets/img/news-5.webp': 360, 'assets/img/news-6.webp': 360}
+_W = {k: _I.open(os.path.join(os.path.dirname(HERE), k)).width for k in _SMALL}
+def _img(m):
+    tag = m.group(0); src = re.search(r'src="([^"?]+)"', tag)
+    if not src or src.group(1) not in _SMALL or 'srcset=' in tag: return tag
+    f = src.group(1); w = _SMALL[f]
+    sizes = '100vw' if 'ab__photo' in tag else '(max-width: 700px) 45vw, 420px' if 'hand' in f else '(max-width: 700px) 92vw, 560px'
+    return tag[:-1] + ' srcset="%s-%d.webp %dw, %s %dw" sizes="%s">' % (f[:-5], w, w, f, _W[f], sizes)
+for _p in _g.glob(os.path.join(os.path.dirname(HERE), '*.html')):
+    _n = os.path.basename(_p)
+    if _n == 'hero-options.html': continue
+    _h = open(_p, encoding='utf-8').read()
+    # thumbnails ask for the small copy outright
+    _h = re.sub(r'(<li><a href="[^"]+"><img src="assets/img/news-\d)\.webp"', r'\1-360.webp"', _h)
+    _h = re.sub(r'(<a class="pj__card" href="[^"]+"><img src="assets/img/(?:proj-center|proj-tree))\.webp"', r'\1-640.webp"', _h)
+    _h = re.sub(r'(<a class="pj__card" href="[^"]+"><img src="assets/img/news-\d)\.webp"', r'\1-360.webp"', _h)
+    _h = re.sub(r'<img\b[^>]*>', _img, _h)
+    if _n != 'index.html': _h = re.sub(r'(<title>[^<]*?) — (ميثاق العائلة</title>)', r'\1 | \2', _h)
+    if 'property="og:title"' not in _h:
+        _t = re.search(r'<title>(.*?)</title>', _h, re.S).group(1).strip(); _d = re.search(r'<meta name="description" content="([^"]*)"', _h)
+        _og = ('<meta property="og:type" content="website">\n<meta property="og:site_name" content="ميثاق العائلة">\n<meta property="og:title" content="%s">\n<meta property="og:description" content="%s">\n'
+               '<meta property="og:image" content="%sassets/img/og.jpg">\n<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n<meta name="twitter:card" content="summary_large_image">\n') % (_t, _d.group(1) if _d else '', SITE)
+        _h = _h.replace('<meta name="theme-color"', _og + '<meta name="theme-color"', 1)
+    if _n == 'pledge.html' and '<h1' not in _h: _h = _h.replace('<main id="main">', '<main id="main">\n<h1 class="sr-only">توقيع ميثاق العائلة</h1>', 1)
+    if _n == 'cards.html': _h = re.sub(r'(<img src="assets/img/cards/boycott-p[3-8]\.webp")', r'\1 fetchpriority="low"', _h) if 'fetchpriority' not in _h else _h
+    if _n == '404.html': _h = re.sub(r'<base href="[^"]*">', "<script>document.write('<base href=\"'+(location.hostname.endsWith('github.io')?'/'+location.pathname.split('/')[1]+'/':'/')+'\">')</script>", _h)
+    open(_p, 'w', encoding='utf-8', newline='\n').write(_h)

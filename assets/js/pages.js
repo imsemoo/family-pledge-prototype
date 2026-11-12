@@ -530,7 +530,7 @@ window.FPHome = (() => {
   const row = (d) => {
     const li = document.createElement('li'), a = document.createElement('a'), pic = document.createElement('span'), txt = document.createElement('span');
     a.className = 'sx__hit'; a.href = d.h; pic.className = 'sx__pic';
-    if (d.i) { const im = new Image(); im.src = d.i; im.alt = ''; im.loading = 'lazy'; im.decoding = 'async'; pic.append(im); } else pic.append(gl(d.g));
+    if (d.i) { const im = new Image(); im.src = d.i; im.alt = ''; im.width = 72; im.height = 72; im.loading = 'lazy'; im.decoding = 'async'; pic.append(im); } else pic.append(gl(d.g));
     const k = document.createElement('small'), t = document.createElement('b'); k.textContent = d.k; t.textContent = d.t; txt.append(k, t);
     a.append(pic, txt); li.append(a); return li;
   };

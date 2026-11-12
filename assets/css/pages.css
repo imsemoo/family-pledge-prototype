@@ -1419,3 +1419,11 @@ html[dir="rtl"] .nf__links a { padding: 0.5rem 0.5rem 0.5rem 0.9rem; }
   .nw__grid:has(> li:nth-child(6):last-child) > li:nth-child(-n+2) .nw__card > div { padding: clamp(0.9rem, 2vw, 1.5rem); gap: 0.5rem; }
   .nw__grid:has(> li:nth-child(6):last-child) > li:nth-child(-n+2) .nw__card h3 { font-size: clamp(1.15rem, 0.95rem + 0.8vw, 1.5rem); line-height: 1.65; text-wrap: balance; }
 }
+
+/* ---- small labels on rose: the deeper rose keeps white text above 4.5:1 ---- */
+.nw__flag, .ct__best, .bg__kinds button[aria-pressed="true"] i { background: var(--rose-700); }
+.pj__now .pj__blk-head p { color: var(--ink-2); }
+.sx__pic img { aspect-ratio: 1; }
+.bg__skip { position: absolute; inset-inline-start: 1rem; inset-block-start: -4rem; z-index: 5; padding: 0.5rem 0.9rem; border-radius: 12px; background: var(--ink); color: #fff; font-family: var(--f-display); font-weight: 700; }
+.bg__skip:focus { inset-block-start: 0.6rem; }
+.bg__shelf { position: relative; }
