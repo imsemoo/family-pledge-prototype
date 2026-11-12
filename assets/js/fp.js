@@ -194,3 +194,10 @@
   };
   $$('canvas[data-band]').forEach((c) => FP.band(c, { rows: +c.dataset.rows || 13, dark: c.dataset.band === 'dark', unsewn: +c.dataset.unsewn || 0, interactive: c.hasAttribute('data-interactive') }));
 })();
+
+/* the closing call: a family that already gave its name sees it on the sheet (read from this browser only) */
+(() => {
+  const el = document.querySelector('[data-call-name]'); if (!el) return;
+  let n = ''; try { n = (localStorage.getItem('fp-family') || '').trim(); } catch { /* private mode */ }
+  if (n) { el.textContent = n.slice(0, 14); el.setAttribute('data-no-i18n', ''); }
+})();

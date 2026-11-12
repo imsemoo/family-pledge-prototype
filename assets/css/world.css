@@ -590,3 +590,55 @@ html[dir="ltr"] .header__act .btn { white-space: nowrap; padding-inline: 0.9rem;
 .reach__ic { background: #fff; box-shadow: 0 0 0 1px var(--line); }
 .tally__ic svg.glyph, .vowlist__ic svg.glyph, .reach__ic svg.glyph { width: 72%; height: 72%; transform: none; overflow: visible; }
 .vowlist li:hover .vowlist__ic { background: var(--rose-50); color: inherit; }
+
+/* ============ closing call, second pass: the pledge held between the two hands, on one ink card ============ */
+.call--v2 { background: #fff; text-align: start; padding-block: clamp(2rem, 1rem + 4vw, 4.5rem); overflow: visible; }
+.call__card { position: relative; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); align-items: center; gap: clamp(1rem, 3vw, 3rem); padding: clamp(1.5rem, 1rem + 3vw, 3.5rem); border-radius: clamp(24px, 3vw, 40px); background: linear-gradient(155deg, #0c2530, #123a48 55%, #1f6079); color: #fff; overflow: hidden; box-shadow: 0 40px 60px -44px rgb(16 48 59 / 0.75); isolation: isolate; }
+.call__card > * { min-width: 0; }
+.call__card::before { content: ""; position: absolute; inset-block-start: -30%; inset-inline-start: -10%; width: 60%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(closest-side, rgb(201 79 120 / 0.28), transparent); z-index: -1; }
+.call__txt { display: grid; justify-items: start; gap: 0.9rem; }
+.call__cast { display: inline-flex; align-items: center; gap: 0.7rem; padding: 0.3rem 1rem 0.3rem 0.35rem; border-radius: 999px; background: rgb(255 255 255 / 0.1); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.14); font-family: var(--f-display); font-weight: 700; font-size: 0.92rem; line-height: 1.5; color: #fff; max-width: none; }
+html[dir="rtl"] .call__cast { padding: 0.3rem 0.35rem 0.3rem 1rem; }
+.call--v2 .call__cast { font-size: 0.92rem; color: #fff; }
+.call__faces { display: inline-flex; }
+.call__faces img { width: 2.3rem; height: 2.3rem; border-radius: 50%; object-fit: cover; background: #fff; box-shadow: 0 0 0 2px #123a48; }
+.call__faces img + img { margin-inline-start: -0.7rem; }
+.call--v2 h2 { margin: 0; color: #fff; font-size: clamp(1.9rem, 1.2rem + 2.8vw, 3.3rem); line-height: 1.4; text-wrap: balance; }
+.call--v2 h2 em { color: var(--rose-300); }
+.call--v2 .call__txt > p:not(.call__cast) { color: rgb(255 255 255 / 0.82); font-size: var(--t-lead); line-height: 1.9; max-width: 34rem; }
+.call--v2 .call__act { justify-content: flex-start; margin-block-start: 0.4rem; }
+.call--v2 .call__act .btn:not(.btn--line) { box-shadow: 0 18px 26px -16px rgb(201 79 120 / 0.9); }
+.call__facts { list-style: none; margin: 0.8rem 0 0; padding: 1rem 0 0; display: flex; flex-wrap: wrap; gap: 0.6rem clamp(1rem, 2.5vw, 2rem); border-block-start: 1.5px dashed rgb(255 255 255 / 0.22); width: 100%; }
+.call__facts li { display: flex; align-items: baseline; gap: 0.45rem; }
+.call__facts b { font-family: var(--f-display); font-weight: 800; font-size: 1.6rem; line-height: 1.2; color: var(--light); direction: ltr; }
+.call__facts span { color: rgb(255 255 255 / 0.8); font-size: 0.95rem; line-height: 1.6; }
+.call__art { position: relative; aspect-ratio: 1; width: min(100%, 26rem); justify-self: center; display: grid; place-items: center; }
+.call__ring { position: absolute; inset: 2%; border-radius: 50%; border: 1.5px dashed rgb(255 255 255 / 0.2); animation: call-turn 60s linear infinite; }
+@keyframes call-turn { to { rotate: 360deg; } }
+.call--v2 .call__hand { position: absolute; inset: 4%; width: 92%; height: 92%; object-fit: contain; filter: drop-shadow(0 26px 26px rgb(0 0 0 / 0.35)); transform: none; transition: rotate 1400ms var(--e-out), scale 700ms var(--e-out); }
+.call--v2 .call__hand--rose { rotate: -22deg; }
+.call--v2 .call__hand--teal { rotate: 22deg; }
+.call--v2 .call__card.in .call__hand, html.still .call--v2 .call__hand { rotate: 0deg; transform: none; }
+.call--v2:has(.in) .call__hand--rose, .call--v2:has(.in) .call__hand--teal { transform: none; }
+.call__card:has(.call__act .btn:hover) .call__hand, .call__card:has(.call__act .btn:focus-visible) .call__hand { scale: 0.94; }
+.call__sheet { position: relative; display: grid; align-content: center; gap: 0.15rem; width: 46%; aspect-ratio: 4 / 3; padding: 0.8rem 1rem; border-radius: 14px; background: #fff; color: var(--ink); rotate: -5deg; box-shadow: 0 30px 40px -22px rgb(0 0 0 / 0.6); transition: rotate 700ms var(--e-out), scale 700ms var(--e-out); }
+.call__card:has(.call__act .btn:hover) .call__sheet { rotate: 0deg; scale: 1.05; }
+.call__sheet small { color: var(--teal-700); font-family: var(--f-display); font-weight: 700; font-size: 0.72rem; line-height: 1.5; }
+.call__sheet b { font-family: var(--f-sign); font-weight: 700; font-size: clamp(1.2rem, 0.8rem + 1.6vw, 1.9rem); line-height: 1.7; color: var(--ink-sign); white-space: nowrap; }
+.call__sheet i { display: block; height: 2px; background: var(--ink); opacity: 0.8; }
+.call__sheet em { font-style: normal; color: var(--muted); font-size: 0.66rem; line-height: 1.6; }
+.call__seal { position: absolute; inset-block-end: -1.1rem; inset-inline-end: -0.9rem; width: 3.6rem; aspect-ratio: 1; display: grid; place-items: center; rotate: -12deg; }
+.call__seal svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.call__seal img { position: relative; width: 46%; height: auto; }
+@media (max-width: 820px) {
+  .call__card { grid-template-columns: minmax(0, 1fr); }
+  .call__art { width: min(78%, 19rem); order: -1; }
+  .call--v2 .call__act { width: 100%; }
+  .call--v2 .call__act .btn { flex: 1 1 9rem; justify-content: center; }
+  .call--v2 .call__hand { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) { .call__ring { animation: none; } .call--v2 .call__hand { rotate: 0deg; transition: none; } }
+.call__sheet { container-type: inline-size; }
+.call__sheet b { font-size: 17cqw; }
+.call__sheet small { font-size: max(0.62rem, 6cqw); }
+.call__sheet em { font-size: max(0.56rem, 5cqw); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }

@@ -178,3 +178,15 @@ IDENTITY = headpart + ('''<body class="gd idg">
 
 open(ROOT + 'identity.html', 'w', encoding='utf-8', newline='\n').write(IDENTITY)
 print('identity.html built')
+
+# ---- the search button in the header of every inner page (the homepage is left as it is)
+import glob as _g
+_F = '<a class="acct acct--find" href="search.html" aria-label="بحث" title="بحث"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.800-3.800"/></svg></a>'
+for _p in _g.glob(os.path.join(os.path.dirname(HERE), '*.html')):
+    if os.path.basename(_p) in ('index.html', 'hero-options.html'): continue
+    _h = open(_p, encoding='utf-8').read()
+    if '<a class="acct"' not in _h: continue
+    if 'acct--find' not in _h: _h = _h.replace('<a class="acct"', _F + '<a class="acct"', 1)
+    _a = '<span class="stitch"></span>تواصل</a>'   # phones get the search as the menu's last item
+    if _a in _h and 'href="search.html" style' not in _h: _h = _h.replace(_a, _a + '\n      <a href="search.html" style="--i:7"><span class="stitch"></span>بحث</a>', 1)
+    open(_p, 'w', encoding='utf-8', newline='\n').write(_h)

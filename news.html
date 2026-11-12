@@ -11,10 +11,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Baloo+Bhaijaan+2:wght@500;700;800&family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/fp.css?v=137">
-<link rel="stylesheet" href="assets/css/home.css?v=137">
-<link rel="stylesheet" href="assets/css/world.css?v=137">
-<link rel="stylesheet" href="assets/css/pages.css?v=137">
+<link rel="stylesheet" href="assets/css/fp.css?v=152">
+<link rel="stylesheet" href="assets/css/home.css?v=152">
+<link rel="stylesheet" href="assets/css/world.css?v=152">
+<link rel="stylesheet" href="assets/css/pages.css?v=152">
 </head>
 <body>
 <a class="skip" href="#main">تخط إلى المحتوى</a>
@@ -85,7 +85,7 @@
       <a href="contact.html">تواصل</a>
     </nav>
     <div class="header__act">
-      <a class="acct" href="family.html" aria-label="بيت العائلة" title="بيت العائلة"><svg class="ic"><use href="#i-home"/></svg></a>
+      <a class="acct acct--find" href="search.html" aria-label="بحث" title="بحث"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.800-3.800"/></svg></a><a class="acct" href="family.html" aria-label="بيت العائلة" title="بيت العائلة"><svg class="ic"><use href="#i-home"/></svg></a>
       <div class="lang">
         <button type="button" aria-haspopup="true" aria-expanded="false" aria-label="تغيير اللغة"><svg class="ic"><use href="#i-globe"/></svg><span>العربية</span><svg class="ic" style="width:1em;height:1em"><use href="#i-down"/></svg></button>
         <ul>
@@ -120,6 +120,7 @@
       <a href="projects.html" style="--i:4"><span class="stitch"></span>مشاريعنا</a>
       <a href="news.html" aria-current="page" style="--i:5"><span class="stitch"></span>أخبارنا</a>
       <a href="contact.html" style="--i:6"><span class="stitch"></span>تواصل</a>
+      <a href="search.html" style="--i:7"><span class="stitch"></span>بحث</a>
       <a href="family.html" style="--i:7"><span class="stitch"></span>بيت العائلة</a>
     </nav>
     <div class="sheet__sign">
@@ -154,19 +155,34 @@
   <div class="pj__in">
     <section class="pj__blk" data-news aria-labelledby="h-all">
       <div class="pj__blk-head nw__bar"><div><h2 id="h-all">كل الأخبار</h2><p aria-live="polite" data-news-count></p></div><div class="nw__chips" role="group" aria-label="البلد"><button type="button" data-place-f="" aria-pressed="true">الكل<i class="num">5</i></button><button type="button" data-place-f="إندونيسيا" aria-pressed="false">إندونيسيا<i class="num">1</i></button><button type="button" data-place-f="كينيا" aria-pressed="false">كينيا<i class="num">2</i></button><button type="button" data-place-f="موريتانيا" aria-pressed="false">موريتانيا<i class="num">1</i></button></div></div>
-      <ul class="nw__grid"><li data-place=""><div class="nw__card"><figure><img src="assets/img/news-1.webp" alt="مشهد من فعالية يعرض على الشاشة صورة طفل فلسطيني بين الخيام" width="770" height="770" loading="lazy" decoding="async"></figure><div><time>27 أكتوبر 2026</time><h3>ما وراء التبرعات: ميثاق العائلة يرسخ التزاما مستداما تجاه فلسطين</h3></div></div></li><li data-place="إندونيسيا"><a class="nw__card" href="article.html"><figure><img src="assets/img/news-2.webp" alt="أطفال ومعلمات يحملون رسوماتهم في لقاء لنصرة الأقصى" width="770" height="770" loading="lazy" decoding="async"><span class="nw__place"><svg class="glyph" viewBox="0 0 64 64" aria-hidden="true"><circle cx="29" cy="35" r="23" fill="#2a7896"/><path d="M6 35h46M29 12c8 7 11.500 14 11.500 23S37 51 29 58c-8-7-11.500-14-11.500-23S21 19 29 12z" fill="none" stroke="#fff" stroke-width="2.600" opacity=".75"/><circle cx="18" cy="30" r="3.600" fill="#f4b740"/><path d="M48 3c-6 0-10.500 4.600-10.500 10.200C37.500 20.500 48 31 48 31s10.500-10.500 10.500-17.800C58.500 7.600 54 3 48 3z" fill="#c94f78" stroke="#fff" stroke-width="2.600" stroke-linejoin="round"/><circle cx="48" cy="13.500" r="3.800" fill="#fff"/></svg>إندونيسيا</span></figure><div><time>26 أكتوبر 2026</time><h3>«خطوات صغيرة نحو الأقصى».. رسالة نصرة وأخوة بين أطفال إندونيسيا وفلسطين</h3><span class="nw__go">اقرؤوا الخبر<svg class="ic"><use href="#i-left"/></svg></span></div></a></li><li data-place="كينيا"><div class="nw__card"><figure><img src="assets/img/news-3.webp" alt="أطفال يرفعون أيديهم في جلسة لنادي الأقصى" width="770" height="770" loading="lazy" decoding="async"><span class="nw__place"><svg class="glyph" viewBox="0 0 64 64" aria-hidden="true"><circle cx="29" cy="35" r="23" fill="#2a7896"/><path d="M6 35h46M29 12c8 7 11.500 14 11.500 23S37 51 29 58c-8-7-11.500-14-11.500-23S21 19 29 12z" fill="none" stroke="#fff" stroke-width="2.600" opacity=".75"/><circle cx="18" cy="30" r="3.600" fill="#f4b740"/><path d="M48 3c-6 0-10.500 4.600-10.500 10.200C37.500 20.500 48 31 48 31s10.500-10.500 10.500-17.800C58.500 7.600 54 3 48 3z" fill="#c94f78" stroke="#fff" stroke-width="2.600" stroke-linejoin="round"/><circle cx="48" cy="13.500" r="3.800" fill="#fff"/></svg>كينيا</span></figure><div><time>16 أكتوبر 2026</time><h3>مسارات ريادية ومبادرات نوعية.. «نادي الأقصى» يسطر قصة نجاح في المشهد الشبابي الكيني</h3></div></div></li><li data-place="كينيا"><div class="nw__card"><figure><img src="assets/img/news-4.webp" alt="شابات يجلسن في قاعة أثناء جلسة توعوية" width="770" height="770" loading="lazy" decoding="async"><span class="nw__place"><svg class="glyph" viewBox="0 0 64 64" aria-hidden="true"><circle cx="29" cy="35" r="23" fill="#2a7896"/><path d="M6 35h46M29 12c8 7 11.500 14 11.500 23S37 51 29 58c-8-7-11.500-14-11.500-23S21 19 29 12z" fill="none" stroke="#fff" stroke-width="2.600" opacity=".75"/><circle cx="18" cy="30" r="3.600" fill="#f4b740"/><path d="M48 3c-6 0-10.500 4.600-10.500 10.200C37.500 20.500 48 31 48 31s10.500-10.500 10.500-17.800C58.500 7.600 54 3 48 3z" fill="#c94f78" stroke="#fff" stroke-width="2.600" stroke-linejoin="round"/><circle cx="48" cy="13.500" r="3.800" fill="#fff"/></svg>كينيا</span></figure><div><time>16 أكتوبر 2026</time><h3>أكثر من 60 شابة يشاركن في جلسة توعوية لنادي الأقصى بالعاصمة الكينية نيروبي</h3></div></div></li><li data-place="موريتانيا"><div class="nw__card"><figure><img src="assets/img/news-5.webp" alt="أطفال يجلسون حول طاولة مع معلمتهم" width="770" height="770" loading="lazy" decoding="async"><span class="nw__place"><svg class="glyph" viewBox="0 0 64 64" aria-hidden="true"><circle cx="29" cy="35" r="23" fill="#2a7896"/><path d="M6 35h46M29 12c8 7 11.500 14 11.500 23S37 51 29 58c-8-7-11.500-14-11.500-23S21 19 29 12z" fill="none" stroke="#fff" stroke-width="2.600" opacity=".75"/><circle cx="18" cy="30" r="3.600" fill="#f4b740"/><path d="M48 3c-6 0-10.500 4.600-10.500 10.200C37.500 20.500 48 31 48 31s10.500-10.500 10.500-17.800C58.500 7.600 54 3 48 3z" fill="#c94f78" stroke="#fff" stroke-width="2.600" stroke-linejoin="round"/><circle cx="48" cy="13.500" r="3.800" fill="#fff"/></svg>موريتانيا</span></figure><div><time>15 أكتوبر 2026</time><h3>تقرير إنجاز نشاطات مجموعة ميثاق العائلة في موريتانيا</h3></div></div></li></ul>
+      <ul class="nw__grid"><li data-place=""><a class="nw__card" href="news-bangkok.html"><figure><img src="assets/img/news-1.webp" alt="مشهد من فعالية يعرض على الشاشة صورة طفل فلسطيني بين الخيام" width="770" height="770" loading="lazy" decoding="async"></figure><div><time>27 أكتوبر 2026</time><h3>ما وراء التبرعات: ميثاق العائلة يرسخ التزاما مستداما تجاه فلسطين</h3><span class="nw__go">اقرؤوا الخبر<svg class="ic"><use href="#i-left"/></svg></span></div></a></li><li data-place="إندونيسيا"><a class="nw__card" href="article.html"><figure><img src="assets/img/news-2.webp" alt="أطفال ومعلمات يحملون رسوماتهم في لقاء لنصرة الأقصى" width="770" height="770" loading="lazy" decoding="async"><span class="nw__place"><svg class="glyph" viewBox="0 0 64 64" aria-hidden="true"><circle cx="29" cy="35" r="23" fill="#2a7896"/><path d="M6 35h46M29 12c8 7 11.500 14 11.500 23S37 51 29 58c-8-7-11.500-14-11.500-23S21 19 29 12z" fill="none" stroke="#fff" stroke-width="2.600" opacity=".75"/><circle cx="18" cy="30" r="3.600" fill="#f4b740"/><path d="M48 3c-6 0-10.500 4.600-10.500 10.200C37.500 20.500 48 31 48 31s10.500-10.500 10.500-17.800C58.500 7.600 54 3 48 3z" fill="#c94f78" stroke="#fff" stroke-width="2.600" stroke-linejoin="round"/><circle cx="48" cy="13.500" r="3.800" fill="#fff"/></svg>إندونيسيا</span></figure><div><time>26 أكتوبر 2026</time><h3>«خطوات صغيرة نحو الأقصى».. رسالة نصرة وأخوة بين أطفال إندونيسيا وفلسطين</h3><span class="nw__go">اقرؤوا الخبر<svg class="ic"><use href="#i-left"/></svg></span></div></a></li><li data-place="كينيا"><a class="nw__card" href="news-aqsa-club.html"><figure><img src="assets/img/news-3.webp" alt="أطفال يرفعون أيديهم في جلسة لنادي الأقصى" width="770" height="770" loading="lazy" decoding="async"><span class="nw__place"><svg class="glyph" viewBox="0 0 64 64" aria-hidden="true"><circle cx="29" cy="35" r="23" fill="#2a7896"/><path d="M6 35h46M29 12c8 7 11.500 14 11.500 23S37 51 29 58c-8-7-11.500-14-11.500-23S21 19 29 12z" fill="none" stroke="#fff" stroke-width="2.600" opacity=".75"/><circle cx="18" cy="30" r="3.600" fill="#f4b740"/><path d="M48 3c-6 0-10.500 4.600-10.500 10.200C37.500 20.500 48 31 48 31s10.500-10.500 10.500-17.800C58.500 7.600 54 3 48 3z" fill="#c94f78" stroke="#fff" stroke-width="2.600" stroke-linejoin="round"/><circle cx="48" cy="13.500" r="3.800" fill="#fff"/></svg>كينيا</span></figure><div><time>16 أكتوبر 2026</time><h3>مسارات ريادية ومبادرات نوعية.. «نادي الأقصى» يسطر قصة نجاح في المشهد الشبابي الكيني</h3><span class="nw__go">اقرؤوا الخبر<svg class="ic"><use href="#i-left"/></svg></span></div></a></li><li data-place="كينيا"><a class="nw__card" href="news-nairobi.html"><figure><img src="assets/img/news-4.webp" alt="شابات يجلسن في قاعة أثناء جلسة توعوية" width="770" height="770" loading="lazy" decoding="async"><span class="nw__place"><svg class="glyph" viewBox="0 0 64 64" aria-hidden="true"><circle cx="29" cy="35" r="23" fill="#2a7896"/><path d="M6 35h46M29 12c8 7 11.500 14 11.500 23S37 51 29 58c-8-7-11.500-14-11.500-23S21 19 29 12z" fill="none" stroke="#fff" stroke-width="2.600" opacity=".75"/><circle cx="18" cy="30" r="3.600" fill="#f4b740"/><path d="M48 3c-6 0-10.500 4.600-10.500 10.200C37.500 20.500 48 31 48 31s10.500-10.500 10.500-17.800C58.500 7.600 54 3 48 3z" fill="#c94f78" stroke="#fff" stroke-width="2.600" stroke-linejoin="round"/><circle cx="48" cy="13.500" r="3.800" fill="#fff"/></svg>كينيا</span></figure><div><time>16 أكتوبر 2026</time><h3>أكثر من 60 شابة يشاركن في جلسة توعوية لنادي الأقصى بالعاصمة الكينية نيروبي</h3><span class="nw__go">اقرؤوا الخبر<svg class="ic"><use href="#i-left"/></svg></span></div></a></li><li data-place="موريتانيا"><a class="nw__card" href="news-mauritania.html"><figure><img src="assets/img/news-5.webp" alt="أطفال يجلسون حول طاولة مع معلمتهم" width="770" height="770" loading="lazy" decoding="async"><span class="nw__place"><svg class="glyph" viewBox="0 0 64 64" aria-hidden="true"><circle cx="29" cy="35" r="23" fill="#2a7896"/><path d="M6 35h46M29 12c8 7 11.500 14 11.500 23S37 51 29 58c-8-7-11.500-14-11.500-23S21 19 29 12z" fill="none" stroke="#fff" stroke-width="2.600" opacity=".75"/><circle cx="18" cy="30" r="3.600" fill="#f4b740"/><path d="M48 3c-6 0-10.500 4.600-10.500 10.200C37.500 20.500 48 31 48 31s10.500-10.500 10.500-17.800C58.500 7.600 54 3 48 3z" fill="#c94f78" stroke="#fff" stroke-width="2.600" stroke-linejoin="round"/><circle cx="48" cy="13.500" r="3.800" fill="#fff"/></svg>موريتانيا</span></figure><div><time>15 أكتوبر 2026</time><h3>تقرير إنجاز نشاطات مجموعة ميثاق العائلة في موريتانيا</h3><span class="nw__go">اقرؤوا الخبر<svg class="ic"><use href="#i-left"/></svg></span></div></a></li></ul>
     </section>
   </div>
 </div>
-<section class="section call">
-  <img class="call__hand call__hand--rose" src="assets/img/world/hand-rose.webp" alt="" width="900" height="900" loading="lazy">
-  <img class="call__hand call__hand--teal" src="assets/img/world/hand-teal.webp" alt="" width="900" height="900" loading="lazy">
-  <div class="wrap call__mid" data-reveal>
-    <h2>ازرع الوعي في بيتك، <em>وادعم صمود بيت آخر</em></h2>
-    <p>احصل على ميثاق العائلة أنت وعائلتك، وكن سندا للمرأة المعيلة وأطفالها.</p>
-    <div class="call__act">
-      <a class="btn" href="pledge.html"><span class="stitch"></span>توقيع الميثاق</a>
-      <a class="btn btn--line" href="contact.html">تواصل معنا</a>
+<section class="section call call--v2" aria-labelledby="call-h">
+  <div class="wrap">
+    <div class="call__card on-dark" data-reveal>
+      <div class="call__txt">
+        <p class="call__cast"><span class="call__faces"><img src="assets/img/world/cast-jadda-1.webp" alt="" width="360" height="360" loading="lazy" decoding="async"><img src="assets/img/world/cast-raed-1.webp" alt="" width="360" height="360" loading="lazy" decoding="async"><img src="assets/img/world/cast-yafa-1.webp" alt="" width="360" height="360" loading="lazy" decoding="async"></span><span>الجدة ورائد ويافا في انتظاركم</span></p>
+        <h2 id="call-h">ازرع الوعي في بيتك، <em>وادعم صمود بيت آخر</em></h2>
+        <p>احصل على ميثاق العائلة أنت وعائلتك، وكن سندا للمرأة المعيلة وأطفالها.</p>
+        <div class="call__act">
+          <a class="btn" href="pledge.html"><span class="stitch"></span>توقيع الميثاق</a>
+          <a class="btn btn--line" href="contact.html">تواصل معنا</a>
+        </div>
+        <ul class="call__facts">
+          <li><b class="num">10$</b><span>شهريا تقريبا</span></li>
+          <li><b class="num">12</b><span>شهرا من الالتزام</span></li>
+          <li><b class="num">1</b><span>وثيقة باسم عائلتكم</span></li>
+        </ul>
+      </div>
+      <div class="call__art" aria-hidden="true">
+        <span class="call__ring"></span>
+        <img class="call__hand call__hand--rose" src="assets/img/world/hand-rose.webp" alt="" width="900" height="900" loading="lazy">
+        <img class="call__hand call__hand--teal" src="assets/img/world/hand-teal.webp" alt="" width="900" height="900" loading="lazy">
+        <div class="call__sheet"><small>ميثاق العائلة</small><b data-call-name>عائلتكم</b><i></i><em>السطر التالي لعائلتك</em>
+          <span class="call__seal"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="57" fill="#fff" stroke="#b03a62" stroke-width="2.500"/><circle cx="60" cy="60" r="44" fill="none" stroke="#b03a62" stroke-width="1.200" stroke-dasharray="2 4"/></svg><img src="assets/img/world/seal-mark.webp" alt="" width="360" height="316" loading="lazy"></span></div>
+      </div>
     </div>
   </div>
 </section>
@@ -238,9 +254,9 @@
 
 <button class="to-top" type="button" aria-label="العودة إلى أعلى الصفحة"><svg class="ic"><use href="#i-up"/></svg></button>
 
-<script src="assets/js/fp.js?v=137" defer></script>
-<script src="assets/js/i18n.js?v=137" defer></script>
-<script src="assets/js/world.js?v=137" defer></script>
-<script src="assets/js/pages.js?v=137" defer></script>
+<script src="assets/js/fp.js?v=152" defer></script>
+<script src="assets/js/i18n.js?v=152" defer></script>
+<script src="assets/js/world.js?v=152" defer></script>
+<script src="assets/js/pages.js?v=152" defer></script>
 </body>
 </html>

@@ -323,3 +323,6 @@ html.no-loader .loader { display: none; }
 /* the way into the family's home: a small house in the header */
 .acct { width: 2.75rem; height: 2.75rem; display: grid; place-items: center; border-radius: 50%; color: var(--ink); font-size: 1.25rem; flex: none; transition: background-color var(--d-2), color var(--d-2); }
 .acct:hover, .acct[aria-current] { background: var(--teal-50); color: var(--teal-700); }
+
+/* phones: the language keeps its globe and arrow and drops its name, so the menu button stays on the screen */
+@media (max-width: 430px) { .lang > button > span { display: none; } .lang > button { padding-inline: 0.5rem; } }

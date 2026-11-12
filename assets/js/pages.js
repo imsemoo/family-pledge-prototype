@@ -505,3 +505,42 @@ window.FPHome = (() => {
   dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
   const want = location.hash.slice(1); const k0 = kinds.find((b) => b.dataset.kindF === want); if (k0) k0.click();
 })();
+
+/* sign in: a picture of the screen. The tabs switch what is asked; submitting stores and sends nothing */
+(() => {
+  const f = document.querySelector('[data-lg]'); if (!f) return;
+  const tabs = [...document.querySelectorAll('[data-lg-tab]')], cta = f.querySelector('[data-lg-cta]');
+  tabs.forEach((t) => t.addEventListener('click', () => {
+    const up = t.dataset.lgTab === 'up'; tabs.forEach((x) => x.setAttribute('aria-selected', x === t));
+    f.querySelectorAll('[data-lg-only="up"]').forEach((e) => { e.hidden = !up; });
+    cta.textContent = up ? 'إنشاء الحساب' : 'دخول';
+  }));
+  f.addEventListener('submit', (e) => { e.preventDefault(); f.reset(); window.FP?.toast?.('شاشة للعرض: لم يحفظ شيء ولم يرسل. شاهدوا بيتا مثالا.'); });
+})();
+
+/* search: one index built with the site, filtered here. Nothing typed leaves the page */
+(() => {
+  const root = document.querySelector('[data-sx]'); if (!root) return;
+  const data = JSON.parse(root.querySelector('[data-sx-data]').textContent);
+  const q = root.querySelector('[data-sx-q]'), list = root.querySelector('[data-sx-list]'), none = root.querySelector('[data-sx-none]');
+  const nEl = root.querySelector('[data-sx-n]'), count = root.querySelector('[data-sx-count]');
+  const norm = (s) => s.toLowerCase().replace(/[\u064B-\u0652\u0640]/g, '').replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي').trim();
+  data.forEach((d) => { d.n = norm(d.t + ' ' + d.k + ' ' + d.x); });
+  const gl = (g) => root.querySelector('[data-sx-g="' + g + '"]').content.cloneNode(true);
+  const row = (d) => {
+    const li = document.createElement('li'), a = document.createElement('a'), pic = document.createElement('span'), txt = document.createElement('span');
+    a.className = 'sx__hit'; a.href = d.h; pic.className = 'sx__pic';
+    if (d.i) { const im = new Image(); im.src = d.i; im.alt = ''; im.loading = 'lazy'; im.decoding = 'async'; pic.append(im); } else pic.append(gl(d.g));
+    const k = document.createElement('small'), t = document.createElement('b'); k.textContent = d.k; t.textContent = d.t; txt.append(k, t);
+    a.append(pic, txt); li.append(a); return li;
+  };
+  const apply = () => {
+    const words = norm(q.value).split(/\s+/).filter(Boolean);
+    const hits = words.length ? data.filter((d) => words.every((w) => d.n.includes(w))) : data.filter((d) => d.k === 'صفحة' || d.k === 'مشروع');
+    list.replaceChildren(...hits.slice(0, 60).map(row));
+    none.hidden = hits.length > 0; nEl.hidden = !words.length || !hits.length; count.textContent = hits.length;
+  };
+  let t; q.addEventListener('input', () => { clearTimeout(t); t = setTimeout(apply, 120); });
+  root.querySelectorAll('[data-sx-try]').forEach((b) => b.addEventListener('click', () => { q.value = b.textContent; apply(); q.focus(); }));
+  apply();
+})();
