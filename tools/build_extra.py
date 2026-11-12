@@ -266,10 +266,15 @@ LOGIN = '''<main id="main">
     <h1>ادخلوا بيتكم</h1>
     <p class="lg__sub">ميثاقكم، وعهد الأسبوع، ودفتر الأختام في انتظاركم.</p>
     <div class="lg__tabs" role="tablist"><button type="button" role="tab" aria-selected="true" data-lg-tab="in">دخول</button><button type="button" role="tab" aria-selected="false" data-lg-tab="up">حساب جديد</button></div>
+    <button class="btn btn--line lg__google" type="button" data-lg-demo><svg viewBox="0 0 24 24" aria-hidden="true" class="lg__g"><path fill="#4285F4" d="M23.500 12.300c0-.800-.100-1.600-.200-2.300H12v4.400h6.500a5.600 5.600 0 0 1-2.400 3.600v3h3.900c2.300-2.100 3.500-5.200 3.500-8.700z"/><path fill="#34A853" d="M12 24c3.200 0 6-1.100 8-2.900l-3.900-3c-1.100.700-2.500 1.200-4.100 1.200-3.100 0-5.800-2.100-6.700-5H1.300v3.100A12 12 0 0 0 12 24z"/><path fill="#FBBC05" d="M5.300 14.300a7.200 7.200 0 0 1 0-4.600V6.600H1.300a12 12 0 0 0 0 10.800l4-3.100z"/><path fill="#EA4335" d="M12 4.800c1.800 0 3.300.600 4.600 1.800l3.400-3.400A12 12 0 0 0 1.300 6.600l4 3.100c.900-2.900 3.600-4.900 6.700-4.900z"/></svg><span>المتابعة باستخدام Google</span></button>
+    <div class="lg__or"><span>أو</span></div>
     <form class="lg__form" data-lg novalidate>
+      <div class="lg__by" role="group" aria-label="طريقة الدخول"><button type="button" aria-pressed="true" data-lg-by="mail">بالبريد الإلكتروني</button><button type="button" aria-pressed="false" data-lg-by="tel">برقم الهاتف</button></div>
       <div class="fld" data-lg-only="up" hidden><label for="lg-fam">اسم العائلة</label><input class="input" id="lg-fam" type="text" maxlength="30" autocomplete="off" placeholder="مثال: النجار"></div>
-      <div class="fld"><label for="lg-mail">البريد الإلكتروني</label><input class="input" id="lg-mail" type="email" inputmode="email" autocomplete="off" dir="ltr" placeholder="name@example.com"></div>
+      <div class="fld" data-lg-field="mail"><label for="lg-mail">البريد الإلكتروني</label><input class="input" id="lg-mail" type="email" inputmode="email" autocomplete="off" dir="ltr" placeholder="name@example.com"></div>
+      <div class="fld" data-lg-field="tel" hidden><label for="lg-tel">رقم الهاتف</label><input class="input" id="lg-tel" type="tel" inputmode="tel" autocomplete="off" dir="ltr" placeholder="+90 500 000 00 00"></div>
       <div class="fld"><label for="lg-pass">كلمة المرور</label><input class="input" id="lg-pass" type="password" autocomplete="off" dir="ltr"></div>
+      <label class="lg__keep"><input type="checkbox" name="keep"><span>تذكروني على هذا الجهاز</span></label>
       <button class="btn" type="submit"><span class="stitch"></span><span data-lg-cta>دخول</span></button>
       <p class="demo-note"><b>شاشة للعرض</b>لا يحفظ ما تكتبونه هنا ولا يرسل. الدخول الحقيقي يربط بحسابات المنصة.</p>
     </form>
@@ -320,6 +325,7 @@ SX = [
     ('صفحة', 'أخبارنا', 'news.html', 'article', '', 'اخبار انشطة'),
     ('صفحة', 'تواصل معنا', 'contact.html', 'chat', '', 'اتصال بريد هاتف اسئلة شائعة'),
     ('صفحة', 'الدخول', 'login.html', 'home', '', 'تسجيل حساب جديد'),
+    ('صفحة', 'الملف التعريفي', 'profile.html', 'book', 'assets/img/profile/t1.webp', 'ملف تعريفي pdf تنزيل طباعة من نحن'),
     ('مشروع', 'اغرس باسمي شجرة', 'project.html', 'tree', 'assets/img/proj-tree-640.webp', 'زيتون شجرة غزة زراعة'),
     ('مشروع', 'مركز الميثاق لتمكين المرأة المعيلة للأسرة', 'center.html', 'people', 'assets/img/proj-center-640.webp', 'تمكين نساء خياطة وردة خان يونس'),
     ('لعبة', 'قناديل الأقصى', 'game/qanadeel/', 'game', 'assets/img/guide/qanadeel.webp', 'كلمات بحث'),
@@ -331,7 +337,7 @@ for n in NEWSSET: SX.append(('خبر', n[4], SLUG[n[0]], 'article', 'assets/img/
 for k in ORDER:
     for i, (t, f, free) in enumerate(ITEMS[k], 1):
         if (k, i) in OPEN and k != 'cards': continue
-        SX.append((KIND[k], t, OPEN.get((k, i), 'bag.html#' + k), GL[k], 'assets/img/bag/%s-%d.webp' % (k, i), 'مجاني' if free else ''))
+        SX.append((KIND[k], t, OPEN.get((k, i), 'item.html?id=%s-%d' % (k, i)), GL[k], 'assets/img/bag/%s-%d.webp' % (k, i), 'مجاني' if free else ''))
 sx_data = json.dumps([dict(k=a, t=b, h=c, g=d, i=e, x=f) for a, b, c, d, e, f in SX], ensure_ascii=False).replace('</', '<\\/')
 sx_gl = ''.join('<template data-sx-g="%s">%s</template>' % (g, glyph(g)) for g in sorted(set(s[3] for s in SX)))
 SEARCH = ('''<main id="main">
@@ -355,3 +361,4 @@ SEARCH = ('''<main id="main">
 open(ROOT + 'search.html', 'w', encoding='utf-8', newline='\n').write(
     relink(shell('بحث | ميثاق العائلة', 'ابحثوا في صفحات ميثاق العائلة وأخباره وجعبته.', '') + SEARCH + bottom))
 print('search.html built,', len(SX), 'entries')
+exec(open(os.path.join(HERE, 'build_plus.py'), encoding='utf-8').read())

@@ -498,6 +498,7 @@ window.FPHome = (() => {
     dlg.querySelector('[data-peek-img]').src = b.querySelector('img').src;
     dlg.querySelector('[data-peek-kind]').textContent = b.dataset.kindName;
     dlg.querySelector('[data-peek-title]').textContent = b.dataset.title;
+    dlg.querySelector('[data-peek-more]').href = 'item.html?id=' + encodeURIComponent(b.dataset.id);
     dlg.querySelector('[data-peek-line]').textContent = b.dataset.free === '1' ? 'محتوى مجاني لكل من يشارك في الميثاق.' : 'محتوى خاص بالمشتركين. يفتح بعد الاشتراك في الميثاق.';
     dlg.showModal();
   });
@@ -544,4 +545,93 @@ window.FPHome = (() => {
   root.querySelectorAll('[data-sx-try]').forEach((b) => b.addEventListener('click', () => { q.value = b.textContent; apply(); q.focus(); }));
   apply();
   (window.FPI18N?.ready || Promise.resolve()).then(() => { const T = window.FPI18N?.t; if (!T || window.FPI18N.lang === 'ar') return; data.forEach((d) => { d.n += ' ' + norm(T(d.t) + ' ' + T(d.k)); }); });
+})();
+
+/* sign in, second pass: by mail or by phone; the Google button is a picture of one */
+(() => {
+  const f = document.querySelector('[data-lg]'); if (!f) return;
+  const by = [...f.querySelectorAll('[data-lg-by]')];
+  by.forEach((b) => b.addEventListener('click', () => {
+    by.forEach((x) => x.setAttribute('aria-pressed', x === b));
+    f.querySelectorAll('[data-lg-field]').forEach((e) => { e.hidden = e.dataset.lgField !== b.dataset.lgBy; });
+  }));
+  document.querySelectorAll('[data-lg-demo]').forEach((b) => b.addEventListener('click', () => window.FP?.toast?.('شاشة للعرض: لم يحفظ شيء ولم يرسل. شاهدوا بيتا مثالا.')));
+})();
+
+/* the profile: one page on the stage, the rest wait in the strip; arrows and the keyboard turn it */
+(() => {
+  const root = document.querySelector('[data-dv]'); if (!root) return;
+  const n = +root.dataset.dvN, titles = root.dataset.dvTitles.split('|');
+  const img = root.querySelector('[data-dv-img]'), cur = root.querySelector('[data-dv-cur]'), title = root.querySelector('[data-dv-title]');
+  const strip = root.querySelector('[data-dv-strip]'), thumbs = [...root.querySelectorAll('[data-dv-go]')];
+  const prev = root.querySelector('[data-dv-prev]'), next = root.querySelector('[data-dv-next]');
+  const T = (s) => (window.FPI18N?.t ? window.FPI18N.t(s) : s);
+  let at = 1;
+  const go = (k) => {
+    at = Math.min(n, Math.max(1, k));
+    img.src = 'assets/img/profile/p' + at + '.webp'; img.alt = T('الصفحة') + ' ' + at + ': ' + T(titles[at - 1]);
+    cur.textContent = at; title.textContent = titles[at - 1];
+    prev.disabled = at === 1; next.disabled = at === n;
+    thumbs.forEach((t, i) => { if (i === at - 1) t.setAttribute('aria-current', 'true'); else t.removeAttribute('aria-current'); });
+    const t = thumbs[at - 1], r = t.getBoundingClientRect(), s = strip.getBoundingClientRect();
+    strip.scrollTo({ left: strip.scrollLeft + (r.left + r.width / 2) - (s.left + s.width / 2), behavior: 'smooth' });
+    if (at < n) { const pre = new Image(); pre.src = 'assets/img/profile/p' + (at + 1) + '.webp'; }
+  };
+  prev.addEventListener('click', () => go(at - 1)); next.addEventListener('click', () => go(at + 1));
+  thumbs.forEach((t) => t.addEventListener('click', () => go(+t.dataset.dvGo)));
+  root.querySelector('.dv__page').addEventListener('click', () => go(at + 1));
+  document.addEventListener('keydown', (e) => {
+    if (e.target.closest('input, textarea, select')) return;
+    const rtl = document.documentElement.dir !== 'ltr';
+    if (e.key === 'ArrowLeft') go(at + (rtl ? 1 : -1)); else if (e.key === 'ArrowRight') go(at + (rtl ? -1 : 1));
+  });
+  root.querySelector('[data-dv-print]').addEventListener('click', () => {
+    const box = root.querySelector('[data-dv-sheets]');
+    if (!box.children.length) for (let i = 1; i <= n; i++) { const im = new Image(); im.src = 'assets/img/profile/p' + i + '.webp'; im.alt = ''; box.append(im); }
+    Promise.all([...box.children].map((im) => (im.complete ? 1 : new Promise((ok) => { im.onload = im.onerror = ok; })))).then(() => window.print());
+  });
+  go(1);
+})();
+
+/* one item of the bag, drawn from the catalogue built with the site */
+(() => {
+  const root = document.querySelector('[data-it]'); if (!root) return;
+  const data = JSON.parse(root.querySelector('[data-it-data]').textContent);
+  const id = new URLSearchParams(location.search).get('id'), d = data[id];
+  if (!d) { location.replace('bag.html'); return; }
+  const $ = (s) => root.querySelector(s), src = (k) => 'assets/img/bag/' + k + '.webp';
+  const im = $('[data-it-img]'); im.src = src(id); im.width = d.w; im.height = d.h; im.alt = d.t;
+  $('.it__cover').style.setProperty('--r', d.w / d.h);
+  $('[data-it-title]').textContent = d.t; $('[data-it-crumb]').textContent = d.n; $('[data-it-kind]').textContent = d.n;
+  $('[data-it-glyph]').append(root.querySelector('[data-it-g="' + d.k + '"]').content.cloneNode(true));
+  const badge = $('[data-it-badge]'); badge.textContent = d.f ? 'مجاني' : 'للمشتركين'; badge.classList.add(d.f ? 'is-free' : 'is-sub');
+  $('[data-it-line]').textContent = d.f ? 'محتوى مجاني لكل من يشارك في الميثاق.' : 'محتوى خاص بالمشتركين. يفتح بعد الاشتراك في الميثاق.';
+  $('[data-it-back]').href = 'bag.html#' + d.k;
+  if (d.o) { $('[data-it-main]').href = d.o; $('[data-it-cta]').textContent = 'افتحوا المادة'; $('[data-it-login]').hidden = true; }
+  document.title = d.t + ' | ' + document.title.split('|').pop().trim();
+  const rail = $('[data-it-rail]');
+  Object.keys(data).filter((k) => data[k].k === d.k && k !== id).slice(0, 8).forEach((k) => {
+    const li = document.createElement('li'), a = document.createElement('a'), p = new Image(), b = document.createElement('b');
+    a.href = data[k].o || 'item.html?id=' + encodeURIComponent(k); p.src = src(k); p.alt = ''; p.loading = 'lazy'; p.width = data[k].w; p.height = data[k].h;
+    b.textContent = data[k].t; a.append(p, b); li.append(a); rail.append(li);
+  });
+  if (!rail.children.length) root.querySelector('.it__more').hidden = true;
+})();
+
+/* the map: a name and its pin light together */
+(() => {
+  const root = document.querySelector('[data-wmap]'); if (!root) return;
+  const pins = [...root.querySelectorAll('.wm__pin')], names = [...root.querySelectorAll('.wm__list button')], tip = root.querySelector('[data-wm-tip]');
+  const on = (i, keep) => {
+    pins.forEach((p, k) => p.classList.toggle('is-on', k === i)); names.forEach((b, k) => b.classList.toggle('is-on', k === i));
+    if (i < 0) { tip.hidden = true; return; }
+    tip.textContent = names[i].textContent; tip.style.setProperty('--x', pins[i].style.getPropertyValue('--x')); tip.style.setProperty('--y', pins[i].style.getPropertyValue('--y')); tip.hidden = false;
+    if (keep) root.dataset.kept = i;
+  };
+  const rest = () => on(root.dataset.kept === undefined ? -1 : +root.dataset.kept);
+  [...pins, ...names].forEach((b) => {
+    const i = +b.dataset.wm;
+    b.addEventListener('mouseenter', () => on(i)); b.addEventListener('mouseleave', rest);
+    b.addEventListener('focus', () => on(i)); b.addEventListener('click', () => on(i, true));
+  });
 })();

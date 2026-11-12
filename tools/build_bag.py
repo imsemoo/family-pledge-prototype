@@ -21,7 +21,7 @@ def item(kind, i, title, free):
     w, h = size(kind, i); href = OPEN.get((kind, i))
     tag = '<span class="bk__tag bk__tag--%s">%s</span>' % (('free', 'مجاني') if free else ('sub', 'للمشتركين'))
     inner = '<span class="bk__cover" style="--r:%.4f"><img src="assets/img/bag/%s-%d.webp" alt="" width="%d" height="%d" loading="lazy" decoding="async">%s</span><b>%s</b>' % (w / h, kind, i, w, h, tag, title)
-    attrs = 'class="bk" data-title="%s" data-kind-name="%s" data-free="%d"' % (title, KIND[kind], free)
+    attrs = 'class="bk" data-title="%s" data-kind-name="%s" data-free="%d" data-id="%s-%d"' % (title, KIND[kind], free, kind, i)
     return '<li data-item data-access="%s">%s</li>' % ('free' if free else 'sub',
         '<a %s href="%s">%s</a>' % (attrs, href, inner) if href else '<button type="button" %s data-peek>%s</button>' % (attrs, inner))
 
@@ -87,7 +87,7 @@ BAG2 = ('''<main id="main">
   <dialog class="peek" data-peek-dialog aria-labelledby="peek-t">
     <button class="peek__x" type="button" data-peek-x aria-label="إغلاق"><svg class="ic"><use href="#i-x"/></svg></button>
     <img alt="" data-peek-img>
-    <div><small data-peek-kind></small><h2 id="peek-t" data-peek-title></h2><p data-peek-line></p><a class="btn" href="pledge.html"><span class="stitch"></span>توقيع الميثاق</a></div>
+    <div><small data-peek-kind></small><h2 id="peek-t" data-peek-title></h2><p data-peek-line></p><div class="peek__act"><a class="btn" href="pledge.html"><span class="stitch"></span>توقيع الميثاق</a><a class="btn btn--line" href="item.html" data-peek-more>صفحة المادة</a></div></div>
   </dialog>
 </div>
 ''') % (mosaic, ALL, kinds, ''.join(shelf(k) for k in ORDER)) + CALL + '\n'
