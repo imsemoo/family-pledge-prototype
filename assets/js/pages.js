@@ -212,11 +212,10 @@
   go(start > 0 ? start : 1, true);
 })();
 
-/* the family's home: everything on it is read from this browser — the games' own records, the reader's
-   last page, and the two things the family ticks here. Nothing leaves the device. */
-(() => {
-  const fh = document.querySelector('[data-family]'); if (!fh) return;
-  const $ = (s) => fh.querySelector(s), PAGES = 8;
+/* what this family has done, worked out in one place from this browser only: the games' own records,
+   the reader's furthest page, and what the family ticked. The home and the stamp book both read it. */
+window.FPHome = (() => {
+  const PAGES = 8, ORDER = ['pledge', 'story', 'qanadeel', 'minbar', 'album', 'week', 'invite'];
   const ls = {
     get: (k) => { try { return localStorage.getItem(k); } catch { return null; } },
     set: (k, v) => { try { localStorage.setItem(k, v); } catch { /* private mode */ } },
@@ -224,6 +223,36 @@
     del: (k) => { try { localStorage.removeItem(k); } catch { /* private mode */ } },
   };
   const played = (g) => ls.keys().some((k) => k.startsWith(`${g}-best-`));
+  const state = () => {
+    const page = Math.min(PAGES, +ls.get('fp-story-boycott') || 0);
+    const games = ['qanadeel', 'minbar', 'album'].filter(played);
+    const week = { read: page >= PAGES, play: played('qanadeel'), ask: ls.get('fp-ask-week') === '1' };
+    const weekN = Object.values(week).filter(Boolean).length;
+    const got = { pledge: true, story: page >= PAGES, qanadeel: played('qanadeel'), minbar: played('minbar'), album: played('album'), week: weekN === 3, invite: ls.get('fp-invited') === '1' };
+    /* the day each stamp was first seen, so the book can date it */
+    let dates = {}; try { dates = JSON.parse(ls.get('fp-stamps') || '{}') || {}; } catch { dates = {}; }
+    const today = new Date().toISOString().slice(0, 10); let changed = false;
+    ORDER.forEach((k) => { if (got[k] && !dates[k]) { dates[k] = today; changed = true; } if (!got[k] && dates[k]) { delete dates[k]; changed = true; } });
+    if (changed) ls.set('fp-stamps', JSON.stringify(dates));
+    return { name: (ls.get('fp-family') || '').trim(), page, games, week, weekN, got, dates, count: ORDER.filter((k) => got[k]).length, total: ORDER.length, next: ORDER.find((k) => !got[k]) || null };
+  };
+  /* an example family, for a visitor with no progress of their own; real progress is never lowered */
+  const example = () => {
+    if (!ls.get('fp-family')) ls.set('fp-family', 'الخطيب');
+    ls.set('fp-story-boycott', Math.max(5, +ls.get('fp-story-boycott') || 0));
+    ['qanadeel', 'album'].forEach((g) => { if (!played(g)) ls.set(`${g}-best-example`, '1'); });
+    window.FP?.toast?.('هذا مثال للعرض: بيت عائلة في منتصف الطريق');
+  };
+  const reset = () => ls.keys().filter((k) => /^(fp-(family|story-|ask-|invited|stamps)|(qanadeel|minbar|album)-best-)/.test(k)).forEach(ls.del);
+  return { PAGES, ORDER, ls, played, state, example, reset };
+})();
+
+/* the family's home: everything on it is read from this browser — the games' own records, the reader's
+   last page, and the two things the family ticks here. Nothing leaves the device. */
+(() => {
+  const fh = document.querySelector('[data-family]'); if (!fh) return;
+  const $ = (s) => fh.querySelector(s), PAGES = 8;
+  const { ls, played, state } = window.FPHome;
   let before = null;
 
   const render = () => {
@@ -232,11 +261,7 @@
     const fill = $('[data-fam-fill]'); fill.textContent = name || 'اسم عائلتكم'; fill.classList.toggle('is-empty', !name);
     const input = $('#fam-name'); if (document.activeElement !== input) input.value = name;
 
-    const page = Math.min(PAGES, +ls.get('fp-story-boycott') || 0);
-    const games = ['qanadeel', 'minbar', 'album'].filter(played);
-    const week = { read: page >= PAGES, play: played('qanadeel'), ask: ls.get('fp-ask-week') === '1' };
-    const weekN = Object.values(week).filter(Boolean).length;
-    const got = { pledge: true, story: page >= PAGES, qanadeel: played('qanadeel'), minbar: played('minbar'), album: played('album'), week: weekN === 3, invite: ls.get('fp-invited') === '1' };
+    const { page, games, week, weekN, got } = state();
 
     fh.querySelectorAll('[data-task]').forEach((t) => t.classList.toggle('is-done', week[t.dataset.task]));
     const ask = $('[data-ask]'); ask.textContent = week.ask ? 'تراجع' : 'تحدثنا عنه'; ask.setAttribute('aria-pressed', week.ask);
@@ -272,9 +297,184 @@
     ls.set('fp-invited', '1'); setTimeout(render, 400);
   });
   $('[data-fam-reset]').addEventListener('click', () => {
-    ls.keys().filter((k) => /^(fp-(family|story-|ask-|invited)|(qanadeel|minbar|album)-best-)/.test(k)).forEach(ls.del);
+    window.FPHome.reset();
     before = null; render(); window.FP?.toast?.('عاد الدفتر إلى أوله');
   });
+  const example = () => { window.FPHome.example(); before = before || {}; render(); };
+  $('[data-fam-demo]').addEventListener('click', example);
+  if (new URLSearchParams(location.search).has('demo')) example();
   addEventListener('pageshow', render); addEventListener('storage', render);
   render();
+})();
+
+/* the stamp book: the same seven stamps, each on its own place in a passport the family can print */
+(() => {
+  const sb = document.querySelector('[data-stamps]'); if (!sb) return;
+  const $ = (s) => sb.querySelector(s), H = window.FPHome, C = 2 * Math.PI * 52;
+  const day = (iso) => { try { return new Date(`${iso}T12:00:00`).toLocaleDateString(document.documentElement.lang || 'ar', { day: 'numeric', month: 'long', year: 'numeric' }); } catch { return iso; } };
+  let before = null;
+  const render = () => {
+    const st = H.state();
+    $('[data-sb-title]').textContent = st.name ? `دفتر أختام عائلة ${st.name}` : 'دفتر الأختام';
+    const who = $('[data-sb-name]'); who.textContent = st.name ? `عائلة ${st.name}` : 'اسم العائلة'; who.classList.toggle('is-empty', !st.name);
+    $('[data-sb-n]').textContent = st.count; $('[data-sb-ring]').style.strokeDashoffset = C * (1 - st.count / st.total);
+    sb.querySelectorAll('[data-stamp]').forEach((el) => {
+      const k = el.dataset.stamp, on = st.got[k], small = el.querySelector('small');
+      if (!small.dataset.how) small.dataset.how = small.textContent;
+      el.classList.toggle('is-on', on); el.classList.toggle('is-next', k === st.next);
+      el.classList.toggle('is-new', !!before && on && !before[k]);
+      small.textContent = on ? `نلتموه في ${day(st.dates[k])}` : small.dataset.how;
+    });
+    before = st.got;
+    const nx = $('[data-sb-next]'), src = st.next && sb.querySelector(`[data-stamp="${st.next}"]`);
+    nx.classList.toggle('is-done', !st.next);
+    $('[data-sb-next-name]').textContent = src ? src.querySelector('b').textContent : 'اكتمل الدفتر';
+    $('[data-sb-next-how]').textContent = src ? src.querySelector('small').dataset.how : 'نلتم الأختام السبعة كلها.';
+    const go = $('[data-sb-next-go]'); go.hidden = !src; if (src) go.href = src.querySelector('a').href;
+  };
+  $('[data-sb-print]').addEventListener('click', () => window.print());
+  $('[data-sb-demo]').addEventListener('click', () => { H.example(); render(); });
+  $('[data-sb-reset]').addEventListener('click', () => { H.reset(); before = null; render(); window.FP?.toast?.('عاد الدفتر إلى أوله'); });
+  if (new URLSearchParams(location.search).has('demo')) H.example();
+  addEventListener('pageshow', render); addEventListener('storage', render);
+  render();
+})();
+
+/* sharing a page: the link is copied, or handed to WhatsApp; nothing else is sent */
+(() => {
+  const url = () => location.origin + location.pathname;
+  document.querySelectorAll('[data-copy-link]').forEach((b) => b.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(url()); window.FP?.toast?.('تم نسخ الرابط'); } catch { window.FP?.toast?.(url()); }
+  }));
+  document.querySelectorAll('[data-share-wa]').forEach((a) => a.addEventListener('click', () => {
+    a.href = `https://wa.me/?text=${encodeURIComponent(`${document.querySelector('h1')?.textContent.trim() || document.title} ${url()}`)}`;
+  }));
+})();
+
+/* the grove: choosing a place grows its trees; the numbers on the page count up once when they are first seen */
+(() => {
+  const g = document.querySelector('[data-grove]'); if (!g) return;
+  const $ = (s) => g.querySelector(s), btns = [...g.querySelectorAll('[data-place]')], field = $('[data-grove-field]');
+  const show = (b) => {
+    btns.forEach((x) => x.setAttribute('aria-pressed', x === b));
+    const n = +b.dataset.n || 0, trees = +b.dataset.trees || 1;
+    $('[data-grove-name]').textContent = b.querySelector('b').textContent;
+    $('[data-grove-n]').textContent = n || ''; $('[data-grove-what]').textContent = b.dataset.what; $('[data-grove-note]').textContent = b.dataset.note;
+    $('[data-grove-key]').hidden = !n;
+    field.classList.toggle('is-few', trees <= 5);
+    field.innerHTML = Array.from({ length: trees }, (_, i) => `<svg class="grove__tree" style="--i:${i}"><use href="#tree"/></svg>`).join('');
+  };
+  btns.forEach((b, i) => {
+    b.addEventListener('click', () => show(b));
+    b.addEventListener('keydown', (e) => {
+      const d = { ArrowDown: 2, ArrowUp: -2, ArrowLeft: 1, ArrowRight: -1 }[e.key]; if (!d) return;
+      const t = btns[i + (getComputedStyle(g).direction === 'rtl' || Math.abs(d) === 2 ? d : -d)]; if (t) { e.preventDefault(); t.focus(); show(t); }
+    });
+  });
+  show(btns[0]);
+})();
+(() => {
+  const nums = [...document.querySelectorAll('.pj__nums b.num')]; if (!nums.length || matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+  const io = new IntersectionObserver((list) => list.forEach((en) => {
+    if (!en.isIntersecting) return; io.unobserve(en.target);
+    const el = en.target, to = +el.textContent, t0 = performance.now(), dur = 1100;
+    const tick = (t) => { const k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3); if (k < 1) { el.textContent = Math.round(to * e); requestAnimationFrame(tick); } else el.textContent = to; };
+    requestAnimationFrame(tick);
+    setTimeout(() => { el.textContent = to; }, dur + 300);   // a tab in the background stops drawing; the true figure still lands
+  }), { threshold: 0.6 });
+  nums.forEach((n) => io.observe(n));
+})();
+
+/* contact: the topic the visitor picks decides the suggested way, and opens the message for them */
+(() => {
+  const ct = document.querySelector('.ct'); if (!ct) return;
+  const $ = (s) => ct.querySelector(s), btns = [...ct.querySelectorAll('[data-topic]')];
+  const WAYS = { wa: 'واتساب', mail: 'البريد الإلكتروني' };
+  const pick = (b) => {
+    btns.forEach((x) => x.setAttribute('aria-pressed', x === b));
+    const way = b.dataset.way, open = b.dataset.opener, title = b.querySelector('b').textContent;
+    ct.querySelectorAll('[data-way-card]').forEach((c) => c.classList.toggle('is-best', c.dataset.wayCard === way));
+    $('[data-ct-hint]').textContent = `الأقصر لهذا الطلب: ${WAYS[way]}.`;
+    $('[data-ct-topic]').textContent = title; $('#c-text').placeholder = open;
+    ct.querySelectorAll('[data-ct-wa]').forEach((a) => { a.href = `https://wa.me/905465276557?text=${encodeURIComponent(open + ' ')}`; });
+    $('[data-ct-mail]').href = `mailto:info@familypledge.com?subject=${encodeURIComponent(title)}`;
+  };
+  btns.forEach((b) => b.addEventListener('click', () => pick(b)));
+  $('[data-ct-rep]').addEventListener('click', () => { const b = btns.find((x) => x.dataset.topic === 'rep'); pick(b); ct.querySelector('.ct__pick').scrollIntoView({ behavior: 'smooth', block: 'center' }); b.focus({ preventScroll: true }); });
+  pick(btns[0]);
+})();
+
+/* the companion: one small card that tells the family its next step, on every inner page */
+(() => {
+  const H = window.FPHome; if (!H || document.querySelector('[data-family], [data-stamps], .sign2, [data-reader]')) return;
+  const NEXT = { story: ['قصة المقاطعة', 'cards.html'], qanadeel: ['قناديل الأقصى', 'game/qanadeel/'], minbar: ['منبر صلاح الدين', 'game/minbar/'], album: ['صورة وحكاية', 'game/album/'], week: ['عهد الأسبوع', 'family.html#week'], invite: ['دعوة بيت', 'family.html#invite'] };
+  let off = false; try { off = sessionStorage.getItem('fp-jb-off') === '1'; } catch { /* private mode */ }
+  if (off) return;
+  const st = H.state(), fresh = !st.name && st.count <= 1;
+  const [name, href] = fresh ? ['توقيع الميثاق', 'pledge.html'] : st.next ? NEXT[st.next] : ['دفتركم اكتمل', 'stamps.html'];
+  if (location.pathname.endsWith('/' + href.split('#')[0])) return;
+  const el = document.createElement('aside'); el.className = 'jb'; el.setAttribute('aria-label', 'الخطوة التالية');
+  const left = '<svg class="ic"><use href="#i-left"/></svg>';
+  el.innerHTML = `<span class="jb__who"><img src="assets/img/world/face-${fresh ? 'jadda' : 'yafa'}.webp" alt="" width="200" height="200"><svg viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="15.900"/><circle cx="18" cy="18" r="15.900" pathLength="100"/></svg></span>
+    <span class="jb__txt"><small></small><b></b></span><a class="jb__go" href="${href}"><span></span>${left}</a><button class="jb__x" type="button" aria-label="إخفاء"><svg class="ic"><use href="#i-x"/></svg></button>`;
+  el.querySelector('small').textContent = fresh ? 'عائلة جديدة؟' : st.name ? `عائلة ${st.name} · الختم التالي` : 'الختم التالي';
+  el.querySelector('b').textContent = name;
+  el.querySelector('.jb__go span').textContent = fresh ? 'ابدؤوا' : 'اذهبوا';
+  el.querySelector('.jb__x').addEventListener('click', () => { el.classList.remove('is-in'); document.body.classList.remove('has-jb'); try { sessionStorage.setItem('fp-jb-off', '1'); } catch { /* private mode */ } setTimeout(() => el.remove(), 700); });
+  document.body.append(el);
+  setTimeout(() => { el.classList.add('is-in'); document.body.classList.add('has-jb');   /* the back-to-top button steps up out of the way */ el.querySelector('circle:last-child').style.strokeDashoffset = 100 - (st.count / st.total) * 100; }, 1400);
+})();
+
+/* the voices: one on stage; the faces, the arrows, the names and the keys all call show(i) */
+(() => {
+  const vs = document.querySelector('[data-voices]'); if (!vs) return;
+  const cards = [...vs.querySelectorAll('[data-voice]')], picks = [...vs.querySelectorAll('.vs__picks [data-pick]')], no = vs.querySelector('[data-vs-no]');
+  let at = 0, timer = 0;
+  const show = (i, user) => {
+    at = (i + cards.length) % cards.length;
+    cards.forEach((c, k) => { c.hidden = k !== at; });
+    picks.forEach((p, k) => p.setAttribute('aria-pressed', k === at));
+    no.textContent = at + 1;
+    if (user) { clearInterval(timer); timer = 0; }
+  };
+  document.querySelectorAll('[data-pick]').forEach((b) => b.addEventListener('click', () => {
+    show(+b.dataset.pick, true);
+    if (!b.closest('.vs')) vs.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }));
+  vs.querySelector('[data-vs-prev]').addEventListener('click', () => show(at - 1, true));
+  vs.querySelector('[data-vs-next]').addEventListener('click', () => show(at + 1, true));
+  vs.addEventListener('keydown', (e) => { const d = { ArrowLeft: 1, ArrowRight: -1 }[e.key]; if (d) { e.preventDefault(); show(at + d, true); } });
+  /* it moves on by itself until the visitor takes over, and never when motion is unwelcome */
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    timer = setInterval(() => { if (!vs.matches(':hover, :focus-within')) show(at + 1); }, 7000);
+  }
+})();
+
+/* about: the audience the visitor picks takes the stage; the video loads only when asked for */
+(() => {
+  const box = document.querySelector('[data-auds]');
+  if (box) {
+    const btns = [...box.querySelectorAll('[data-aud]')], panes = [...box.querySelectorAll('[data-aud-pane]')];
+    const show = (i) => { btns.forEach((b, k) => b.setAttribute('aria-pressed', k === i)); panes.forEach((p, k) => { p.hidden = k !== i; }); };
+    btns.forEach((b, i) => { b.addEventListener('click', () => show(i)); b.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') show(i); }); });
+  }
+  document.querySelectorAll('[data-yt]').forEach((yt) => yt.querySelector('button').addEventListener('click', () => {
+    const f = document.createElement('iframe');
+    f.src = `https://www.youtube-nocookie.com/embed/${yt.dataset.yt}?autoplay=1&rel=0`; f.title = yt.querySelector('button').getAttribute('aria-label');
+    f.allow = 'autoplay; encrypted-media; picture-in-picture'; f.allowFullscreen = true;
+    yt.replaceChildren(f);
+  }));
+})();
+
+/* news: the place chosen narrows the list; the count says how many are showing */
+(() => {
+  const box = document.querySelector('[data-news]'); if (!box) return;
+  const chips = [...box.querySelectorAll('[data-place-f]')], items = [...box.querySelectorAll('[data-place]')], count = box.querySelector('[data-news-count]');
+  const show = (place) => {
+    chips.forEach((c) => c.setAttribute('aria-pressed', c.dataset.placeF === place));
+    let n = 0; items.forEach((li) => { const on = !place || li.dataset.place === place; li.hidden = !on; if (on) n++; });
+    count.textContent = place ? `${n} من ${place}` : `${n} أخبار`;
+  };
+  chips.forEach((c) => c.addEventListener('click', () => show(c.dataset.placeF)));
+  show('');
 })();

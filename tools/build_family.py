@@ -4,6 +4,7 @@ Progress is read from this browser only (the games' own records, the reader's la
 import os, re
 HERE = os.path.dirname(os.path.abspath(__file__))
 exec(open(os.path.join(HERE, 'build_reader.py'), encoding='utf-8').read())   # ROOT, shell, bottom, relink ...
+exec(open(os.path.join(HERE, 'glyphs.py'), encoding='utf-8').read())          # glyph(name): the one family of drawn marks
 
 SEAL = '<svg class="st__ring" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="56"/><circle cx="60" cy="60" r="44"/></svg>'
 # key, name, icon, how to earn it, where
@@ -22,19 +23,19 @@ stamps = ''.join('''
 def task(key, kind, ic, title, note, href, cta):
     return '''
         <li class="tk" data-task="%s">
-          <span class="tk__ic"><svg class="ic"><use href="#%s"/></svg></span>
+          <span class="tk__ic">%s</span>
           <p class="tk__kind">%s</p>
           <h3>%s</h3>
           <p class="tk__note">%s</p>
           %s
           <span class="tk__done"><svg class="ic"><use href="#i-check"/></svg><span>تم</span></span>
-        </li>''' % (key, ic, kind, title, note, cta % href if href else cta)
+        </li>''' % (key, glyph(ic), kind, title, note, cta % href if href else cta)
 
-tasks = (task('read', 'اقرؤوا', 'i-book', 'المقاطعة: القصة في صور', 'ثماني صفحات تقرأ معا في ثلاث دقائق.', 'cards.html', '<a class="btn btn--s" href="%s"><span class="stitch"></span>افتحوا القصة</a>')
-         + task('play', 'العبوا', 'i-light', 'قناديل الأقصى', 'عشرون كلمة مخبأة، وكل كلمة تضيء قنديلا.', 'game/qanadeel/', '<a class="btn btn--s" href="%s"><span class="stitch"></span>ابدؤوا اللعب</a>')
-         + task('ask', 'اسألوا', 'i-chat', 'هل المقاطعة قرار استهلاكي، أم موقف أخلاقي؟', 'سؤال من آخر صفحة في القصة، لجلسة العشاء.', None, '<button class="btn btn--s btn--line" type="button" data-ask>تحدثنا عنه</button>'))
+tasks = (task('read', 'اقرؤوا', 'book', 'المقاطعة: القصة في صور', 'ثماني صفحات تقرأ معا في ثلاث دقائق.', 'cards.html', '<a class="btn btn--s" href="%s"><span class="stitch"></span>افتحوا القصة</a>')
+         + task('play', 'العبوا', 'game', 'قناديل الأقصى', 'عشرون كلمة مخبأة، وكل كلمة تضيء قنديلا.', 'game/qanadeel/', '<a class="btn btn--s" href="%s"><span class="stitch"></span>ابدؤوا اللعب</a>')
+         + task('ask', 'اسألوا', 'chat', 'هل المقاطعة قرار استهلاكي، أم موقف أخلاقي؟', 'سؤال من آخر صفحة في القصة، لجلسة العشاء.', None, '<button class="btn btn--s btn--line" type="button" data-ask>تحدثنا عنه</button>'))
 
-FAMILY = '''<main id="main">
+FAMILY = ('''<main id="main">
 <section class="fh" data-family>
   <div class="fh__in">
     <header class="fh__head">
@@ -64,10 +65,10 @@ FAMILY = '''<main id="main">
     </header>
 
     <ul class="fh__stats" aria-label="تقدم العائلة">
-      <li><span class="fh__stat-ic"><svg class="ic"><use href="#i-pen"/></svg></span><b class="num"><span data-n-stamps>1</span><i>/ 7</i></b><span>أختام</span></li>
-      <li><span class="fh__stat-ic"><svg class="ic"><use href="#i-book"/></svg></span><b class="num"><span data-n-pages>0</span><i>/ 8</i></b><span>صفحات مقروءة</span></li>
-      <li><span class="fh__stat-ic"><svg class="ic"><use href="#i-game"/></svg></span><b class="num"><span data-n-games>0</span><i>/ 3</i></b><span>ألعاب منجزة</span></li>
-      <li><span class="fh__stat-ic"><svg class="ic"><use href="#i-check"/></svg></span><b class="num"><span data-n-week>0</span><i>/ 3</i></b><span>من عهد الأسبوع</span></li>
+      <li><span class="fh__stat-ic">''' + glyph('stamp') + '''</span><b class="num"><span data-n-stamps>1</span><i>/ 7</i></b><span>أختام</span></li>
+      <li><span class="fh__stat-ic">''' + glyph('book') + '''</span><b class="num"><span data-n-pages>0</span><i>/ 8</i></b><span>صفحات مقروءة</span></li>
+      <li><span class="fh__stat-ic">''' + glyph('play') + '''</span><b class="num"><span data-n-games>0</span><i>/ 3</i></b><span>ألعاب منجزة</span></li>
+      <li><span class="fh__stat-ic">''' + glyph('week') + '''</span><b class="num"><span data-n-week>0</span><i>/ 3</i></b><span>من عهد الأسبوع</span></li>
     </ul>
 
     <section class="fh__blk" id="week" aria-labelledby="h-week">
@@ -92,16 +93,61 @@ FAMILY = '''<main id="main">
     </div>
 
     <section class="fh__blk" aria-labelledby="h-st">
-      <div class="fh__blk-head"><h2 id="h-st">دفتر الأختام</h2><p>كل قصة تقرأ وكل لعبة تنجز تترك ختما في دفتركم.</p></div>
+      <div class="fh__blk-head"><h2 id="h-st">دفتر الأختام</h2><p>كل قصة تقرأ وكل لعبة تنجز تترك ختما في دفتركم.</p><a class="fh__more" href="stamps.html">افتحوا الدفتر<svg class="ic"><use href="#i-left"/></svg></a></div>
       <ul class="fh__stamps">%s
       </ul>
     </section>
 
-    <p class="fh__demo"><span>عرض تجريبي: التقدم يحفظ على هذا الجهاز فقط.</span><button type="button" data-fam-reset>ابدؤوا من جديد</button></p>
+    <div class="demo demo--alone"><p><span class="demo__tag">عرض تجريبي</span><span>التقدم يحفظ على هذا الجهاز فقط.</span></p><div><button type="button" class="demo__btn" data-fam-demo><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.600-7 10-7 10 7 10 7-3.600 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg><span>شاهدوا مثالا</span></button><button type="button" class="demo__btn" data-fam-reset><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.600-5.900M4 4.500V9h4.500"/></svg><span>ابدؤوا من جديد</span></button></div></div>
   </div>
 </section>
-''' % (tasks, stamps)
+''') % (tasks, stamps)
 
 open(ROOT + 'family.html', 'w', encoding='utf-8').write(
     relink(shell('بيت العائلة | ميثاق العائلة', 'بيت عائلتكم في الميثاق: وثيقتكم، عهد هذا الأسبوع، ودفتر الأختام.', 'family.html') + FAMILY + bottom).replace('<a class="acct" href="family.html"', '<a class="acct" href="family.html" aria-current="page"'))
 print('family.html built')
+def slot(k, name, ic, how, href):
+    return """
+            <li class="sl" data-stamp="%s"><a href="%s"><span class="sl__seal">%s<svg class="ic"><use href="#%s"/></svg></span><b>%s</b><small>%s</small></a></li>""" % (k, href if not href.startswith('#') else 'family.html' + href, SEAL, ic, name, how)
+
+BOOKPAGE = """<main id="main">
+<section class="sb" data-stamps>
+  <div class="sb__in">
+    <header class="sb__head">
+      <div class="sb__title">
+        <p class="crumbs"><a href="./">الرئيسية</a><span aria-hidden="true">/</span><a href="family.html">بيت العائلة</a><span aria-hidden="true">/</span><span>دفتر الأختام</span></p>
+        <p class="rd__kind"><span class="dots"><i></i><i></i><i></i></span><span>دفتر الأختام</span></p>
+        <h1 data-sb-title>دفتر الأختام</h1>
+        <p>كل قصة تقرأ وكل لعبة تنجز تترك ختما هنا. سبعة أختام تملأ الدفتر.</p>
+      </div>
+      <div class="sb__side">
+        <span class="sb__ring"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="52"/><circle cx="60" cy="60" r="52" data-sb-ring/></svg><b class="num"><span data-sb-n>1</span><i>/ 7</i></b></span>
+        <p class="sb__next" data-sb-next><small>الختم التالي</small><b data-sb-next-name></b><span data-sb-next-how></span><a href="family.html" data-sb-next-go>اذهبوا إليه<svg class="ic"><use href="#i-left"/></svg></a></p>
+      </div>
+    </header>
+
+    <div class="pass">
+      <div class="pass__pg">
+        <p class="pass__id"><img src="assets/img/logo-mark.png" alt="" width="92" height="92"><small>دفتر أختام ميثاق العائلة</small><b class="is-empty" data-sb-name>اسم العائلة</b><span>يحمله كل بيت في الميثاق</span></p>
+        <ul class="pass__slots pass__slots--three">%s
+        </ul>
+        <span class="pass__no num" aria-hidden="true">1</span>
+      </div>
+      <div class="pass__pg">
+        <ul class="pass__slots">%s
+        </ul>
+        <span class="pass__no num" aria-hidden="true">2</span>
+      </div>
+    </div>
+
+    <div class="sb__bar">
+      <div class="sb__acts"><button class="btn" type="button" data-sb-print><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9V3h10v6M7 17H4v-6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v6h-3M7 14h10v7H7z"/></svg><span>اطبعوا الدفتر</span></button><a class="btn btn--line" href="family.html"><svg class="ic"><use href="#i-home"/></svg><span>بيت العائلة</span></a></div>
+      <div class="demo"><p><span class="demo__tag">عرض تجريبي</span><span>التقدم يحفظ على هذا الجهاز فقط.</span></p><div><button type="button" class="demo__btn" data-sb-demo><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.600-7 10-7 10 7 10 7-3.600 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg><span>شاهدوا مثالا</span></button><button type="button" class="demo__btn" data-sb-reset><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.600-5.900M4 4.500V9h4.500"/></svg><span>ابدؤوا من جديد</span></button></div></div>
+    </div>
+  </div>
+</section>
+""" % (''.join(slot(*x) for x in STAMPS[:3]), ''.join(slot(*x) for x in STAMPS[3:]))
+open(ROOT + 'stamps.html', 'w', encoding='utf-8').write(
+    relink(shell('دفتر الأختام | ميثاق العائلة', 'دفتر أختام عائلتكم في الميثاق: سبعة أختام، ختم لكل قصة تقرأ وكل لعبة تنجز.', 'family.html') + BOOKPAGE + bottom).replace('<a class="acct" href="family.html"', '<a class="acct" href="family.html" aria-current="page"'))
+print('stamps.html built')
+

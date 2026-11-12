@@ -50,9 +50,9 @@ CONTACT = '<main id="main">\n' + head('تواصل', 'التواصل المباش
   <div class="wrap reach">
     <div class="reach__side">
       <ul class="reach__cards" data-stagger>
-        <li data-reveal><span class="reach__ic"><svg class="ic"><use href="#i-phone"/></svg></span><div><h3>أرقام التواصل</h3><a class="num" href="tel:00905465276557" dir="ltr">+90 546 527 65 57</a></div></li>
-        <li data-reveal><span class="reach__ic"><svg class="ic"><use href="#i-mail"/></svg></span><div><h3>تواصل عبر الإيميل</h3><a href="mailto:info@familypledge.com" dir="ltr">info@familypledge.com</a></div></li>
-        <li data-reveal><span class="reach__ic"><svg class="ic"><use href="#i-home"/></svg></span><div><h3>مكتبنا</h3><p dir="ltr">YeniBosna, Istanbul, Türkiye</p></div></li>
+        <li data-reveal><span class="reach__ic"><svg class="glyph" viewBox="0 0 64 64" aria-hidden="true"><rect x="15" y="4" width="34" height="56" rx="10" fill="#2a7896"/><rect x="20" y="11" width="24" height="34" rx="5" fill="#fff"/><path d="M25 21h14M25 28.500h9" stroke="#c94f78" stroke-width="3.200" stroke-linecap="round"/><circle cx="32" cy="52" r="3.600" fill="#f4b740"/></svg></span><div><h3>أرقام التواصل</h3><a class="num" href="tel:00905465276557" dir="ltr">+90 546 527 65 57</a></div></li>
+        <li data-reveal><span class="reach__ic"><svg class="glyph" viewBox="0 0 64 64" aria-hidden="true"><rect x="4" y="14" width="54" height="40" rx="11" fill="#2a7896"/><path d="M9 22l22 16 22-16" fill="none" stroke="#fff" stroke-width="3.400" stroke-linecap="round" stroke-linejoin="round"/><circle cx="52" cy="14" r="8" fill="#c94f78" stroke="#fff" stroke-width="2.600"/></svg></span><div><h3>تواصل عبر الإيميل</h3><a href="mailto:info@familypledge.com" dir="ltr">info@familypledge.com</a></div></li>
+        <li data-reveal><span class="reach__ic"><svg class="glyph" viewBox="0 0 64 64" aria-hidden="true"><path d="M9 30L32 10l23 20v21a6 6 0 0 1-6 6H15a6 6 0 0 1-6-6z" fill="#2a7896"/><path d="M4 31L32 7l28 24" fill="none" stroke="#10303b" stroke-width="4.400" stroke-linecap="round" stroke-linejoin="round"/><rect x="25" y="36" width="14" height="21" rx="5" fill="#f4b740"/><circle cx="48" cy="12" r="0" fill="none"/><rect x="42" y="38" width="8" height="8" rx="2.500" fill="#f2aec7"/></svg></span><div><h3>مكتبنا</h3><p dir="ltr">YeniBosna, Istanbul, Türkiye</p></div></li>
       </ul>
       <div class="reach__rep" data-reveal>
         <img src="assets/img/world/cast-yafa-2.webp" alt="" width="360" height="360" loading="lazy">

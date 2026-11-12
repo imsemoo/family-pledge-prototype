@@ -582,3 +582,11 @@ html[dir="ltr"] .nav a { padding-inline: 0.55rem; font-size: 0.94rem; }
 html[dir="ltr"] .header .brand span { font-size: 1.15rem; white-space: nowrap; }
 html[dir="ltr"] .header__act .btn { white-space: nowrap; padding-inline: 0.9rem; }
 @media (max-width: 1180px) { html[dir="ltr"] .nav { display: none; } html[dir="ltr"] .menu-btn { display: grid; } }
+
+/* one family of marks, on every page: a tile that holds a mark is a soft square with a drawn glyph in it.
+   On a light card it is mist, on a tinted or dark ground it is white. */
+.tally__ic, .vowlist__ic, .reach__ic { background: var(--mist); color: inherit; border-radius: 30%; box-shadow: none; }
+.tally__ic { background: #fff; width: 3.2rem; height: 3.2rem; }
+.reach__ic { background: #fff; box-shadow: 0 0 0 1px var(--line); }
+.tally__ic svg.glyph, .vowlist__ic svg.glyph, .reach__ic svg.glyph { width: 72%; height: 72%; transform: none; overflow: visible; }
+.vowlist li:hover .vowlist__ic { background: var(--rose-50); color: inherit; }

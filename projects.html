@@ -11,10 +11,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Baloo+Bhaijaan+2:wght@500;700;800&family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/fp.css?v=93">
-<link rel="stylesheet" href="assets/css/home.css?v=93">
-<link rel="stylesheet" href="assets/css/world.css?v=93">
-<link rel="stylesheet" href="assets/css/pages.css?v=93">
+<link rel="stylesheet" href="assets/css/fp.css?v=130">
+<link rel="stylesheet" href="assets/css/home.css?v=130">
+<link rel="stylesheet" href="assets/css/world.css?v=130">
+<link rel="stylesheet" href="assets/css/pages.css?v=130">
 </head>
 <body>
 <a class="skip" href="#main">تخط إلى المحتوى</a>
@@ -134,40 +134,64 @@
 </div>
 
 <main id="main">
-<section class="pg-head">
-  <div class="wrap">
-    <p class="crumbs"><a href="./">الرئيسية</a><span aria-hidden="true">/</span><span>مشاريعنا</span></p>
-    <h1>المرأة المعيلة.. نبض الصمود وأمل الغد</h1>
-    <p class="pg-lead">إنها المرأة الفلسطينية التي تنسج طريق الحياة بخيوط من صبر. تنبثق مشاريعنا لتكون يدا ممدودة لهذه الأم المعيلة: ترميم بيت يفتقد الأمان، رعاية صحية تحفظ ابتسامة طفل، كفالة تعليم تبني مستقبلا، وفرص اقتصادية تعيد لها الاستقلال والكرامة.</p>
-  </div>
-</section>
-<section class="section " id="projects">
-  <div class="wrap">
-    <div class="head head--row" data-reveal>
-      <p class="eyebrow"><span class="dots"><i></i><i></i><i></i></span>مشاريعنا</p>
-      <h2>أين يذهب دعم عائلتك</h2>
-      <a class="link head__side" href="projects.html">كل المشاريع<svg class="ic"><use href="#i-arrow"/></svg></a>
+<div class="pj ab pr">
+  <header class="ab__hero">
+    <img class="ab__photo" src="assets/img/proj-center.webp" alt="سيدة تعمل داخل مركز الميثاق لتمكين المرأة المعيلة" width="1600" height="1067">
+    <div class="pj__in ab__hero-in">
+      <p class="crumbs"><a href="./">الرئيسية</a><span aria-hidden="true">/</span><span>مشاريعنا</span></p>
+      <p class="pj__kick">مشاريع الميثاق</p>
+      <h1>المرأة المعيلة.. نبض الصمود وأمل الغد</h1>
+      <p class="ab__lead">مشاريعنا يد ممدودة للأم المعيلة: تفتح لها أبواب التمكين، وتحمي أطفالها من الانكسار.</p>
+      <div class="pj__act"><a class="btn" href="#projects"><span class="stitch"></span>شاهدوا المشاريع</a><a class="btn btn--line" href="pledge.html">توقيع الميثاق</a></div>
     </div>
-    <div class="works" data-stagger>
-      <a class="work" data-reveal href="projects.html">
-        <div class="work__photo"><img src="assets/img/proj-tree.webp" alt="طفلة تقف بجانب شتلة مغروسة في حديقة" width="1600" height="1066" loading="lazy"></div>
-        <div class="work__body">
-          <span class="project__tag"><svg class="ic"><use href="#i-sprout"/></svg>تخليد ودعم</span>
-          <h3>اغرس باسمي شجرة.. تخليد اسم طفل شهيد ودعم لطفل ناج</h3>
-          <span class="link">ادعم المشروع<svg class="ic"><use href="#i-arrow"/></svg></span>
+  </header>
+
+  <div class="pj__in">
+    <ul class="pj__nums pj__nums--band ar__band ab__band" aria-label="أين يذهب الدعم">
+      <li><span class="pj__gl"><svg class="glyph" viewBox="0 0 64 64" aria-hidden="true"><path d="M9 30L32 10l23 20v21a6 6 0 0 1-6 6H15a6 6 0 0 1-6-6z" fill="#2a7896"/><path d="M4 31L32 7l28 24" fill="none" stroke="#10303b" stroke-width="4.400" stroke-linecap="round" stroke-linejoin="round"/><rect x="25" y="36" width="14" height="21" rx="5" fill="#f4b740"/><circle cx="48" cy="12" r="0" fill="none"/><rect x="42" y="38" width="8" height="8" rx="2.500" fill="#f2aec7"/></svg></span><div><small>ترميم</small><b>بيت يفتقد الأمان</b></div></li>
+      <li><span class="pj__gl"><svg class="glyph" viewBox="0 0 64 64" aria-hidden="true"><circle cx="52" cy="10" r="4.500" fill="#f4b740"/><path d="M31 57S6 43 6 24.500A13.500 13.500 0 0 1 31 17a13.500 13.500 0 0 1 25 7.500C56 43 31 57 31 57z" fill="#c94f78"/><path d="M16 23a7 7 0 0 1 7-7" fill="none" stroke="#fff" stroke-width="3.200" stroke-linecap="round" opacity=".75"/></svg></span><div><small>رعاية صحية</small><b>تحفظ ابتسامة طفل</b></div></li>
+      <li><span class="pj__gl"><svg class="glyph" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 19C26 13.500 16 12.500 7 15v33c9-2.500 19-1.500 25 4z" fill="#2a7896"/><path d="M32 19c6-5.500 16-6.500 25-4v33c-9-2.500-19-1.500-25 4z" fill="#f2aec7"/><path d="M38 25c4-2 8-2.600 13-2M38 32c4-2 8-2.600 13-2M38 39c3-1.500 5-2 8-2" fill="none" stroke="#b03a62" stroke-width="2.600" stroke-linecap="round"/><path d="M15 13.600v17l4-3.400 4 3.400V13.200c-2.800-.2-5.400-.1-8 .4z" fill="#f4b740"/><path d="M32 19v33" stroke="#10303b" stroke-width="2.600" stroke-linecap="round"/></svg></span><div><small>كفالة تعليم</small><b>تبني مستقبلا</b></div></li>
+      <li><span class="pj__gl"><svg class="glyph" viewBox="0 0 64 64" aria-hidden="true"><rect x="14" y="54" width="36" height="5.500" rx="2.750" fill="#f2aec7"/><rect x="28.500" y="32" width="7" height="25" rx="3.500" fill="#10303b"/><circle cx="20" cy="29" r="13" fill="#409db7"/><circle cx="44" cy="28" r="14" fill="#409db7"/><circle cx="32" cy="18" r="14" fill="#2a7896"/><circle cx="22" cy="31" r="3.200" fill="#f4b740"/><circle cx="43" cy="24" r="3.200" fill="#c94f78"/><circle cx="31" cy="13" r="2.600" fill="#fff"/></svg></span><div><small>فرص اقتصادية</small><b>تعيد الاستقلال والكرامة</b></div></li>
+    </ul>
+
+    <section class="pr__list" id="projects" aria-label="المشاريع">
+      <article class="pr__card">
+        <a class="pr__pic" href="project.html"><img src="assets/img/proj-tree.webp" alt="طفلة تقف بجانب شتلة مغروسة في حديقة" width="1600" height="1066" loading="lazy" decoding="async"><span class="pr__no num">01</span></a>
+        <div class="pr__txt">
+          <p class="rd__kind"><span class="dots"><i></i><i></i><i></i></span><span>تخليد ودعم</span></p>
+          <h2>اغرس باسمي شجرة</h2>
+          <p>شجرة باسم كل طفل شهيد في غزة، وريعها يدعم النساء المعيلات وأطفالهن.</p>
+          <ul class="pr__facts"><li><span class="pj__ic"><svg class="glyph" viewBox="0 0 64 64" aria-hidden="true"><path d="M9 55C24 47 41 31 54 9" fill="none" stroke="#10303b" stroke-width="3.200" stroke-linecap="round"/><ellipse cx="37" cy="15" rx="12" ry="5.800" transform="rotate(-18 37 15)" fill="#2a7896"/><ellipse cx="24" cy="29" rx="12" ry="5.800" transform="rotate(-22 24 29)" fill="#409db7"/><ellipse cx="50" cy="29" rx="5.800" ry="12" transform="rotate(-32 50 29)" fill="#409db7"/><ellipse cx="37" cy="45" rx="5.800" ry="12" transform="rotate(-40 37 45)" fill="#2a7896"/><circle cx="17" cy="45" r="7" fill="#10303b"/><circle cx="15" cy="43" r="1.900" fill="#fff"/><circle cx="52" cy="50" r="6" fill="#c94f78"/></svg></span><b class="num">300</b><small>زيتونة في الأردن</small></li><li><span class="pj__ic"><svg class="glyph" viewBox="0 0 64 64" aria-hidden="true"><rect x="14" y="54" width="36" height="5.500" rx="2.750" fill="#f2aec7"/><rect x="28.500" y="32" width="7" height="25" rx="3.500" fill="#10303b"/><circle cx="20" cy="29" r="13" fill="#409db7"/><circle cx="44" cy="28" r="14" fill="#409db7"/><circle cx="32" cy="18" r="14" fill="#2a7896"/><circle cx="22" cy="31" r="3.200" fill="#f4b740"/><circle cx="43" cy="24" r="3.200" fill="#c94f78"/><circle cx="31" cy="13" r="2.600" fill="#fff"/></svg></span><b class="num">200</b><small>شجرة في البحرين</small></li><li><span class="pj__ic"><svg class="glyph" viewBox="0 0 64 64" aria-hidden="true"><circle cx="29" cy="35" r="23" fill="#2a7896"/><path d="M6 35h46M29 12c8 7 11.500 14 11.500 23S37 51 29 58c-8-7-11.500-14-11.500-23S21 19 29 12z" fill="none" stroke="#fff" stroke-width="2.600" opacity=".75"/><circle cx="18" cy="30" r="3.600" fill="#f4b740"/><path d="M48 3c-6 0-10.500 4.600-10.500 10.200C37.500 20.500 48 31 48 31s10.500-10.500 10.500-17.800C58.500 7.600 54 3 48 3z" fill="#c94f78" stroke="#fff" stroke-width="2.600" stroke-linejoin="round"/><circle cx="48" cy="13.500" r="3.800" fill="#fff"/></svg></span><b class="num">10</b><small>بلدان ومناطق</small></li></ul>
+          <a class="btn" href="project.html"><span class="stitch"></span>افتحوا المشروع</a>
         </div>
-      </a>
-      <a class="work" data-reveal href="projects.html">
-        <div class="work__photo"><img src="assets/img/proj-center.webp" alt="سيدة تعمل داخل مركز الميثاق لتمكين المرأة المعيلة" width="1600" height="1067" loading="lazy"></div>
-        <div class="work__body">
-          <span class="project__tag"><svg class="ic"><use href="#i-heart"/></svg>تمكين اقتصادي</span>
-          <h3>مركز الميثاق لتمكين المرأة المعيلة للأسرة</h3>
-          <span class="link">ادعم المشروع<svg class="ic"><use href="#i-arrow"/></svg></span>
+      </article>
+
+      <article class="pr__card pr__card--flip" id="center">
+        <div class="pr__pic"><img src="assets/img/project/step-3.webp" alt="سيدة تعمل في برنامج الميثاق للتمكين الاقتصادي للمرأة" width="800" height="600" loading="lazy" decoding="async"><span class="pr__no num">02</span></div>
+        <div class="pr__txt">
+          <p class="rd__kind"><span class="dots"><i></i><i></i><i></i></span><span>تنموي · اقتصادي · اجتماعي · مستدام</span></p>
+          <h2>مركز الميثاق لتمكين المرأة المعيلة للأسرة</h2>
+          <p>ينقل النساء من تلقي المساعدات إلى الإنتاج المستدام: فرص عمل حقيقية، ودعم لإنشاء مشاريعهن الخاصة.</p>
+          <ul class="pr__lines" aria-label="خطوط الإنتاج"><li>الخياطة والتطريز والكروشيه</li><li>الأغذية المنزلية والمخبوزات</li><li>قاعة عمل بإنترنت وكهرباء</li></ul>
         </div>
-      </a>
-    </div>
+      </article>
+    </section>
+
+    <section class="pj__blk" aria-labelledby="h-why">
+      <div class="pj__blk-head"><h2 id="h-why">لماذا مركز التمكين؟</h2><p>أربعة أسباب من ورقة المشروع. اضغطوا لقراءة كل سبب.</p></div>
+      <div class="ct__faq"><details class="ct__q"><summary><span class="pr__n num">1</span><b>المساعدات ليست حلا مستداما</b><svg class="ic"><use href="#i-down"/></svg></summary><p>الاعتماد المستمر على المساعدات الإغاثية يجعل النساء في حالة دائمة من التبعية. يوفر المشروع فرص عمل حقيقية تمكن المرأة من تحقيق دخل مستدام.</p></details><details class="ct__q"><summary><span class="pr__n num">2</span><b>المهارات تصير مصدر دخل</b><svg class="ic"><use href="#i-down"/></svg></summary><p>تمتلك كثير من النساء المعيلات مهارات في الخياطة والطهي والتطريز والتصنيع اليدوي، لكنهن يفتقدن الدعم والتسويق.</p></details><details class="ct__q"><summary><span class="pr__n num">3</span><b>الأطفال يبقون في مدارسهم</b><svg class="ic"><use href="#i-down"/></svg></summary><p>مع غياب المعيل يضطر الأطفال إلى ترك مدارسهم والبحث عن عمل. دخل ثابت للأم يسمح للأطفال بمتابعة تعليمهم.</p></details><details class="ct__q"><summary><span class="pr__n num">4</span><b>رعاية صحية للأطفال</b><svg class="ic"><use href="#i-down"/></svg></summary><p>يؤدي الفقر إلى عجز الأمهات عن توفير الرعاية الصحية المناسبة. بالمشروع تتمكن الأمهات من تأمين الاحتياجات الطبية لأطفالهن.</p></details></div>
+    </section>
+
+    <section class="pj__now" id="now" aria-labelledby="h-now">
+      <div class="pj__blk-head"><h2 id="h-now">ماذا يفعل بيتنا الآن؟</h2><p>ثلاث طرق، من الأقرب إلى الأبعد.</p></div>
+      <ul class="pj__ways">
+        <li><span class="pj__who"><img src="assets/img/world/face-jadda.webp" alt="" width="200" height="200" loading="lazy" decoding="async"><small>الجدة</small></span><h3>ميثاق باسم العائلة</h3><p>الاشتراك بتبرع يدعم مشاريع الميثاق.</p><a href="pledge.html">توقيع الميثاق<svg class="ic"><use href="#i-left"/></svg></a></li>
+        <li><span class="pj__who"><img src="assets/img/world/face-raed.webp" alt="" width="200" height="200" loading="lazy" decoding="async"><small>رائد</small></span><h3>شراكة مع مؤسستكم</h3><p>مدرسة أو مسجد أو جمعية تحمل مشروعا معنا.</p><a href="contact.html">تواصلوا مع الفريق<svg class="ic"><use href="#i-left"/></svg></a></li>
+        <li><span class="pj__who"><img src="assets/img/world/face-yafa.webp" alt="" width="200" height="200" loading="lazy" decoding="async"><small>يافا</small></span><h3>بيت آخر يعرف</h3><p>أرسلوا المشاريع إلى بيت تعرفونه.</p><a href="family.html#invite">ادعوا بيتا<svg class="ic"><use href="#i-left"/></svg></a></li>
+      </ul>
+    </section>
   </div>
-</section>
+</div>
 <section class="section call">
   <img class="call__hand call__hand--rose" src="assets/img/world/hand-rose.webp" alt="" width="900" height="900" loading="lazy">
   <img class="call__hand call__hand--teal" src="assets/img/world/hand-teal.webp" alt="" width="900" height="900" loading="lazy">
@@ -248,9 +272,9 @@
 
 <button class="to-top" type="button" aria-label="العودة إلى أعلى الصفحة"><svg class="ic"><use href="#i-up"/></svg></button>
 
-<script src="assets/js/fp.js?v=93" defer></script>
-<script src="assets/js/i18n.js?v=93" defer></script>
-<script src="assets/js/world.js?v=93" defer></script>
-<script src="assets/js/pages.js?v=93" defer></script>
+<script src="assets/js/fp.js?v=130" defer></script>
+<script src="assets/js/i18n.js?v=130" defer></script>
+<script src="assets/js/world.js?v=130" defer></script>
+<script src="assets/js/pages.js?v=130" defer></script>
 </body>
 </html>

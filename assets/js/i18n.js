@@ -10,7 +10,7 @@
   const asked = new URLSearchParams(location.search).get('lang');
   let lang = asked && LANGS[asked] ? asked : store.get() || 'ar';
   if (!LANGS[lang]) lang = 'ar';
-  if (asked && LANGS[asked]) { store.set(asked); history.replaceState(null, '', location.pathname + location.hash); }
+  if (asked && LANGS[asked]) { store.set(asked); const rest = new URLSearchParams(location.search); rest.delete('lang'); const q = rest.toString(); history.replaceState(null, '', location.pathname + (q ? `?${q}` : '') + location.hash); }
 
   const root = document.documentElement;
   // pages without the loader (the games) stay hidden for the moment the dictionary takes to arrive

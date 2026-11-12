@@ -3,7 +3,7 @@ between them, what is real and what is a demonstration. Run this one; it runs ev
 Its pictures are captures of the pages themselves (assets/img/guide)."""
 import os, re
 HERE = os.path.dirname(os.path.abspath(__file__))
-exec(open(os.path.join(HERE, 'build_family.py'), encoding='utf-8').read())   # ROOT, shell ...
+exec(open(os.path.join(HERE, 'build_lists.py'), encoding='utf-8').read())   # ROOT, shell ...
 
 LIVE, DEMO = ('يعمل كاملا', 'live'), ('عرض تجريبي', 'demo')
 # group, [ (file, picture, name, what it is for, [what the visitor does], status) ]
@@ -13,14 +13,17 @@ GROUPS = [
         ('about.html', 'about', 'تعرف على الميثاق', 'تجيب عن سؤال واحد: ما هذا الميثاق، ومن وراءه؟', ['يقرأ الفكرة في دقيقة', 'يصل إلى التوقيع من أي نقطة'], LIVE),
         ('participants.html', 'participants', 'المشاركون', 'ثقة: شخصيات وعائلات سبقته إلى الميثاق.', ['يقرأ شهادات المشاركين', 'يرى أن غيره سبقه'], LIVE),
         ('projects.html', 'projects', 'مشاريعنا', 'أين يذهب الدعم: مشاريع الميثاق للمرأة المعيلة.', ['يتصفح المشاريع', 'يفهم أثر مشاركته'], LIVE),
+        ('project.html', 'project', 'مشروع: اغرس باسمي شجرة', 'مشروع واحد كاملا: كيف يعمل، وأين وصل، وماذا يفعل البيت.', ['يفهم المبادرة في ثلاث خطوات', 'يرى الأرقام والبلدان المنشورة', 'يختار طريقة للمشاركة'], LIVE),
         ('news.html', 'news', 'أخبارنا', 'الميثاق حي: نشاطات المجموعات في البلدان.', ['يقرأ آخر الأخبار', 'يتابع نشاط بلده'], LIVE),
+        ('article.html', 'article', 'خبر: خطوات صغيرة نحو الأقصى', 'خبر واحد كاملا، ينتهي بما يفعله البيت الآن.', ['يقرأ الخبر في دقيقة', 'يجد خلاصته في سطور', 'ينتقل إلى لعبة أو قصة من الموضوع نفسه'], LIVE),
         ('contact.html', 'contact', 'تواصل', 'طريق قصير للسؤال: واتساب وبريد ونموذج.', ['يختار وسيلة التواصل', 'يكتب رسالته'], DEMO),
     ]),
     ('sign', 'التوقيع', 'اللحظة التي يصير فيها الزائر عائلة في الميثاق.', [
         ('pledge.html', 'pledge', 'توقيع الميثاق', 'ثلاث خطوات قصيرة تنتهي بوثيقة باسم العائلة.', ['يكتب الاسم والدولة فتمتلئ الوثيقة أمامه', 'يختار نوع الاشتراك', 'يختم الوثيقة وينزلها صورة'], DEMO),
     ]),
     ('home', 'بيت العائلة', 'السبب الذي يعيد العائلة إلى الموقع كل أسبوع.', [
-        ('family.html', 'family', 'بيت العائلة', 'لوحة العائلة بعد التوقيع: وثيقتها، وتقدمها، وما عليها هذا الأسبوع.', ['يرى وثيقته مختومة باسمه', 'يتم عهد الأسبوع: اقرؤوا، العبوا، اسألوا', 'يجمع الأختام في دفتره', 'يكمل القصة من حيث توقف'], DEMO),
+        ('family.html?demo=1', 'family', 'بيت العائلة', 'لوحة العائلة بعد التوقيع: وثيقتها، وتقدمها، وما عليها هذا الأسبوع.', ['يرى وثيقته مختومة باسمه', 'يتم عهد الأسبوع: اقرؤوا، العبوا، اسألوا', 'يجمع الأختام في دفتره', 'يكمل القصة من حيث توقف'], DEMO),
+        ('stamps.html?demo=1', 'stamps', 'دفتر الأختام', 'دفتر للطفل والبيت: ختم لكل قصة تقرأ وكل لعبة تنجز.', ['يرى الختم التالي وطريقه', 'يجد تاريخ كل ختم ناله', 'يطبع الدفتر ويعلقه'], DEMO),
     ]),
     ('bag', 'الجعبة', 'المحتوى الذي يجعل الأطفال أصحاب قضية.', [
         ('bag.html', 'bag', 'في جعبتنا', 'كل المحتوى في مكان واحد، يصفى بالنوع وبالاشتراك.', ['يختار النوع: كتب، قصص، ألعاب', 'يبحث بالاسم', 'يميز المجاني من الخاص بالمشتركين'], LIVE),
@@ -51,14 +54,14 @@ IC = {
 ic = lambda k: '<svg class="gi" viewBox="0 0 24 24" aria-hidden="true">%s</svg>' % IC[k]
 
 STEPS = [
-    ('eye', 'الزيارة', 'الفكرة تفهم من أول شاشة.', './', 'الرئيسية'),
-    ('pen', 'التوقيع', 'ثلاث خطوات، ووثيقة باسم العائلة.', 'pledge.html', 'صفحة التوقيع'),
-    ('home', 'بيت العائلة', 'الوثيقة، وعهد الأسبوع.', 'family.html', 'افتحوا البيت'),
+    ('globe', 'الزيارة', 'الفكرة تفهم من أول شاشة.', './', 'الرئيسية'),
+    ('sign', 'التوقيع', 'ثلاث خطوات، ووثيقة باسم العائلة.', 'pledge.html', 'صفحة التوقيع'),
+    ('home', 'بيت العائلة', 'الوثيقة، وعهد الأسبوع.', 'family.html?demo=1', 'افتحوا البيت'),
     ('book', 'القراءة واللعب', 'كل قصة وكل لعبة تترك ختما.', 'bag.html', 'في جعبتنا'),
     ('heart', 'الدعوة', 'فتطول السلسلة بيتا بعد بيت.', 'family.html#invite', 'زر الدعوة'),
 ]
 steps = ''.join('''
-      <li><span class="gd-step__n num">%d</span><span class="gd-step__ic">%s</span><h3>%s</h3><p>%s</p><a href="%s">%s%s</a></li>''' % (i + 1, ic(k), t, p, href, name, ic('left')) for i, (k, t, p, href, name) in enumerate(STEPS))
+      <li><span class="gd-step__n num">%d</span><span class="gd-step__ic">%s</span><h3>%s</h3><p>%s</p><a href="%s">%s%s</a></li>''' % (i + 1, glyph(k), t, p, href, name, ic('left')) for i, (k, t, p, href, name) in enumerate(STEPS))
 
 def card(f, pic, name, why, does, st):
     return '''
@@ -188,7 +191,7 @@ GUIDE = headpart + '''<body class="gd">
 </main>
 </body>
 </html>
-''' % (ic('eye'), n_pages, ic('game'), ic('globe'), ic('star'), steps, toc, groups, NEW, REAL, DEMOS, NEXT, ASK)
+''' % (glyph('article'), n_pages, glyph('play'), glyph('globe'), glyph('stamp'), steps, toc, groups, NEW, REAL, DEMOS, NEXT, ASK)
 
 open(ROOT + 'guide.html', 'w', encoding='utf-8', newline='\n').write(GUIDE)
 print('guide.html built,', n_pages, 'pages listed')

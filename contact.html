@@ -11,10 +11,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Baloo+Bhaijaan+2:wght@500;700;800&family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/fp.css?v=93">
-<link rel="stylesheet" href="assets/css/home.css?v=93">
-<link rel="stylesheet" href="assets/css/world.css?v=93">
-<link rel="stylesheet" href="assets/css/pages.css?v=93">
+<link rel="stylesheet" href="assets/css/fp.css?v=130">
+<link rel="stylesheet" href="assets/css/home.css?v=130">
+<link rel="stylesheet" href="assets/css/world.css?v=130">
+<link rel="stylesheet" href="assets/css/pages.css?v=130">
 </head>
 <body>
 <a class="skip" href="#main">تخط إلى المحتوى</a>
@@ -134,38 +134,73 @@
 </div>
 
 <main id="main">
-<section class="pg-head">
-  <div class="wrap">
-    <p class="crumbs"><a href="./">الرئيسية</a><span aria-hidden="true">/</span><span>تواصل</span></p>
-    <h1>التواصل المباشر</h1>
-    <p class="pg-lead">يمكنكم التواصل معنا للاستفسار عن كل ما يدور في خاطركم.</p>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap reach">
-    <div class="reach__side">
-      <ul class="reach__cards" data-stagger>
-        <li data-reveal><span class="reach__ic"><svg class="ic"><use href="#i-phone"/></svg></span><div><h3>أرقام التواصل</h3><a class="num" href="tel:00905465276557" dir="ltr">+90 546 527 65 57</a></div></li>
-        <li data-reveal><span class="reach__ic"><svg class="ic"><use href="#i-mail"/></svg></span><div><h3>تواصل عبر الإيميل</h3><a href="mailto:info@familypledge.com" dir="ltr">info@familypledge.com</a></div></li>
-        <li data-reveal><span class="reach__ic"><svg class="ic"><use href="#i-home"/></svg></span><div><h3>مكتبنا</h3><p dir="ltr">YeniBosna, Istanbul, Türkiye</p></div></li>
-      </ul>
-      <div class="reach__rep" data-reveal>
-        <img src="assets/img/world/cast-yafa-2.webp" alt="" width="360" height="360" loading="lazy">
-        <div><h3>هل تود أن تكون مندوبا لمشروع ميثاق العائلة في منطقتك؟</h3><p>نحن بانتظارك. لا تتردد في التواصل معنا، فدورك قد يصنع فرقا حقيقيا.</p></div>
+<div class="pj ct">
+  <header class="pj__head">
+    <div class="pj__in pj__head-in">
+      <div class="pj__title">
+        <p class="crumbs"><a href="./">الرئيسية</a><span aria-hidden="true">/</span><span>تواصل</span></p>
+        <p class="rd__kind"><span class="dots"><i></i><i></i><i></i></span><span>تواصل</span></p>
+        <h1>التواصل المباشر</h1>
+        <p class="pj__sub">قولوا لنا ما تريدون، ونختار لكم أقصر طريق.</p>
+        <div class="pj__act"><a class="btn" href="https://wa.me/905465276557" target="_blank" rel="noopener" data-ct-wa><svg class="ic"><use href="#i-chat"/></svg><span>راسلونا على واتساب</span></a><a class="btn btn--line" href="#faq">أسئلة تتكرر</a></div>
+      </div>
+      <div class="pj__stage ct__stage">
+        <figure class="pj__photo"><img src="assets/img/world/tale-09.webp" alt="الجدة تجلس مع رائد ويافا على الأريكة" width="720" height="720"></figure>
+        <p class="pj__tag"><span class="pj__ic"><svg class="glyph" viewBox="0 0 64 64" aria-hidden="true"><rect x="15" y="4" width="34" height="56" rx="10" fill="#2a7896"/><rect x="20" y="11" width="24" height="34" rx="5" fill="#fff"/><path d="M25 21h14M25 28.500h9" stroke="#c94f78" stroke-width="3.200" stroke-linecap="round"/><circle cx="32" cy="52" r="3.600" fill="#f4b740"/></svg></span><b class="num" dir="ltr">+90 546 527 65 57</b><span>هاتف وواتساب</span></p>
       </div>
     </div>
-    <form class="reach__form" data-contact novalidate data-reveal aria-labelledby="c-h">
-      <h2 id="c-h">اكتبوا لنا</h2>
-      <p class="demo-note"><b>نموذج تجريبي</b>الرسالة لا ترسل من هذه الصفحة.</p>
-      <div class="fld"><label for="c-name">الاسم</label><input class="input" id="c-name" type="text" maxlength="40" autocomplete="off" aria-describedby="c-msg"></div>
-      <div class="fld"><label for="c-mail">البريد الإلكتروني</label><input class="input" id="c-mail" type="email" inputmode="email" autocomplete="off" dir="ltr" placeholder="name@example.com" aria-describedby="c-msg"></div>
-      <div class="fld"><label for="c-text">رسالتكم</label><textarea class="input" id="c-text" rows="5" maxlength="600" aria-describedby="c-msg"></textarea></div>
-      <p class="fld__msg" id="c-msg" role="alert"></p>
-      <button class="btn" type="submit"><span class="stitch"></span>أرسلوا الرسالة</button>
-    </form>
+  </header>
+
+  <div class="pj__in">
+    <section class="pj__blk ct__pick" aria-labelledby="h-topic">
+      <div class="pj__blk-head"><h2 id="h-topic">ماذا تريدون؟</h2><p>اختاروا، فتتغير الطريق والرسالة.</p></div>
+      <ul class="ct__topics" data-topics>
+        <li><button type="button" data-topic="ask" data-way="wa" data-opener="عندي سؤال عن ميثاق العائلة:" aria-pressed="true"><span class="pj__gl"><svg class="glyph" viewBox="0 0 64 64" aria-hidden="true"><rect x="8" y="7" width="38" height="50" rx="9" fill="#fff" stroke="#10303b" stroke-width="2.600"/><path d="M16 20h22M16 29h15" stroke="#2a7896" stroke-width="3.200" stroke-linecap="round"/><path d="M15 46c3-5.500 5-5.500 6-1s3 3 5-1 4-3.500 5 0" fill="none" stroke="#c94f78" stroke-width="2.800" stroke-linecap="round"/><path d="M51 13l7 7-21 21-9 2 2-9z" fill="#f4b740" stroke="#10303b" stroke-width="2.600" stroke-linejoin="round"/></svg></span><b>سؤال عن الميثاق</b><small>عن التوقيع أو الاشتراك أو الحقيبة.</small></button></li>
+        <li><button type="button" data-topic="rep" data-way="wa" data-opener="أود أن أكون مندوبا لميثاق العائلة في منطقتي:" aria-pressed="false"><span class="pj__gl"><svg class="glyph" viewBox="0 0 64 64" aria-hidden="true"><circle cx="22" cy="19" r="11" fill="#c94f78"/><path d="M3 56c0-13 8-20 19-20s19 7 19 20z" fill="#c94f78"/><circle cx="45" cy="25" r="9.500" fill="#2a7896" stroke="#fff" stroke-width="2.600"/><path d="M29 58c0-11.500 7-18 16-18s16 6.500 16 18z" fill="#2a7896" stroke="#fff" stroke-width="2.600" stroke-linejoin="round"/></svg></span><b>أريد أن أكون مندوبا</b><small>للمشروع في منطقتي.</small></button></li>
+        <li><button type="button" data-topic="org" data-way="mail" data-opener="نود الشراكة مع ميثاق العائلة:" aria-pressed="false"><span class="pj__gl"><svg class="glyph" viewBox="0 0 64 64" aria-hidden="true"><circle cx="29" cy="35" r="23" fill="#2a7896"/><path d="M6 35h46M29 12c8 7 11.500 14 11.500 23S37 51 29 58c-8-7-11.500-14-11.500-23S21 19 29 12z" fill="none" stroke="#fff" stroke-width="2.600" opacity=".75"/><circle cx="18" cy="30" r="3.600" fill="#f4b740"/><path d="M48 3c-6 0-10.500 4.600-10.500 10.200C37.500 20.500 48 31 48 31s10.500-10.500 10.500-17.800C58.500 7.600 54 3 48 3z" fill="#c94f78" stroke="#fff" stroke-width="2.600" stroke-linejoin="round"/><circle cx="48" cy="13.500" r="3.800" fill="#fff"/></svg></span><b>شراكة مع مؤسسة</b><small>مدرسة، مسجد، جمعية.</small></button></li>
+        <li><button type="button" data-topic="fix" data-way="mail" data-opener="واجهتني مشكلة في الموقع:" aria-pressed="false"><span class="pj__gl"><svg class="glyph" viewBox="0 0 64 64" aria-hidden="true"><circle cx="53" cy="50" r="6.500" fill="#f2aec7"/><path d="M13 7h34a9 9 0 0 1 9 9v19a9 9 0 0 1-9 9H31L18 56V44h-5a9 9 0 0 1-9-9V16a9 9 0 0 1 9-9z" fill="#2a7896"/><circle cx="19" cy="25.500" r="3.600" fill="#fff"/><circle cx="30" cy="25.500" r="3.600" fill="#f4b740"/><circle cx="41" cy="25.500" r="3.600" fill="#fff"/></svg></span><b>مشكلة في الموقع</b><small>شيء لا يعمل كما يجب.</small></button></li>
+      </ul>
+    </section>
+
+    <div class="pj__two ct__two">
+      <section class="pj__blk" aria-labelledby="h-ways">
+        <div class="pj__blk-head"><h2 id="h-ways">طرق التواصل</h2><p data-ct-hint>الأقصر لهذا الطلب: واتساب.</p></div>
+        <ul class="ct__ways">
+          <li data-way-card="wa"><span class="pj__gl"><svg class="glyph" viewBox="0 0 64 64" aria-hidden="true"><rect x="15" y="4" width="34" height="56" rx="10" fill="#2a7896"/><rect x="20" y="11" width="24" height="34" rx="5" fill="#fff"/><path d="M25 21h14M25 28.500h9" stroke="#c94f78" stroke-width="3.200" stroke-linecap="round"/><circle cx="32" cy="52" r="3.600" fill="#f4b740"/></svg></span><div><small>هاتف وواتساب</small><b class="num" dir="ltr">+90 546 527 65 57</b></div><a class="btn btn--s" href="https://wa.me/905465276557" target="_blank" rel="noopener" data-ct-wa><svg class="ic"><use href="#i-chat"/></svg><span>واتساب</span></a><i class="ct__best">الأقصر</i></li>
+          <li data-way-card="mail"><span class="pj__gl"><svg class="glyph" viewBox="0 0 64 64" aria-hidden="true"><rect x="4" y="14" width="54" height="40" rx="11" fill="#2a7896"/><path d="M9 22l22 16 22-16" fill="none" stroke="#fff" stroke-width="3.400" stroke-linecap="round" stroke-linejoin="round"/><circle cx="52" cy="14" r="8" fill="#c94f78" stroke="#fff" stroke-width="2.600"/></svg></span><div><small>البريد الإلكتروني</small><b dir="ltr">info@familypledge.com</b></div><a class="btn btn--s btn--line" href="mailto:info@familypledge.com" data-ct-mail><svg class="ic"><use href="#i-mail"/></svg><span>راسلونا</span></a><i class="ct__best">الأقصر</i></li>
+          <li><span class="pj__gl"><svg class="glyph" viewBox="0 0 64 64" aria-hidden="true"><path d="M9 30L32 10l23 20v21a6 6 0 0 1-6 6H15a6 6 0 0 1-6-6z" fill="#2a7896"/><path d="M4 31L32 7l28 24" fill="none" stroke="#10303b" stroke-width="4.400" stroke-linecap="round" stroke-linejoin="round"/><rect x="25" y="36" width="14" height="21" rx="5" fill="#f4b740"/><circle cx="48" cy="12" r="0" fill="none"/><rect x="42" y="38" width="8" height="8" rx="2.500" fill="#f2aec7"/></svg></span><div><small>مكتبنا</small><b dir="ltr">YeniBosna, Istanbul, Türkiye</b></div></li>
+        </ul>
+        <p class="ct__social"><span>تابعونا</span><a href="https://x.com/familypledge2" target="_blank" rel="noopener" aria-label="X"><svg class="ic" viewBox="0 0 24 24"><path d="M4 4l16 16M20 4 4 20"/></svg></a><a href="https://facebook.com/familypledge2" target="_blank" rel="noopener" aria-label="Facebook"><svg class="ic" viewBox="0 0 24 24"><path d="M14 8h2.500V4.500H14A3.500 3.500 0 0 0 10.500 8v2.500H8V14h2.500v6H14v-6h2.500l.500-3.500H14V8.500a.500.500 0 0 1 .500-.500z"/></svg></a><a href="https://www.instagram.com/family_pledge" target="_blank" rel="noopener" aria-label="Instagram"><svg class="ic"><use href="#i-insta"/></svg></a></p>
+      </section>
+
+      <form class="pj__blk reach__form ct__form" data-contact novalidate aria-labelledby="c-h">
+        <h2 id="c-h">اكتبوا لنا</h2>
+        <p class="ct__chip"><span>الطلب</span><b data-ct-topic>سؤال عن الميثاق</b></p>
+        <div class="fld"><label for="c-name">الاسم</label><input class="input" id="c-name" type="text" maxlength="40" autocomplete="off" aria-describedby="c-msg"></div>
+        <div class="fld"><label for="c-mail">البريد الإلكتروني</label><input class="input" id="c-mail" type="email" inputmode="email" autocomplete="off" dir="ltr" placeholder="name@example.com" aria-describedby="c-msg"></div>
+        <div class="fld"><label for="c-text">رسالتكم</label><textarea class="input" id="c-text" rows="5" maxlength="600" aria-describedby="c-msg" placeholder="عندي سؤال عن ميثاق العائلة:"></textarea></div>
+        <p class="fld__msg" id="c-msg" role="alert"></p>
+        <button class="btn" type="submit"><span class="stitch"></span>أرسلوا الرسالة</button>
+        <p class="demo-note"><b>نموذج تجريبي</b>الرسالة لا ترسل من هذه الصفحة.</p>
+      </form>
+    </div>
+
+    <section class="pj__quote ct__rep">
+      <figure class="pj__quote-pic"><img src="assets/img/world/tale-13.webp" alt="رائد ويافا مع الجدة في دكان الأثواب" width="720" height="720" loading="lazy" decoding="async"></figure>
+      <div class="pj__quote-txt">
+        <p class="pj__kick">مندوبو الميثاق</p>
+        <h2>هل تود أن تكون مندوبا لمشروع ميثاق العائلة في منطقتك؟</h2>
+        <p>نحن بانتظارك. لا تتردد في التواصل معنا، فدورك قد يصنع فرقا حقيقيا.</p>
+        <button class="btn" type="button" data-ct-rep><span class="stitch"></span>أريد أن أكون مندوبا</button>
+      </div>
+    </section>
+
+    <section class="pj__blk" id="faq" aria-labelledby="h-faq">
+      <div class="pj__blk-head"><h2 id="h-faq">أسئلة تتكرر</h2><p>قد تجدون الجواب قبل أن تكتبوا.</p></div>
+      <div class="ct__faq"><details class="ct__q"><summary><span class="pj__ic"><svg class="glyph" viewBox="0 0 64 64" aria-hidden="true"><rect x="8" y="7" width="38" height="50" rx="9" fill="#fff" stroke="#10303b" stroke-width="2.600"/><path d="M16 20h22M16 29h15" stroke="#2a7896" stroke-width="3.200" stroke-linecap="round"/><path d="M15 46c3-5.500 5-5.500 6-1s3 3 5-1 4-3.500 5 0" fill="none" stroke="#c94f78" stroke-width="2.800" stroke-linecap="round"/><path d="M51 13l7 7-21 21-9 2 2-9z" fill="#f4b740" stroke="#10303b" stroke-width="2.600" stroke-linejoin="round"/></svg></span><b>ما ميثاق العائلة؟</b><svg class="ic"><use href="#i-down"/></svg></summary><p>ميثاق عهد تشارك فيه العائلات تعهدا والتزاما بنصرة أهلنا في فلسطين.</p></details><details class="ct__q"><summary><span class="pj__ic"><svg class="glyph" viewBox="0 0 64 64" aria-hidden="true"><circle cx="52" cy="10" r="4.500" fill="#f4b740"/><path d="M31 57S6 43 6 24.500A13.500 13.500 0 0 1 31 17a13.500 13.500 0 0 1 25 7.500C56 43 31 57 31 57z" fill="#c94f78"/><path d="M16 23a7 7 0 0 1 7-7" fill="none" stroke="#fff" stroke-width="3.200" stroke-linecap="round" opacity=".75"/></svg></span><b>كم قيمة المشاركة؟</b><svg class="ic"><use href="#i-down"/></svg></summary><p>الاشتراك بتبرع يقدر بعشرة دولارات شهريا لمدة عام. وتوجد مشاركة بدون تبرع.</p></details><details class="ct__q"><summary><span class="pj__ic"><svg class="glyph" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 19C26 13.500 16 12.500 7 15v33c9-2.500 19-1.500 25 4z" fill="#2a7896"/><path d="M32 19c6-5.500 16-6.500 25-4v33c-9-2.500-19-1.500-25 4z" fill="#f2aec7"/><path d="M38 25c4-2 8-2.600 13-2M38 32c4-2 8-2.600 13-2M38 39c3-1.500 5-2 8-2" fill="none" stroke="#b03a62" stroke-width="2.600" stroke-linecap="round"/><path d="M15 13.600v17l4-3.400 4 3.400V13.200c-2.800-.2-5.400-.1-8 .4z" fill="#f4b740"/><path d="M32 19v33" stroke="#10303b" stroke-width="2.600" stroke-linecap="round"/></svg></span><b>ماذا يصل بيتي؟</b><svg class="ic"><use href="#i-down"/></svg></summary><p>حقيبة توعوية للأسرة، ومواد توعوية شهرية عن القضية الفلسطينية.</p></details><details class="ct__q"><summary><span class="pj__ic"><svg class="glyph" viewBox="0 0 64 64" aria-hidden="true"><circle cx="22" cy="19" r="11" fill="#c94f78"/><path d="M3 56c0-13 8-20 19-20s19 7 19 20z" fill="#c94f78"/><circle cx="45" cy="25" r="9.500" fill="#2a7896" stroke="#fff" stroke-width="2.600"/><path d="M29 58c0-11.500 7-18 16-18s16 6.500 16 18z" fill="#2a7896" stroke="#fff" stroke-width="2.600" stroke-linejoin="round"/></svg></span><b>كيف أصير مندوبا؟</b><svg class="ic"><use href="#i-down"/></svg></summary><p>اختاروا «أريد أن أكون مندوبا» في أعلى هذه الصفحة، ثم راسلونا.</p></details></div>
+    </section>
   </div>
-</section>
+</div>
 </main>
 
 <footer class="footer fend on-dark">
@@ -234,9 +269,9 @@
 
 <button class="to-top" type="button" aria-label="العودة إلى أعلى الصفحة"><svg class="ic"><use href="#i-up"/></svg></button>
 
-<script src="assets/js/fp.js?v=93" defer></script>
-<script src="assets/js/i18n.js?v=93" defer></script>
-<script src="assets/js/world.js?v=93" defer></script>
-<script src="assets/js/pages.js?v=93" defer></script>
+<script src="assets/js/fp.js?v=130" defer></script>
+<script src="assets/js/i18n.js?v=130" defer></script>
+<script src="assets/js/world.js?v=130" defer></script>
+<script src="assets/js/pages.js?v=130" defer></script>
 </body>
 </html>
